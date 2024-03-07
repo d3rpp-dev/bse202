@@ -1,13 +1,13 @@
-from bse202.app import app
-from flask import Request, Response, g, request
+from flask import Flask, Request, Response, g, request
 
+def register_middleware(app: Flask):
+    # Pre-Request Middlware
+    @app.before_request
+    def _() -> Request:
+        g.ua = request.headers.get("User_Agent")
 
-@app.before_request
-def before_req() -> Request:
-    g.ua = request.headers.get("User_Agent")
-
-
-@app.after_request
-def after_req(response: Response) -> Response:
-    response.headers.set("X-Test-Header", "bruh moment")
-    return response
+    # Post-Request Middleware
+    @app.after_request
+    def _(response: Response) -> Response:
+        response.headers.set("X-Test-Header", g.get("ua"))
+        return response

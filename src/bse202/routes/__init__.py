@@ -1,10 +1,10 @@
-from flask import render_template, g
+from flask import render_template, g, Blueprint
 
-from bse202.app import app
+root_blueprint = Blueprint("root", __name__, url_prefix="")
 
 
-@app.route("/")
-@app.route("/<name>")
-def hello(name=None):
-    template = render_template("index.html", name=g.get("ua"))
+@root_blueprint.route("/")
+@root_blueprint.route("/<name>")
+def index(name=None):
+    template = render_template("index.html", name=name, ua=g.get("ua"))
     return template

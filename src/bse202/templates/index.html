@@ -1,9 +1,13 @@
 {% extends 'base.html' %} 
 
-{% block title %} Index {% endblock %} 
+{% block title %} {{ name }} {% endblock %} 
 
 {% block content %}
 
-  <h1>Hello {{ name }}</h1>
+  <h1>Hello {{ ua }}</h1>
+
+  <a href="{{ url_for('root.index') }}">Go Here</a>
+  
+  <a href="{{ url_for('root.index', name='Huddy') }}">Go Here Huddy</a>
   
 {% endblock %}
