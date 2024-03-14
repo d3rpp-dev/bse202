@@ -1,5 +1,6 @@
 from flask import Flask, Request, Response, g, request
 
+
 def register_middleware(app: Flask):
     # Pre-Request Middlware
     @app.before_request

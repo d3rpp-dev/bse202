@@ -8,7 +8,7 @@ def app():
     app = Flask(__name__)
 
     register_middleware(app)
-    
+
     app.register_blueprint(root_blueprint)
 
     return app
