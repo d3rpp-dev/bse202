@@ -1,13 +1,14 @@
 {% extends 'base.html' %} 
 
+{% block head %} 
+	<link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}" />
+{% endblock %}
+
 {% block title %} {{ name }} {% endblock %} 
 
 {% block content %}
 
-  <h1>Hello {{ g['ua'] }}</h1>
+<body id="landing">
+</body>
 
-  <a href="{{ url_for('root.index') }}">Go Here</a>
-  
-  <a href="{{ url_for('root.index', name='Huddy') }}">Go Here Huddy</a>
-  
 {% endblock %}
