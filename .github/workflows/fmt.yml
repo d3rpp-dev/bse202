@@ -1,0 +1,13 @@
+name: lint-and-format
+run-name: ${{ github.actor }} is attempting to push code
+on: [push]
+jobs:
+  check-formatting-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v2
+    - run: rye sync
+    - run: rye fmt --check
+    - run: rye lint
