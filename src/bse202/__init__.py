@@ -1,7 +1,7 @@
-from bse202.middlware import register_middleware
+from .middlware import register_middleware
 
-from bse202.routes import root_blueprint
-from bse202.routes.auth import auth_blueprint
+from .routes import root_blueprint
+from .routes.auth import auth_blueprint
 
 from flask import Flask
 

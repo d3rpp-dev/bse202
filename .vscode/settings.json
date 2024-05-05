@@ -1,8 +1,10 @@
 {
 	"files.associations": {
-		"*.html": "jinja-html"
+		"*.html": "jinja-html",
+		"*.css": "css",
 	},
 	"python.analysis.diagnosticSeverityOverrides": {
 		"reportUnusedImport": false,
-	}
+	},
+	"python.analysis.typeCheckingMode": "basic"
 }

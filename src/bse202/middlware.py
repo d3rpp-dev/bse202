@@ -1,10 +1,10 @@
-from flask import Flask, Request, Response, g, request
+from flask import Flask, Response, g, request
 
 
 def register_middleware(app: Flask):
     # Pre-Request Middlware
     @app.before_request
-    def _() -> Request:
+    def _():
         g.ua = request.headers.get("User_Agent")
 
     # Post-Request Middleware
