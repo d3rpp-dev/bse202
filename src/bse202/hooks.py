@@ -1,12 +1,19 @@
 from .lib import generate_default_cookie
 
 from flask import Flask, Response, g, request
-from itsdangerous import URLSafeSerializer
+from itsdangerous import URLSafeSerializer, BadData
 from os import environ, _exit
+from time import time
 
 secret_key = environ.get("SECRET_KEY")
 
-if secret_key is None:
+one_month_in_seconds = 60 * 60 * 24 * 30
+one_year_in_seconds = one_month_in_seconds * 12
+
+# check
+# - var is set
+# - var is not empty
+if secret_key is None or secret_key.strip() == "":
     print("SECRET_KEY not set")
     _exit(1)
 
@@ -24,19 +31,45 @@ def register_hooks(app: Flask):
         auth_cookie = request.cookies.get("auth")
         if auth_cookie is not None:
             g.original_token = auth_cookie
-            g.token = auth_serializer.loads(auth_cookie)
-        else:
-            new_cookie = generate_default_cookie(ip=g.ip, authenticated=False)
-            g.token = new_cookie
+            # attempt to parse the token, allow the request to proceed if invalid, but assume not logged in
+            try:
+                g.token = auth_serializer.loads(auth_cookie)
+
+                # refresh the cookie anyway if about to expire
+                if g.token["exp"] - time() < time():
+                    g.token["exp"] = time() + one_year_in_seconds
+                    g.refresh = True
+            except BadData:
+                pass
 
     # Post-Request Middleware
     @app.after_request
     def _(response: Response) -> Response:
+        # catch non-standard response code and delete token, then change the status to a standard status
+        if response.status == "403":
+            print("bad auth, reset cookie")
+            response.set_cookie(key="auth", value="", httponly=True, expires=0)
+            return response
+
         if "token" in g:
             # Only update cookie if change occured
             serialised_cookie = auth_serializer.dumps(g.token)
-            if "original_token" not in g or serialised_cookie != g.original_token:
+
+            if (
+                "original_token" not in g
+                or serialised_cookie != g.original_token
+                or g.refresh
+            ):
                 response.set_cookie(
-                    key="auth", value=auth_serializer.dumps(g.token), expires=1746524701
+                    key="auth",
+                    value=serialised_cookie,
+                    expires=g.token["exp"],
+                    httponly=True,
                 )
+        elif "original_token" in g:
+            # clear cookie if original token set but token is not
+            #
+            # if this pops up it means the cookie is invalid
+            response.set_cookie(key="auth", value="", expires=0)
+
         return response
