@@ -11,7 +11,7 @@
 <body id="landing">
 	{{ name }} loading from ua {{ g.ua }}
 
-	{% if g.auth %}
+	{% if g.token.auth %}
 		<h1>authenticated</h1>
 	{% else %}
 		<h1>unauthenticated</h1>

@@ -24,18 +24,18 @@ def register_hooks(app: Flask):
         auth_cookie = request.cookies.get("auth")
         if auth_cookie is not None:
             g.token = auth_serializer.loads(auth_cookie)
-            g.auth = True
         else:
-            g.auth = False
+            g.token = generate_default_cookie(
+                ip = g.ip,
+                authenticated = False
+            )
 
     # Post-Request Middleware
     @app.after_request
     def _(response: Response) -> Response:
-        if "token" not in g:
-            new_cookie = generate_default_cookie(ip=g.ip)
-
+        if "token" in g:
             response.set_cookie(
-                key="auth", value=auth_serializer.dumps(new_cookie), expires=1746524701
+                key="auth", value=auth_serializer.dumps(g.token), expires=1746524701
             )
 
         response.headers.set("X-Test-Header", g.get("ua"))
