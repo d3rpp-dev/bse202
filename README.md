@@ -23,7 +23,7 @@ Running this wil spawn a terminal window, it'll ask sometimes whether you would 
 
 Rye is able to completely uninstall itself, restoring your machine to a state from before it was there, simply run
 
-```
+```sh
 rye self uninstall
 ```
 
@@ -33,13 +33,22 @@ And it should leave your system entirely.
 
 First you'll need to sync the venv with `rye`
 
-```
+```sh
 rye sync
 ```
 
+Next we'll need to fill out the environment variables with data, to do this, make a copy of (`./.env.example`)[./.env.example] and rename it to just `.env`, then fill out the values between the quotes, i.e.
+
+```bash
+# .env
+SECRET_KEY="<Secret Key to sign Tokens>"
+```
+
+This will add the required variables that allow the program to function.
+
 You can then start a dev server with
 
-```
+```sh
 rye run dev
 ```
 
@@ -49,7 +58,7 @@ Rye come built-in with a couple of utilities for keeping code well-formatted and
 
 Running either of these commands will use [`ruff`](https://github.com/astral-sh/ruff) to format or [lint](https://en.wikipedia.org/wiki/Lint_(software)) your code respectively.
 
-```
+```sh
 rye fmt
 rye lint
 ```

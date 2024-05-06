@@ -1,9 +1,10 @@
-from flask import render_template, g, Blueprint
+from flask import render_template, Blueprint
 
 auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_blueprint.route("/login")
-def index(name=None):
-    template = render_template("auth/login.html")
+@auth_blueprint.route("/<name>")
+def index(name="Unknown Name"):
+    template = render_template("auth/login.html", name=name)
     return template
