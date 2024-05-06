@@ -25,10 +25,7 @@ def register_hooks(app: Flask):
         if auth_cookie is not None:
             g.token = auth_serializer.loads(auth_cookie)
         else:
-            g.token = generate_default_cookie(
-                ip = g.ip,
-                authenticated = False
-            )
+            g.token = generate_default_cookie(ip=g.ip, authenticated=False)
 
     # Post-Request Middleware
     @app.after_request
