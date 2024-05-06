@@ -9,9 +9,14 @@
 {% block content %}
 
 <body id="landing">
-	{{ name }} loading from ua {{ g.ua }}
+	{{ name }} loading from {{ g.ua }}
 
-	{% if g.token.auth %}
+	{# 
+		by checking like this we also manage scenarios where 
+		g.token is None, meaning the user is not logged in, or 
+		the cookie was invalid.
+	#}
+	{% if g.token and g.token.auth %}
 		<h1>authenticated</h1>
 	{% else %}
 		<h1>unauthenticated</h1>
