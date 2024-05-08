@@ -33,4 +33,4 @@ packages = ["src/bse202"]
 reportUnusedImport = false
 
 [tool.ruff.lint]
-# ignore = ["F401"] # Ignore the fucky files needed to import and run evrything
+ignore = ["F401"] # Ignore the fucky files needed to import and run evrything

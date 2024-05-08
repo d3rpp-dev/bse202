@@ -1,5 +1,3 @@
-from .lib import generate_default_cookie
-
 from flask import Flask, Response, g, request
 from itsdangerous import URLSafeSerializer, BadData
 from os import environ, _exit
@@ -52,6 +50,9 @@ def register_hooks(app: Flask):
             return response
 
         if "token" in g:
+            if "exp" not in g.token:
+                g.token["exp"] = time() + one_year_in_seconds
+
             # Only update cookie if change occured
             serialised_cookie = auth_serializer.dumps(g.token)
 

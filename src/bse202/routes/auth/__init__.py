@@ -1,11 +1,7 @@
-from flask import render_template, g, Blueprint
+"""
+Auth related functions,
+"""
 
-auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
-
-
-@auth_blueprint.route("/login")
-@auth_blueprint.route("/<name>")
-def index(name="Unknown Name"):
-    template = render_template("auth/login.html", name=name)
-    g.token["auth"] = True
-    return template
+from .blueprint import auth_blueprint
+from .login import login
+from .logout import logout

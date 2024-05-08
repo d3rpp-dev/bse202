@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 
 {% block head %} 
-	<link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}" />
 {% endblock %}
 
 {% block title %} {{ name }} {% endblock %} 
@@ -18,9 +18,12 @@
 	#}
 	{% if g.token and g.token.auth %}
 		<h1>authenticated</h1>
+		<a href="{{ url_for('auth.logout') }}">Log Out</a>
 	{% else %}
 		<h1>unauthenticated</h1>
+		<a href="{{ url_for('auth.login') }}">Login</a>
 	{% endif %}
+
 </body>
 
 
