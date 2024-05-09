@@ -35,7 +35,7 @@ def register_hooks(app: Flask):
 
                 # refresh the cookie anyway if about to expire
                 if g.token["exp"] - time() < time():
-                    g.token["exp"] = time() + one_year_in_seconds
+                    g.token["exp"] = int(time() + one_year_in_seconds)
                     g.refresh = True
             except BadData:
                 pass
@@ -51,7 +51,7 @@ def register_hooks(app: Flask):
 
         if "token" in g:
             if "exp" not in g.token:
-                g.token["exp"] = time() + one_year_in_seconds
+                g.token["exp"] = int(time() + one_year_in_seconds)
 
             # Only update cookie if change occured
             serialised_cookie = auth_serializer.dumps(g.token)
