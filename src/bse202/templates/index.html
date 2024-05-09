@@ -1,26 +1,29 @@
 {% extends 'base.html' %} 
 
 {% block head %} 
-	<link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}" />
 {% endblock %}
 
-{% block title %} {{ name }} {% endblock %} 
+{% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %} 
 
 {% block content %}
 
 <body id="landing">
-	{{ name }} loading from {{ g.ua }}
+	{{ name if name is defined and name|length > 3 else "Unknown Name" }} loading from {{ g.ua }}
 
 	{# 
 		by checking like this we also manage scenarios where 
 		g.token is None, meaning the user is not logged in, or 
 		the cookie was invalid.
 	#}
-	{% if g.token and g.token.auth %}
+	{% if g.token is defined and g.token.auth is defined %}
 		<h1>authenticated</h1>
+		<a href="{{ url_for('auth.logout') }}">Log Out</a>
 	{% else %}
 		<h1>unauthenticated</h1>
+		<a href="{{ url_for('auth.login') }}">Login</a>
 	{% endif %}
+
 </body>
 
 

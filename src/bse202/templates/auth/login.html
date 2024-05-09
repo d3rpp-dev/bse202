@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 
 {% block head %} 
-	<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/auth.css') }}" />
 {% endblock %}
 
 {% block title %} Login {% endblock %}
@@ -15,6 +15,21 @@
 	<h2>
 		{{ name }}
 	</h2>
+
+	<a href="{{ url_for('root.index') }}">Go Home</a>
+
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<form action="{{ url_for('auth.login') }}" method="post">
+		<label for="user">Username</label>
+		<input id="user" name="user" type="text">
+		<label for="pass">Password</label>
+		<input id="pass" name="pass" type="password">
+		<input type="submit">
+	</form>
 </body>
 
 {% endblock %}

@@ -21,7 +21,7 @@ managed = true
 dev-dependencies = []
 
 [tool.rye.scripts]
-dev = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1" } }
+dev = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1", ENV = "DEV" } }
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -33,4 +33,4 @@ packages = ["src/bse202"]
 reportUnusedImport = false
 
 [tool.ruff.lint]
-# ignore = ["F401"] # Ignore the fucky files needed to import and run evrything
+ignore = ["F401"] # Ignore the fucky files needed to import and run evrything

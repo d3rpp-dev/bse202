@@ -1,3 +1,8 @@
-# we can flesh this out with actual stuff later
-def generate_default_cookie(**kwargs):
-    return kwargs
+"""
+We can use this to create library functions used around the app,
+
+remember: DRY
+ - Don't
+ - Repeat
+ - Yourself
+"""
