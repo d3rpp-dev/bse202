@@ -9,6 +9,7 @@ from flask import Flask, g
 
 app = Flask(__name__)
 
+
 def init_db():
     with app.app_context():
         db = get_db()
@@ -16,16 +17,15 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
+
 @app.teardown_appcontext
 def close_db(_exception):
-    db = getattr(g, '_db', None)
+    db = getattr(g, "_db", None)
     if db is not None:
         db.close()
+
 
 register_hooks(app)
 
 app.register_blueprint(root_blueprint)
 app.register_blueprint(auth_blueprint)
-
-
-
