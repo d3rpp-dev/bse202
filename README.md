@@ -47,6 +47,14 @@ SECRET_KEY="<Secret Key to sign Tokens>"
 
 This will add the required variables that allow the program to function.
 
+Next we need to initialise the database
+
+```bash
+rye run db_init
+```
+
+This will use the schema from [`schema.sql`](./src/bse202/schema.sql) and create the SQLite Database.
+
 You can then start a dev server with
 
 ```sh
