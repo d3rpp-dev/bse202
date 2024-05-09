@@ -16,7 +16,7 @@ p {
 /* Colors */
 body {
     color: #333;
-    background-color: #f8f8f8;
+    background-color: #535c91;
 }
 
 .header {
@@ -57,7 +57,7 @@ a:hover {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #9290c3;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -66,5 +66,5 @@ a:hover {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #1B1A55;
 }
