@@ -21,8 +21,14 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = []
 
+[tool.rye.workspace]
+members = [
+    "src/bse202"
+]
+
 [tool.rye.scripts]
 dev = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1", ENV = "DEV" } }
+db_init = { call = "bse202:init_db()", env-file = "./.env" }
 
 [tool.hatch.metadata]
 allow-direct-references = true
