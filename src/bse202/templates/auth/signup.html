@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+	{% if error is defined %}
+		kind: {{ error["kind"] }}
+		message: {{ error["message"] }}
+	{% endif %}
+{% endblock %}

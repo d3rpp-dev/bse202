@@ -25,5 +25,7 @@ markupsafe==2.1.5
     # via werkzeug
 python-dotenv==1.0.1
     # via bse202
+ulid==1.1
+    # via bse202
 werkzeug==3.0.1
     # via flask
