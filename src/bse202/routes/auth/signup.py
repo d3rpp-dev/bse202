@@ -42,7 +42,8 @@ def is_username_available(db: Connection, username: str) -> dict | None:
         return None
     else:
         return {
-            "kind": "username",
+            "kind": "user",
+            "code": "signup_username_taken",
             "message": f'Username "{username}" is already taken',
         }
 
@@ -86,7 +87,11 @@ def signup():
         if isinstance(maybe_valid_data, str):
             return render_template(
                 "auth/signup.html",
-                error={"kind": "missing", "message": maybe_valid_data},
+                error={
+                    "kind": "missing",
+                    "code": "signup_invalid_form_data",
+                    "message": maybe_valid_data,
+                },
             ), 400
 
         (username, password) = maybe_valid_data

@@ -73,7 +73,14 @@ def login():
         maybe_form_data = get_valid_form_data(request.form)
 
         if isinstance(maybe_form_data, str):
-            return render_template("auth/login.html", error=maybe_form_data), 400
+            return render_template(
+                "auth/login.html",
+                error={
+                    "kind": "user",
+                    "code": "login_invalid_form_data",
+                    "message": maybe_form_data,
+                },
+            ), 400
         else:
             (username, password) = maybe_form_data
             db_cursor = get_db().cursor()
@@ -87,6 +94,7 @@ def login():
                         "auth/login.html",
                         error={
                             "kind": "user",
+                            "code": "login_invalid_input",
                             "message": "Invalid Username or Password",
                         },
                     ), 400
@@ -106,6 +114,7 @@ def login():
                     "auth/login.html",
                     error={
                         "kind": "server",
+                        "code": "login_internal_error",
                         "message": f"Internal Server Error - {ex}",
                     },
                 ), 500
