@@ -16,7 +16,6 @@ DROP TABLE IF EXISTS `password_hashes`;
 CREATE TABLE `password_hashes` (
 	`user_id` TEXT PRIMARY KEY,
 	`password_hash` TEXT NOT NULL,
-	`salt` TEXT NOT NULL,
 
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
