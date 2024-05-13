@@ -1,3 +1,11 @@
+"""
+Handler for logging in
+
+Takes GET and POST requests for the same URL to handle auth functions
+
+Redirects to the homepage afterwards with the new token
+"""
+
 from sqlite3 import Cursor, DatabaseError
 from flask import redirect, url_for, g, render_template, request, abort
 from argon2 import PasswordHasher

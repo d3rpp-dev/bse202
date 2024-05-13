@@ -1,3 +1,11 @@
+"""
+Handler for signing up
+
+Takes GET and POST requests for the same URL to handle auth functions
+
+Redirects to the homepage afterwards with the new token
+"""
+
 from flask import redirect, url_for, request, render_template, g
 from werkzeug.datastructures import ImmutableMultiDict
 from sqlite3 import Connection, Cursor, DatabaseError
