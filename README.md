@@ -50,7 +50,7 @@ This will add the required variables that allow the program to function.
 Next we need to initialise the database
 
 ```bash
-rye run db_init
+rye run init_db
 ```
 
 This will use the schema from [`schema.sql`](./src/bse202/schema.sql) and create the SQLite Database.

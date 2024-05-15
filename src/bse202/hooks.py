@@ -1,5 +1,5 @@
 from flask import Flask, Response, g, request
-from itsdangerous import URLSafeSerializer, BadData, BadSignature
+from itsdangerous import URLSafeSerializer, BadSignature
 from os import environ, _exit
 from time import time
 
@@ -73,7 +73,7 @@ def register_hooks(app: Flask):
         elif "original_token" in g:
             # clear cookie if original token set but token is not
             #
-            # if this pops up it means the cookie is invalid
+            # if this pops up it means the cookie is invalid, or was deleted
             response.set_cookie(key="auth", value="", expires=0)
 
         return response

@@ -5,6 +5,7 @@ CREATE TABLE `users` (
 	`user_id` TEXT PRIMARY KEY,
 	`created_at` INTEGER NOT NULL,
 	`username` TEXT UNIQUE ON CONFLICT ROLLBACK,
+	`account_type` TEXT, -- if null, assume regular user. Admin users are hard-coded
 	`profile_bg` TEXT, -- used as profile background, optional
 	`description` TEXT -- profile description, optional
 );
@@ -16,7 +17,6 @@ DROP TABLE IF EXISTS `password_hashes`;
 CREATE TABLE `password_hashes` (
 	`user_id` TEXT PRIMARY KEY,
 	`password_hash` TEXT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -28,6 +28,18 @@ CREATE TABLE `games` (
 	`game_id` INTEGER PRIMARY KEY,
 	`title` TEXT NOT NULL,
 	`description` TEXT NOT NULL
+);
+
+
+-- Reset and Create `game_assets` Table
+DROP TABLE IF EXISTS `game_assets`;
+
+CREATE TABLE `game_assets` (
+	`asset_id` INTEGER PRIMARY KEY,
+	`game_id` INTEGER NOT NULL,
+	`description` TEXT,
+	`asset_type` TEXT NOT NULL,
+	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
 
 
@@ -52,7 +64,6 @@ CREATE TABLE `reviews` (
 	`body` TEXT NOT NULL,
 	`star_count` SMALLINT NOT NULL,
 	`ts` BIGINT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -66,7 +77,6 @@ CREATE TABLE `purchases` (
 	`user_id` TEXT NOT NULL,
 	`game_id` TEXT NOT NULL,
 	`purchased_at` BIGINT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -78,7 +88,6 @@ DROP TABLE IF EXISTS `game_categories_link`;
 CREATE TABLE `game_categories_link` (
 	`game_id` INTEGER NOT NULL,
 	`category_id` INTEGER NOT NULL,
-
 	FOREIGN KEY (game_id) REFERENCES games(game_id),
 	FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
