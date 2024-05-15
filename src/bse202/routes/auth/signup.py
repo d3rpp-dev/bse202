@@ -43,8 +43,18 @@ def is_username_available(db: Connection, username: str) -> dict | None:
     Since it is a unique key, this query will always return `1`, or `0`, so
     we check if it is zero.
     """
+
+    query = """--sql
+        SELECT 
+            count(user_id) 
+        FROM 
+            `users` 
+        WHERE 
+            `username` = ?
+    """
+
     is_username_taken_cursor = db.execute(
-        "SELECT count(user_id) FROM `users` where `username` = ?", [username]
+        query, [username]
     )
     if is_username_taken_cursor.fetchone()[0] == 0:
         return None
@@ -60,9 +70,24 @@ def save_user(cursor: Cursor, user_id: str, username: str):
     """
     Save the user with an ID of `user_id`
     """
+    query = """--sql
+        INSERT INTO 
+            `users` (
+                `user_id`, 
+                `created_at`, 
+                `username`
+            ) 
+        VALUES 
+            (
+                ?1, 
+                ?2, 
+                ?3
+            )
+    """
+
     cursor.execute(
-        "INSERT INTO `users` (`user_id`, `created_at`, `username`) VALUES (?1, ?2, ?3)",
-        (user_id, int(time()), username),
+        query,
+        [user_id, int(time()), username],
     )
 
 
@@ -76,9 +101,22 @@ def save_password(cursor: Cursor, user_id: str, password: str):
 
     hashed_password = hasher.hash(password=password, salt=str.encode(salt))
 
+    query = """--sql
+        INSERT INTO 
+            `password_hashes` (
+                `user_id`, 
+                `password_hash`
+            ) 
+        VALUES 
+            (
+                ?1, 
+                ?2
+            )
+    """
+
     insertion_result_cursor = cursor.execute(
-        "INSERT INTO `password_hashes` (`user_id`, `password_hash`) VALUES (?1, ?2)",
-        (user_id, hashed_password),
+        query,
+        [user_id, hashed_password],
     )
 
     print(insertion_result_cursor.fetchall())
@@ -94,7 +132,7 @@ def signup():
 
         if isinstance(maybe_valid_data, str):
             return render_template(
-                "auth/signup.html",
+                f"{g.template_prefix}auth/signup.html",
                 error={
                     "kind": "missing",
                     "code": "signup_invalid_form_data",
@@ -106,7 +144,7 @@ def signup():
 
         maybe_error = is_username_available(db, username)
         if maybe_error is not None:
-            return render_template("auth/signup.html", error=maybe_error), 400
+            return render_template(f"{g.template_prefix}auth/signup.html", error=maybe_error), 400
 
         user_id = ulid()
 
@@ -129,9 +167,10 @@ def signup():
 
         g.token["user_id"] = user_id
         g.token["username"] = username
+        g.token["account_type"] = "user"
         g.refresh = True
 
         return redirect(url_for("root.index"))
     else:
         # Request is a GET request
-        return render_template("auth/signup.html")
+        return render_template(f"{g.template_prefix}auth/signup.html")

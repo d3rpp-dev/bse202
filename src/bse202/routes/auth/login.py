@@ -29,24 +29,39 @@ def validate_password(fetched_hash: str, password: str) -> bool:
 
 def get_user_and_validate_hash(
     cursor: Cursor, username: str, password: str
-) -> str | None:
+) -> tuple[str, str | None] | None:
     """
     Get user's ID from the database based on username
 
     If this returns none, the user does not exists and a 404 should be returned
     """
     try:
-        db_result: tuple[str, str] | None = cursor.execute(
-            "SELECT users.user_id, password_hashes.password_hash FROM users LEFT JOIN password_hashes ON password_hashes.user_id = users.user_id WHERE username = ?1 LIMIT 1",
+        query = """--sql
+            SELECT 
+                users.user_id,
+                users.account_type,
+                password_hashes.password_hash 
+            FROM 
+                users 
+            LEFT JOIN 
+                password_hashes 
+            ON 
+                password_hashes.user_id = users.user_id 
+            WHERE 
+                username = ?1 LIMIT 1
+        """
+
+        db_result: tuple[str, str | None, str] | None = cursor.execute(
+            query,
             [username],
         ).fetchone()
 
         if db_result is None:
             return None
         else:
-            (user_id, password_hash) = db_result
+            (user_id, account_type, password_hash) = db_result
             if validate_password(password_hash, password):
-                return user_id
+                return user_id, account_type
             else:
                 return None
 
@@ -82,7 +97,7 @@ def login():
 
         if isinstance(maybe_form_data, str):
             return render_template(
-                "auth/login.html",
+                f"{g.template_prefix}auth/login.html",
                 error={
                     "kind": "user",
                     "code": "login_invalid_form_data",
@@ -94,12 +109,12 @@ def login():
             db_cursor = get_db().cursor()
 
             try:
-                maybe_user_id = get_user_and_validate_hash(
+                loaded_user = get_user_and_validate_hash(
                     db_cursor, username, password
                 )
-                if maybe_user_id is None:
+                if loaded_user is None:
                     return render_template(
-                        "auth/login.html",
+                        f"{g.template_prefix}auth/login.html",
                         error={
                             "kind": "user",
                             "code": "login_invalid_input",
@@ -107,10 +122,13 @@ def login():
                         },
                     ), 400
                 else:
+                    (user_id, account_type) = loaded_user
+
                     if "token" not in g:
                         g.token = {}
 
-                    g.token["user_id"] = maybe_user_id
+                    g.token["user_id"] = user_id
+                    g.token["account_type"] = account_type if account_type is not None else "user"
                     g.token["username"] = username
                     g.refresh = True
                     return redirect(url_for("root.index"))
@@ -119,7 +137,7 @@ def login():
                 # all other cases have been handled
                 db_cursor.close()
                 return render_template(
-                    "auth/login.html",
+                    f"{g.template_prefix}auth/login.html",
                     error={
                         "kind": "server",
                         "code": "login_internal_error",
@@ -127,4 +145,4 @@ def login():
                     },
                 ), 500
 
-    return render_template("auth/login.html"), 200
+    return render_template(f"{g.template_prefix}auth/login.html"), 200
