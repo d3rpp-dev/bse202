@@ -8,8 +8,14 @@
 #   with-sources: false
 
 -e file:.
+argon2-cffi==23.1.0
+    # via bse202
+argon2-cffi-bindings==21.2.0
+    # via argon2-cffi
 blinker==1.7.0
     # via flask
+cffi==1.16.0
+    # via argon2-cffi-bindings
 click==8.1.7
     # via flask
 flask==3.0.2
@@ -23,7 +29,11 @@ markupsafe==2.1.5
     # via bse202
     # via jinja2
     # via werkzeug
+pycparser==2.22
+    # via cffi
 python-dotenv==1.0.1
+    # via bse202
+ulid==1.1
     # via bse202
 werkzeug==3.0.1
     # via flask

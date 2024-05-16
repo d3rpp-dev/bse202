@@ -1,9 +1,10 @@
 from flask import Flask, Response, g, request
-from itsdangerous import URLSafeSerializer, BadData, BadSignature
+from itsdangerous import URLSafeSerializer, BadSignature
 from os import environ, _exit
 from time import time
 
 secret_key = environ.get("SECRET_KEY")
+template_prefix = environ.get("TEMPLATE_PREFIX")
 
 one_month_in_seconds = 60 * 60 * 24 * 30
 one_year_in_seconds = one_month_in_seconds * 12
@@ -25,6 +26,12 @@ def register_hooks(app: Flask):
     def _():
         g.ip = request.remote_addr
         g.ua = request.headers.get("User_Agent")
+
+        # Allows me to use backend pages without affecting the front-end development
+        if template_prefix is not None:
+            g.template_prefix = template_prefix
+        else:
+            g.template_prefix = ""
 
         auth_cookie = request.cookies.get("auth")
         if auth_cookie is not None:
@@ -73,7 +80,7 @@ def register_hooks(app: Flask):
         elif "original_token" in g:
             # clear cookie if original token set but token is not
             #
-            # if this pops up it means the cookie is invalid
+            # if this pops up it means the cookie is invalid, or was deleted
             response.set_cookie(key="auth", value="", expires=0)
 
         return response

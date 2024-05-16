@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
 	`user_id` TEXT PRIMARY KEY,
 	`created_at` INTEGER NOT NULL,
-	`username` TEXT UNIQUE ON CONFLICT ROLLBACK,
+	`username` TEXT UNIQUE ON CONFLICT FAIL,
+	`account_type` TEXT, -- if null, assume regular user. Admin users are hard-coded in the DB to have the "admin" role
 	`profile_bg` TEXT, -- used as profile background, optional
 	`description` TEXT -- profile description, optional
 );
@@ -16,8 +17,6 @@ DROP TABLE IF EXISTS `password_hashes`;
 CREATE TABLE `password_hashes` (
 	`user_id` TEXT PRIMARY KEY,
 	`password_hash` TEXT NOT NULL,
-	`salt` TEXT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -26,9 +25,21 @@ CREATE TABLE `password_hashes` (
 DROP TABLE IF EXISTS `games`;
 
 CREATE TABLE `games` (
-	`game_id` INTEGER PRIMARY KEY,
+	`game_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL,
 	`description` TEXT NOT NULL
+);
+
+
+-- Reset and Create `game_assets` Table
+DROP TABLE IF EXISTS `game_assets`;
+
+CREATE TABLE `game_assets` (
+	`asset_id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`game_id` INTEGER NOT NULL,
+	`description` TEXT,
+	`asset_type` TEXT NOT NULL,
+	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
 
 
@@ -36,7 +47,7 @@ CREATE TABLE `games` (
 DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE `categories` (
-	`category_id` INTEGER PRIMARY KEY,
+	`category_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL UNIQUE,
 	`description` TEXT NOT NULL
 );
@@ -46,14 +57,13 @@ CREATE TABLE `categories` (
 DROP TABLE IF EXISTS `reviews`;
 
 CREATE TABLE `reviews` (
-	`review_id` INTEGER PRIMARY KEY,
+	`review_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_id` TEXT NOT NULL,
 	`game_id` INTEGER NOT NULL,
 	`title` TEXT NOT NULL,
 	`body` TEXT NOT NULL,
 	`star_count` SMALLINT NOT NULL,
 	`ts` BIGINT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -63,11 +73,10 @@ CREATE TABLE `reviews` (
 DROP TABLE IF EXISTS `purchases`;
 
 CREATE TABLE `purchases` (
-	`purchase_id` BIGINT PRIMARY KEY,
+	`purchase_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_id` TEXT NOT NULL,
 	`game_id` TEXT NOT NULL,
 	`purchased_at` BIGINT NOT NULL,
-
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -79,7 +88,6 @@ DROP TABLE IF EXISTS `game_categories_link`;
 CREATE TABLE `game_categories_link` (
 	`game_id` INTEGER NOT NULL,
 	`category_id` INTEGER NOT NULL,
-
 	FOREIGN KEY (game_id) REFERENCES games(game_id),
 	FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
