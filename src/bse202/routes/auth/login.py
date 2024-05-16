@@ -107,9 +107,7 @@ def login():
             db_cursor = get_db().cursor()
 
             try:
-                loaded_user = get_user_and_validate_hash(
-                    db_cursor, username, password
-                )
+                loaded_user = get_user_and_validate_hash(db_cursor, username, password)
                 if loaded_user is None:
                     return render_template(
                         f"{g.template_prefix}auth/login.html",
@@ -126,7 +124,9 @@ def login():
                         g.token = {}
 
                     g.token["user_id"] = user_id
-                    g.token["account_type"] = account_type if account_type is not None else "user"
+                    g.token["account_type"] = (
+                        account_type if account_type is not None else "user"
+                    )
                     g.token["username"] = username
                     g.refresh = True
                     return redirect(url_for("root.index"))

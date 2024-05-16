@@ -53,9 +53,7 @@ def is_username_available(db: Connection, username: str) -> dict | None:
             `username` = ?
     """
 
-    is_username_taken_cursor = db.execute(
-        query, [username]
-    )
+    is_username_taken_cursor = db.execute(query, [username])
     if is_username_taken_cursor.fetchone()[0] == 0:
         return None
     else:
@@ -144,7 +142,9 @@ def signup():
 
         maybe_error = is_username_available(db, username)
         if maybe_error is not None:
-            return render_template(f"{g.template_prefix}auth/signup.html", error=maybe_error), 400
+            return render_template(
+                f"{g.template_prefix}auth/signup.html", error=maybe_error
+            ), 400
 
         user_id = ulid()
 

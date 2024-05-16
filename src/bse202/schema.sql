@@ -25,7 +25,7 @@ CREATE TABLE `password_hashes` (
 DROP TABLE IF EXISTS `games`;
 
 CREATE TABLE `games` (
-	`game_id` INTEGER PRIMARY KEY,
+	`game_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL,
 	`description` TEXT NOT NULL
 );
@@ -35,7 +35,7 @@ CREATE TABLE `games` (
 DROP TABLE IF EXISTS `game_assets`;
 
 CREATE TABLE `game_assets` (
-	`asset_id` INTEGER PRIMARY KEY,
+	`asset_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`game_id` INTEGER NOT NULL,
 	`description` TEXT,
 	`asset_type` TEXT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `game_assets` (
 DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE `categories` (
-	`category_id` INTEGER PRIMARY KEY,
+	`category_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL UNIQUE,
 	`description` TEXT NOT NULL
 );
@@ -57,7 +57,7 @@ CREATE TABLE `categories` (
 DROP TABLE IF EXISTS `reviews`;
 
 CREATE TABLE `reviews` (
-	`review_id` INTEGER PRIMARY KEY,
+	`review_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_id` TEXT NOT NULL,
 	`game_id` INTEGER NOT NULL,
 	`title` TEXT NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `reviews` (
 DROP TABLE IF EXISTS `purchases`;
 
 CREATE TABLE `purchases` (
-	`purchase_id` BIGINT PRIMARY KEY,
+	`purchase_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_id` TEXT NOT NULL,
 	`game_id` TEXT NOT NULL,
 	`purchased_at` BIGINT NOT NULL,
