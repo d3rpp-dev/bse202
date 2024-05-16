@@ -48,7 +48,8 @@ def get_user_and_validate_hash(
             ON 
                 password_hashes.user_id = users.user_id 
             WHERE 
-                username = ?1 LIMIT 1
+                username = ?1 
+            LIMIT 1
         """
 
         db_result: tuple[str, str | None, str] | None = cursor.execute(
@@ -90,9 +91,6 @@ def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] |
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        if "token" not in g:
-            g.token = {}
-
         maybe_form_data = get_valid_form_data(request.form)
 
         if isinstance(maybe_form_data, str):

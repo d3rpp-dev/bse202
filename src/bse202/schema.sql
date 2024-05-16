@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
 	`user_id` TEXT PRIMARY KEY,
 	`created_at` INTEGER NOT NULL,
-	`username` TEXT UNIQUE ON CONFLICT ROLLBACK,
-	`account_type` TEXT, -- if null, assume regular user. Admin users are hard-coded
+	`username` TEXT UNIQUE ON CONFLICT FAIL,
+	`account_type` TEXT, -- if null, assume regular user. Admin users are hard-coded in the DB to have the "admin" role
 	`profile_bg` TEXT, -- used as profile background, optional
 	`description` TEXT -- profile description, optional
 );
