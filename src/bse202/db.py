@@ -1,6 +1,5 @@
 import sqlite3
 from flask import g
-from os import _exit
 from os.path import exists
 
 DB_LOCATION = "./database.db"
