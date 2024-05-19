@@ -38,7 +38,7 @@ First you'll need to sync the venv with `rye`
 rye sync
 ```
 
-Next we'll need to fill out the environment variables with data, to do this, make a copy of (`./.env.example`)[./.env.example] and rename it to just `.env`, then fill out the values between the quotes, i.e.
+Next we'll need to fill out the environment variables with data, to do this, make a copy of [`./.env.example`](./.env.example) and rename it to just `.env`, then fill out the values between the quotes, i.e.
 
 ```bash
 # .env
@@ -53,7 +53,7 @@ Next we need to initialise the database
 rye run init_db
 ```
 
-This will use the schema from [`schema.sql`](./src/bse202/schema.sql) and create the SQLite Database.
+This will use the schema from [`schema.sql`](./src/bse202/schema.sql) and [`sample_data.sql`](./src/bse202/sample_data.sql) to create the SQLite Database.
 
 You can then start a dev server with
 
