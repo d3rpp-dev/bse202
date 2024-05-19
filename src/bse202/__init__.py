@@ -11,6 +11,7 @@ from os import environ
 
 app = Flask(__name__)
 
+
 def init_db():
     with app.app_context():
         db = get_db()
@@ -28,11 +29,12 @@ def close_db(_exception):
     if db is not None:
         db.close()
 
+
 # we can check ahead of time if the database exists and alert the server admin
 # in the case it does not.
 if environ.get("INIT_DB") is None and not check_db_exists():
-    # this is essentially making the program more resistant to 
-    # someone forgetting to run `rye run init_db`  
+    # this is essentially making the program more resistant to
+    # someone forgetting to run `rye run init_db`
     raise RuntimeError("\n\nPlease run\n\n    rye run init_db\n\nAnd try again\n")
 
 register_hooks(app)
