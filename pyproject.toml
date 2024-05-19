@@ -29,7 +29,7 @@ members = [
 
 [tool.rye.scripts]
 dev = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1", ENV = "DEV" } }
-init_db = { call = "bse202:init_db()", env-file = "./.env" }
+init_db = { call = "bse202:init_db()", env-file = "./.env", env = { "INIT_DB" = "1" } }
 
 [tool.hatch.metadata]
 allow-direct-references = true
