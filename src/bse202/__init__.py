@@ -33,8 +33,8 @@ def close_db(_exception):
 # we can check ahead of time if the database exists and alert the server admin
 # in the case it does not.
 #
-# this code also runs when we init the DB so the `init_db` command adds and 
-# environment variable so it doesn't trigger is we're trying to initialise 
+# this code also runs when we init the DB so the `init_db` command adds and
+# environment variable so it doesn't trigger is we're trying to initialise
 # the DB.
 if environ.get("INIT_DB") is None and not check_db_exists():
     # this is essentially making the program more resistant to
