@@ -1,7 +1,28 @@
-{% extends "base.html" %}
+{% extends "_example/base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/_example/games.css') }}">
+{% endblock %}
 
 {% block title %} Games {% endblock %}
 
 {% block content %}
 	<h1>Games</h1>
+
+	<div class="grid">
+		{% for game in games %}
+			<a class="card" href="{{ game.page }}">
+				<img src="{{ game.banner }}" />
+				<span class="title">
+					{{ game.title }}
+				</span>
+				<span class="desc">
+					{{ game.description }}
+				</span>
+			</a>
+		{% endfor %}
+	</div>
+
+
+
 {% endblock %}
