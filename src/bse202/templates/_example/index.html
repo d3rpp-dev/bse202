@@ -1,7 +1,7 @@
 {% extends '_example/base.html' %} 
 
 {% block head %} 
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/_example/landing.css') }}" />
 {% endblock %}
 
 {% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %} 
