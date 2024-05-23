@@ -3,18 +3,20 @@
 {% block title %} Sign Up {% endblock %}
 
 {% block content %}
-	{% if error is defined %}
-		<pre>
-			kind: {{error["kind"]}}
-			message: {{error["message"]}}
-		</pre>
-	{% endif %}
+	<main id="singup">
+		{% if error is defined %}
+			<pre>
+				kind: {{error["kind"]}}
+				message: {{error["message"]}}
+			</pre>
+		{% endif %}
 
-	<form action="{{ url_for('auth.signup') }}" method="post">
-		<label for="user">Username</label>
-		<input id="user" name="user" type="text">
-		<label for="pass">Password</label>
-		<input id="pass" name="pass" type="password">
-		<input type="submit">
-	</form>
+		<form action="{{ url_for('auth.signup') }}" method="post">
+			<label for="user">Username</label>
+			<input id="user" name="user" type="text">
+			<label for="pass">Password</label>
+			<input id="pass" name="pass" type="password">
+			<input type="submit">
+		</form>
+	</main>
 {% endblock %}

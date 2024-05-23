@@ -7,17 +7,26 @@
 {% block title %} Games {% endblock %}
 
 {% block content %}
-	<h1>{{ game.title }}</h1>
-	<p>{{ game.description }}</p>
+	<main id="storepage">
+		<h1>{{ game.title }}</h1>
+		<p>{{ game.description }}</p>
 
-	{# Glorious HTMX #}
-	<div 
-		class="reviews" 
-		hx-get="{{ url_for( 'games.game_storepage_reviews', game_id = game.game_id ) }}"
-		hx-trigger="load"
-		hx-swap="outerHTML"
-	>
-		loading...
-	</div>
+		{# Glorious HTMX #}
+		<div 
+			class="reviews" 
+			hx-get="{{ url_for( 'games.game_storepage_reviews', game_id = game.game_id ) }}"
+			hx-trigger="load"
+			hx-swap="outerHTML"
+		>
+			loading...
+		</div>
 
+		<div>
+			{% if user != None %}
+				Purchase
+			{% else %}
+				Please <a href="{{ url_for('auth.login') }}">Login</a> to purchase
+			{% endif %}
+		</div>
+	</main>
 {% endblock %}

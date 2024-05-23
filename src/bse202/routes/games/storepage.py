@@ -67,5 +67,7 @@ def game_store_page(game_id: int):
 	}
 
     return render_template(
-        f"{g.template_prefix}games/storepage.html", game=game_store_data
+        f"{g.template_prefix}games/storepage.html", 
+        game=game_store_data,
+        user=g.token if "token" in g else None
     )

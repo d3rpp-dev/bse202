@@ -5,6 +5,7 @@ from .hooks import register_hooks
 from .routes import root_blueprint
 from .routes.auth import auth_blueprint
 from .routes.games import games_blueprint
+from .routes.user import user_blueprint
 
 from flask import Flask, g
 from os import environ
@@ -40,9 +41,10 @@ if environ.get("INIT_DB") is None and not check_db_exists():
     # this is essentially making the program more resistant to
     # someone forgetting to run `rye run init_db`
     raise RuntimeError("\n\nPlease run\n\n    rye run init_db\n\nAnd try again\n")
+else:
+    register_hooks(app)
 
-register_hooks(app)
-
-app.register_blueprint(root_blueprint)
-app.register_blueprint(auth_blueprint)
-app.register_blueprint(games_blueprint)
+    app.register_blueprint(root_blueprint)
+    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(games_blueprint)
+    app.register_blueprint(user_blueprint)

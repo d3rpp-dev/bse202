@@ -7,30 +7,24 @@
 {% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %} 
 
 {% block content %}
+	<main id="landing">
+		{# 
+			by checking like this we also manage scenarios where 
+			g.token is None, meaning the user is not logged in, or 
+			the cookie was invalid.
+		#}
+		{% if g.token is defined and g.token.user_id is defined %}
+			{{ g.token["username"] }} loading from {{ g.ua }}
+			<h1>authenticated as "{{ g.token["username"] }}"</h1>
+			<a href="{{ url_for('auth.logout') }}">Log Out</a>
 
-<body id="landing">
-
-	{# 
-		by checking like this we also manage scenarios where 
-		g.token is None, meaning the user is not logged in, or 
-		the cookie was invalid.
-	#}
-	{% if g.token is defined and g.token.user_id is defined %}
-		{{ g.token["username"] }} loading from {{ g.ua }}
-		<h1>authenticated as "{{ g.token["username"] }}"</h1>
-		<a href="{{ url_for('auth.logout') }}">Log Out</a>
-
-		{% if g.token["account_type"] == "admin" %}
-			<h1>Signed in as Admin User</h1>
+			{% if g.token["account_type"] == "admin" %}
+				<h1>Signed in as Admin User</h1>
+			{% endif %}
+		{% else %}
+			<h1>unauthenticated</h1>
+			<a href="{{ url_for('auth.login') }}" hx-boost="true">Login</a>
+			<a href="{{ url_for('auth.signup') }}" hx-boost="true">Sign Up</a>
 		{% endif %}
-	{% else %}
-		<h1>unauthenticated</h1>
-		<a href="{{ url_for('auth.login') }}">Login</a>
-		<a href="{{ url_for('auth.signup') }}">Sign Up</a>
-	{% endif %}
-
-</body>
-
-
-
+	</main>
 {% endblock %}

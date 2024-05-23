@@ -1,3 +1,7 @@
+#games-landing {
+	background-color: aqua;
+}
+
 .grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, 18em);
