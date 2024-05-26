@@ -77,7 +77,7 @@ rye lint
 
 ## Development
 
-This repository uses a standard of 1 endpoint = 1 file, this means that 2 people can work on completely different endpoints and the development will never collide with the file.
+This repository uses a standard of 1 endpoint = 1 file (small utility endpoints are exempt from this rule since they almost never change), this means that 2 people can work on completely different endpoints and the development will never collide with the file.
 
 There are comments found throughout these files that should explain what is going on, for the purposes of making this code readable (or at least, as readable as this language can be), please make sure you comment your code well, at the at the module level using multi-line comments, e.g.
 

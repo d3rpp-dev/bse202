@@ -1,4 +1,10 @@
-from flask import render_template, g, url_for
+"""
+Contains the details for a single game and (if logged in) allows the user to
+
+"purchase" a game.
+"""
+
+from flask import render_template, g
 from sqlite3 import DatabaseError
 
 from .blueprint import games_blueprint

@@ -1,3 +1,7 @@
+"""
+User Home Page
+"""
+
 from flask import render_template, redirect, url_for, g
 
 from .blueprint import user_blueprint

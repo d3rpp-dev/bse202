@@ -1,3 +1,9 @@
+"""
+adds a home page for this blueprint that redirects home, 
+
+might get it to redirect to self in the future
+"""
+
 from flask import redirect, url_for, g
 
 from .blueprint import user_blueprint

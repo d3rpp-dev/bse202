@@ -1,5 +1,12 @@
+"""
+*NOTE* This is a snippet endpoint
+
+This means the template it renders is not a whole page
+and the HTML this returns is not a page, but a snippet meant
+to be inserted into a valid HTML doc (in this case, via HTMX)
+"""
+
 from flask import render_template, g
-from sqlite3 import DatabaseError
 from time import sleep
 
 from .blueprint import games_blueprint

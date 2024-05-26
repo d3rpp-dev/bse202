@@ -1,3 +1,9 @@
+"""
+The root page for the games store
+
+will contain the games list
+"""
+
 from flask import render_template, g, url_for
 from sqlite3 import DatabaseError
 
