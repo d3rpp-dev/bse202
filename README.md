@@ -92,6 +92,15 @@ This is a multi line module comment
 # ... rest of file
 ```
 
+> [!NOTE]
+> For every capital letter I see in:
+> 
+> - a file name
+> - a variable name
+> - a folder name
+>
+> I will kill a puppy
+
 ---
 
 Happy Coding :D

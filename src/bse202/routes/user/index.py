@@ -1,4 +1,4 @@
-from flask import redirect, url_for, render_template, g
+from flask import redirect, url_for, g
 
 from .blueprint import user_blueprint
 
@@ -19,7 +19,3 @@ def self():
     else:
         return redirect(url_for("auth.login")), 307
 
-
-@user_blueprint.get("/<user_id>")
-def user_home(user_id: str):
-    return render_template(f"{g.template_prefix}user/index.html", user_id=user_id)
