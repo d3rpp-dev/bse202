@@ -41,12 +41,15 @@ VALUES
 INSERT INTO
 	`categories` (`category_id`, `title`, `description`)
 VALUES
-	(1, 'First Person Shooters', 'Staples of the gaming industry, using weapons of all kinds to eliminate virtual rivals.')
+	(1, 'First Person Shooters', 'Staples of the gaming industry, using weapons of all kinds to eliminate virtual rivals.'),
+	(2, 'Online', 'Interract with other players from all around the world via the World Wide Web')
 ;
 
 INSERT INTO
 	`game_categories_link` (`game_id`, `category_id`)
 VALUES
 	(1, 1), -- Valorant > FPS
-	(2, 1) -- Team Fortress 2 > FPS
+	(1, 2), -- Valorant > Online
+	(2, 1), -- Team Fortress 2 > FPS
+	(2, 2) -- Team Fortress 2 > Online
 ;
