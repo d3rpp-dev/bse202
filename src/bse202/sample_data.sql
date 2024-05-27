@@ -3,11 +3,11 @@
 --
 
 INSERT INTO 
-	`users` (`user_id`, `created_at`, `username`, `account_type`) 
+	`users` (`user_id`, `created_at`, `username`, `account_type`, `profile_bg`, `text_colour`) 
 VALUES 
 	--- this is the only account with admin privileges
-	('01hxz1g3cwzadwkvwewz0taymt', 1715807518, 'admin', 'admin'),
-	('01hxz91jcfwgkeywswrqckmv4g', 1715807518, 'test_user', NULL)
+	('01hxz1g3cwzadwkvwewz0taymt', 1715807518, 'admin', 'admin', NULL, NULL),
+	('01hxz91jcfwgkeywswrqckmv4g', 1715807518, 'test_user', NULL, 'rgb(2, 6, 14)', '#eeeeee')
 ;
 
 

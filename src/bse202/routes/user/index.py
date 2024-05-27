@@ -1,5 +1,5 @@
 """
-adds a home page for this blueprint that redirects home, 
+adds a home page for this blueprint that redirects home,
 
 might get it to redirect to self in the future
 """
@@ -24,4 +24,3 @@ def self():
             return redirect(url_for("auth.login")), 307
     else:
         return redirect(url_for("auth.login")), 307
-

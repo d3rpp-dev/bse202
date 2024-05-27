@@ -1,5 +1,11 @@
-{% extends '_example/base.html' %} 
+{% extends '_example/base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/_example/user.css') }}">
+{% endblock %}
 
 {% block content %}
-	<h1>{{user_id}}</h1>
+    <main id="user_page" style="{{ user_style_string }}">
+    	<h1>{{ user.username }}</h1>
+    </main>
 {% endblock %}

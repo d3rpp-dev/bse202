@@ -1,0 +1,9 @@
+:root {
+    --user-bg: #dddddd;
+    --user-text: #222222;
+}
+
+#user_page {
+    background-color: var(--user-bg);
+    color: var(--user-text);
+}
