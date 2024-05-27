@@ -47,14 +47,22 @@ def user_home(user_id: str):
                     "message": "Unknown User ID",
                 },
             ), 404
-        
-        (user_id, created_at, username, account_type, profile_bg, text_colour, description) = query_result
+
+        (
+            user_id,
+            created_at,
+            username,
+            account_type,
+            profile_bg,
+            text_colour,
+            description,
+        ) = query_result
         user = {
             "user_id": user_id,
             "created_at": created_at,
             "username": username,
             "account_type": account_type,
-            "description": description
+            "description": description,
         }
 
         bg_string = f"--user-bg: {profile_bg};" if profile_bg is not None else ""
@@ -63,9 +71,9 @@ def user_home(user_id: str):
         user_style_string = " ".join([bg_string, colour_string])
 
         return render_template(
-            f"{g.template_prefix}user/index.html", 
+            f"{g.template_prefix}user/index.html",
             user=user,
-            user_style_string=user_style_string
+            user_style_string=user_style_string,
         ), 200
     except DatabaseError as ex:
         print(ex)
