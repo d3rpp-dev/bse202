@@ -12,6 +12,7 @@
 		<p>{{ game.description }}</p>
 
 		{% for asset in game.assets %}
+			{# this string concatenation is somewhat cursed, idk how I feel about it ngl #}
 			<img src="{{ url_for('static', filename='assets/' ~ asset[0] ~ '.jpg') }}" style="width: 18em" />
 		{% endfor %}
 
