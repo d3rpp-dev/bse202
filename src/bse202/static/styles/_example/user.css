@@ -1,0 +1,10 @@
+:root {
+    /* TODO: these are just some defaults, so they should be updated */
+    --user-bg: #dddddd;
+    --user-text: #222222;
+}
+
+#user_page {
+    background-color: var(--user-bg);
+    color: var(--user-text);
+}

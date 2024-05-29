@@ -7,6 +7,7 @@ CREATE TABLE `users` (
 	`username` TEXT UNIQUE ON CONFLICT FAIL,
 	`account_type` TEXT, -- if null, assume regular user. Admin users are hard-coded in the DB to have the "admin" role
 	`profile_bg` TEXT, -- used as profile background, optional
+	`text_colour` TEXT, -- used with the profile bg to determine the text colour for a page
 	`description` TEXT -- profile description, optional
 );
 

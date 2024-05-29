@@ -1,44 +1,55 @@
 [project]
-name = "bse202"
-version = "0.1.0"
-description = "Add your description here"
-authors = [{ name = "d3rpp", email = "d3rpp@d3rpp.dev" }]
+authors = [
+    { name = "d3rpp", email = "d3rpp@d3rpp.dev" },
+]
 dependencies = [
     "Flask>=3.0.2",
-    "markupsafe>=2.1.5",
+    "argon2-cffi>=23.1.0",
     "itsdangerous>=2.2.0",
+    "markupsafe>=2.1.5",
     "python-dotenv>=1.0.1",
     "ulid>=1.1",
-    "argon2-cffi>=23.1.0",
 ]
+description = "Add your description here"
+name = "bse202"
 readme = "README.md"
 requires-python = ">= 3.8"
+version = "0.1.0"
 
 [build-system]
-requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.rye]
-managed = true
-dev-dependencies = []
-
-[tool.rye.workspace]
-members = [
-    "src/bse202"
+requires = [
+    "hatchling",
 ]
 
-[tool.rye.scripts]
-dev = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1", ENV = "DEV" } }
-init_db = { call = "bse202:init_db()", env-file = "./.env", env = { "INIT_DB" = "1" } }
+[tool.rye]
+dev-dependencies = [
+]
+managed = true
 
-[tool.hatch.metadata]
-allow-direct-references = true
+    [tool.rye.workspace]
+    members = [
+        "src/bse202",
+    ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/bse202"]
+    [tool.rye.scripts]
+    dev     = { cmd = "flask run", env = { "FLASK_APP" = "bse202:app", "FLASK_DEBUG" = "1", ENV = "DEV" } }
+    init_db = { call = "bse202:init_db()", env-file = "./.env", env = { "INIT_DB" = "1" } }
+
+    [tool.hatch.metadata]
+    allow-direct-references = true
+
+    [tool.hatch.build.targets.wheel]
+    packages = [
+        "src/bse202",
+    ]
 
 [tool.pyright]
 reportUnusedImport = false
+venvPath = "."
+venv = ".venv"
 
 [tool.ruff.lint]
-ignore = ["F401"] # Ignore the fucky files needed to import and run evrything
+ignore = [
+    "F401",
+] # Ignore the fucky files needed to import and run evrything
