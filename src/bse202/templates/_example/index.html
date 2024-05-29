@@ -23,8 +23,8 @@
 			{% endif %}
 		{% else %}
 			<h1>unauthenticated</h1>
-			<a href="{{ url_for('auth.login') }}" hx-boost="true">Login</a>
-			<a href="{{ url_for('auth.signup') }}" hx-boost="true">Sign Up</a>
+			<a href="{{ url_for('auth.login') }}">Login</a>
+			<a href="{{ url_for('auth.signup') }}">Sign Up</a>
 		{% endif %}
 	</main>
 {% endblock %}

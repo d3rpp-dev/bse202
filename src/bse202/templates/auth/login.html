@@ -1,35 +1,40 @@
-{% extends 'base.html' %} {% block head %}
+{% extends '_example/base.html' %}
+
+{% block head %}
 <link
 	rel="stylesheet"
 	href="{{ url_for('static', filename='styles/auth.css') }}"
 />
-{% endblock %} {% block title %} Login {% endblock %} {% block content %}
+{% endblock %}
 
-<body id="auth-login">
-	<h1>{{ g.ua }}</h1>
-	<h2>{{ name }}</h2>
+{% block title %} Login {% endblock %}
 
-	<a href="{{ url_for('root.index') }}">Go Home</a>
+{% block content %}
+	<main id="auth-login">
+		<h1>{{ g.ua }}</h1>
+		<h2>{{ name }}</h2>
 
-	<br />
-	<br />
-	<br />
-	<br />
+		<a href="{{ url_for('root.index') }}">Go Home</a>
 
-	{% if error is defined %}
-	<pre>
-		kind: {{ error["kind"] }}
-		message: {{ error["message"] }}
-	</pre>
-	{% endif %}
+		<br />
+		<br />
+		<br />
+		<br />
 
-	<form action="{{ url_for('auth.login') }}" method="post">
-		<label for="user">Username</label>
-		<input id="user" name="user" type="text" />
-		<label for="pass">Password</label>
-		<input id="pass" name="pass" type="password" />
-		<input type="submit" />
-	</form>
-</body>
+		{% if error is defined %}
+		<pre>
+			kind: {{ error["kind"] }}
+			message: {{ error["message"] }}
+		</pre
+		>
+		{% endif %}
 
+		<form action="{{ url_for('auth.login') }}" method="post">
+			<label for="user">Username</label>
+			<input id="user" name="user" type="text" />
+			<label for="pass">Password</label>
+			<input id="pass" name="pass" type="password" />
+			<input type="submit" />
+		</form>
+	</main>
 {% endblock %}

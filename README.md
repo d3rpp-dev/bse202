@@ -1,4 +1,4 @@
-<h1>BSE 202 - "Cross Platform Development"</h1>
+# BSE 202 - "Cross Platform Development"
 
 - [Setting Up Rye](#setting-up-rye)
 	- [Note: Windows Installer](#note-windows-installer)
@@ -8,7 +8,7 @@
 - [Development](#development)
 
 This project is primarily managed using [`rye`](https://rye-up.com).
-If you know python virtual envrionments well, use them, I'm using `rye` because python venv's are horrible. 
+If you know python virtual envrionments well, use them, I'm using `rye` because python venv's are horrible.
 
 ## Setting Up Rye
 
@@ -94,7 +94,7 @@ This is a multi line module comment
 
 > [!NOTE]
 > For every capital letter I see in:
-> 
+>
 > - a file name
 > - a variable name
 > - a folder name

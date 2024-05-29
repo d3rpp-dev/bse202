@@ -12,5 +12,17 @@
 		{% block head %}{% endblock %}
 		<title>{% block title %}{% endblock %}</title>
 	</head>
-	{% block content %}{% endblock %}
+	{%if error is defined %}
+		<pre>Error:
+		Kind: {{error.kind}}
+		Code: {{error.code}}
+		Message: {{error.message}}
+		</pre>
+	{% endif %}
+
+	<body>
+		{% block content %}
+	</body>
+
+	{% endblock %}
 </html>
