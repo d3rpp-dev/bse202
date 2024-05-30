@@ -4,8 +4,10 @@ body {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 48px;
     font-weight: bold;
+    margin: 0; /* Remove default margin */
+    color: #fff; /* Set color to white */
 }
 
 p {
@@ -22,10 +24,37 @@ body {
 .header {
     background-color: #007bff;
     color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Center align content */
+    align-items: center; /* Center align content */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Take up full width */
+}
+
+.site-title {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.site-title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    color: #f0f0f0; /* Change color on hover */
 }
 
 a {
     color: #007bff;
+    text-decoration: none;
 }
 
 a:hover {
@@ -36,10 +65,6 @@ a:hover {
 .container {
     width: 80%;
     margin: 0 auto;
-}
-
-.header {
-    padding: 20px;
 }
 
 .footer {
@@ -54,15 +79,30 @@ a:hover {
 }
 
 /* Buttons */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+.button-group .btn {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 15px 30px; /* Increase padding to make buttons bigger */
+    font-size: 18px; /* Increase font size */
     background-color: #9290c3;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
+}
+
+.button-group .btn:last-child {
+    margin-right: 0;
+}
+
+.button-group .btn a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .btn:hover {

@@ -24,6 +24,14 @@ def about():
 def contact():
     return render_template("views/contact.html")
 
+@app.route("/store")
+def store():
+    return render_template("views/store.html")
+
+@app.route("/account")
+def account():
+    return render_template("views/account.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
