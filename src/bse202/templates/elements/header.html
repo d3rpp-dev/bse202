@@ -1,37 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <!-- Link to CSS file -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<div class="header">
-    <div class="button-group">
-        <!-- Store button -->
-        <button class="btn">Store</button>
-        <!-- Home button -->
-        <button class="btn">Home</button>
-        <!-- Login/logout button -->
-        {% if current_user %}
-            <!-- Logout button -->
-            <form action="{{ url_for('logout') }}" method="post">
-                <button type="submit" class="btn">Logout</button>
-            </form>
-        {% else %}
-            <!-- Login button -->
-            <a href="{{ url_for('login') }}" class="btn">Login</a>
-        {% endif %}
+<body>
+    <div class="header">
+        <div class="button-group">
+            <!-- Home button -->
+            <button class="btn"><a href="{{ url_for('home') }}">Home</a></button>
+            <!-- Login/logout button -->
+            {% if current_user %}
+                <!-- Logout button -->
+                <form action="{{ url_for('logout') }}" method="post">
+                    <button type="submit" class="btn">Logout</button>
+                </form>
+            {% else %}
+                <!-- Login button -->
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+        <!-- Info box for current user details -->
+        <div class="current-user-info">
+            {% if current_user %}
+                <!-- Display username if logged in -->
+                <span>Welcome, {{ current_user.username }}</span>
+                <!-- Add additional user details here if needed -->
+            {% else %}
+                <!-- Display message if not logged in -->
+                <span>Not logged in</span>
+            {% endif %}
+        </div>
     </div>
-    <!-- Info box for current user details -->
-    <div class="current-user-info">
-        {% if current_user %}
-            <!-- Display username if logged in -->
-            <span>Welcome, {{ current_user.username }}</span>
-            <!-- Add additional user details here if needed -->
-        {% else %}
-            <!-- Display message if not logged in -->
-            <span>Not logged in</span>
-        {% endif %}
-    </div>
-</div>
-
+</body>
+</html>
