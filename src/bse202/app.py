@@ -13,6 +13,51 @@ users = {
     "jane": User("jane")
 }
 
+# Dummy cart data
+cart_items = [
+    {"name": "Item 1", "quantity": 2, "price": 10.0, "total": 20.0},
+    {"name": "Item 2", "quantity": 1, "price": 15.0, "total": 15.0}
+]
+
+# Sample data for store inventory
+products = {
+    'action_games': [
+        {'name': 'Action Game 1', 'description': 'Description of Action Game 1.'},
+        {'name': 'Action Game 2', 'description': 'Description of Action Game 2.'},
+        {'name': 'Action Game 3', 'description': 'Description of Action Game 3.'},
+        {'name': 'Action Game 4', 'description': 'Description of Action Game 4.'},
+        {'name': 'Action Game 5', 'description': 'Description of Action Game 5.'},
+    ],
+    'sports_games': [
+        {'name': 'Sports Game 1', 'description': 'Description of Sports Game 1.'},
+        {'name': 'Sports Game 2', 'description': 'Description of Sports Game 2.'},
+        {'name': 'Sports Game 3', 'description': 'Description of Sports Game 3.'},
+        {'name': 'Sports Game 4', 'description': 'Description of Sports Game 4.'},
+        {'name': 'Sports Game 5', 'description': 'Description of Sports Game 5.'},
+    ],
+    'strategy_games': [
+        {'name': 'Strategy Game 1', 'description': 'Description of Strategy Game 1.'},
+        {'name': 'Strategy Game 2', 'description': 'Description of Strategy Game 2.'},
+        {'name': 'Strategy Game 3', 'description': 'Description of Strategy Game 3.'},
+        {'name': 'Strategy Game 4', 'description': 'Description of Strategy Game 4.'},
+        {'name': 'Strategy Game 5', 'description': 'Description of Strategy Game 5.'},
+    ],
+    'role_play_games': [
+        {'name': 'Role Play Game 1', 'description': 'Description of Role Play Game 1.'},
+        {'name': 'Role Play Game 2', 'description': 'Description of Role Play Game 2.'},
+        {'name': 'Role Play Game 3', 'description': 'Description of Role Play Game 3.'},
+        {'name': 'Role Play Game 4', 'description': 'Description of Role Play Game 4.'},
+        {'name': 'Role Play Game 5', 'description': 'Description of Role Play Game 5.'},
+    ],
+    'horror_games': [
+        {'name': 'Horror Game 1', 'description': 'Description of Horror Game 1.'},
+        {'name': 'Horror Game 2', 'description': 'Description of Horror Game 2.'},
+        {'name': 'Horror Game 3', 'description': 'Description of Horror Game 3.'},
+        {'name': 'Horror Game 4', 'description': 'Description of Horror Game 4.'},
+        {'name': 'Horror Game 5', 'description': 'Description of Horror Game 5.'},
+    ]
+}
+
 @app.route("/")
 def home():
     return render_template("views/home.html")
@@ -27,11 +72,19 @@ def contact():
 
 @app.route("/store")
 def store():
-    return render_template("views/store.html")
+    return render_template("views/store.html", products=products)
 
 @app.route("/account")
 def account():
     return render_template("views/account.html")
+
+@app.route("/cart")
+def cart():
+    cart_summary = {
+        "total_items": sum(item["quantity"] for item in cart_items),
+        "total_price": sum(item["total"] for item in cart_items)
+    }
+    return render_template("views/cart.html", cart=cart_items, cart_summary=cart_summary)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
