@@ -69,7 +69,24 @@ a:hover {
 
 .footer {
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: #007bff; /* Same as header background color */
+    color: #fff;
+    text-align: center; /* Center text */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: #f0f0f0;
 }
 
 @media (max-width: 768px) {
@@ -86,8 +103,8 @@ a:hover {
 
 .button-group .btn {
     margin: 0 10px; /* Add margin to the sides of buttons */
-    padding: 15px 30px; /* Increase padding to make buttons bigger */
-    font-size: 18px; /* Increase font size */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
     background-color: #9290c3;
     color: #fff;
     border: none;

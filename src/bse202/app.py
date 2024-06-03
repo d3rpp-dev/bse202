@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Set a secret key for session management
 
 # Dummy user for demonstration
 class User:
@@ -41,19 +42,18 @@ def login():
         # Dummy authentication logic
         if username in users and password == "password":
             # Set the user in the session
-            user = users[username]
-            # In a real application, use Flask-Login for session management
+            session['username'] = username
             return redirect(url_for("home"))
         else:
             return render_template("views/login.html", message="Invalid credentials. Please try again.")
 
     return render_template("views/login.html")
 
-# Dummy logout route
 @app.route("/logout", methods=["POST"])
 def logout():
     # Perform logout actions here
-    return "Logged out successfully"
+    session.pop('username', None)  # Remove the user from the session
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)
