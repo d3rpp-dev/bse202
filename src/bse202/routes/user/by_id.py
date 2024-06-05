@@ -9,7 +9,7 @@ from .blueprint import user_blueprint
 from ...db import get_db
 
 
-@user_blueprint.get("/<user_id>")
+@user_blueprint.get("/<ulid:user_id>")
 def user_home(user_id: str):
     # If the username is in all caps (like it can be in some cases)
     # redirect the user to this endpoint but lowercase

@@ -7,28 +7,39 @@ from .routes.auth import auth_blueprint
 from .routes.games import games_blueprint
 from .routes.user import user_blueprint
 
+from .user_id_matcher import ULIDConverter
+
 from flask import Flask, g
+from flask_wtf.csrf import CSRFProtect
+
 from os import environ
 
+
 app = Flask(__name__)
+app.config.update(
+    SECRET_KEY=environ.get("SECRET_KEY"),
+)
+csrf = CSRFProtect(app)
+
+app.url_map.converters["ulid"] = ULIDConverter
 
 
 def init_db():
     with app.app_context():
-        db = get_db()
+        database = get_db()
         with app.open_resource("schema.sql", mode="r") as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+            database.cursor().executescript(f.read())
+        database.commit()
         with app.open_resource("sample_data.sql", mode="r") as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+            database.cursor().executescript(f.read())
+        database.commit()
 
 
 @app.teardown_appcontext
 def close_db(_exception):
-    db = getattr(g, "_db", None)
-    if db is not None:
-        db.close()
+    database = getattr(g, "_db", None)
+    if database is not None:
+        database.close()
 
 
 # we can check ahead of time if the database exists and alert the server admin

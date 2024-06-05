@@ -7,14 +7,24 @@ Redirects to the homepage afterwards with the new token
 """
 
 from sqlite3 import Cursor, DatabaseError
-from flask import redirect, url_for, g, render_template, request, abort
+
+from flask import redirect, url_for, g, render_template, request
+from flask_wtf import FlaskForm
+
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError, Argon2Error
-from werkzeug.datastructures import ImmutableMultiDict
+
+from wtforms import StringField, PasswordField
+
 from .blueprint import auth_blueprint
 from ...db import get_db
 
 hasher = PasswordHasher()
+
+
+class LoginForm(FlaskForm):
+    username = StringField("username")
+    password = PasswordField("password")
 
 
 def validate_password(fetched_hash: str, password: str) -> bool:
@@ -71,43 +81,20 @@ def get_user_and_validate_hash(
         return None
 
 
-def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] | str:
-    """
-    Returns `str` if there is an error
-
-    Returns `(str, str)` if all is good (username, password)
-    """
-    username = dict.get("user")
-    password = dict.get("pass")
-
-    if username is None:
-        return "Missing Username"
-    elif password is None:
-        return "Missing Password"
-    else:
-        return (username, password)
-
-
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    login_form = LoginForm()
     if request.method == "POST":
-        maybe_form_data = get_valid_form_data(request.form)
+        if login_form.validate_on_submit():
+            username = login_form.username.data
+            password = login_form.password.data
 
-        if isinstance(maybe_form_data, str):
-            return render_template(
-                f"{g.template_prefix}auth/login.html",
-                error={
-                    "kind": "user",
-                    "code": "login_invalid_form_data",
-                    "message": maybe_form_data,
-                },
-            ), 400
-        else:
-            (username, password) = maybe_form_data
-            db_cursor = get_db().cursor()
+            db = get_db()
 
             try:
-                loaded_user = get_user_and_validate_hash(db_cursor, username, password)
+                loaded_user = get_user_and_validate_hash(
+                    cursor=db.cursor(), username=username, password=password
+                )
                 if loaded_user is None:
                     return render_template(
                         f"{g.template_prefix}auth/login.html",
@@ -133,7 +120,6 @@ def login():
 
             except Argon2Error as ex:
                 # all other cases have been handled
-                db_cursor.close()
                 return render_template(
                     f"{g.template_prefix}auth/login.html",
                     error={
@@ -143,4 +129,11 @@ def login():
                     },
                 ), 500
 
-    return render_template(f"{g.template_prefix}auth/login.html"), 200
+        else:
+            return render_template(
+                f"{g.template_prefix}auth/login.html", login_form=login_form
+            ), 200
+    else:
+        return render_template(
+            f"{g.template_prefix}auth/login.html", login_form=login_form
+        ), 200

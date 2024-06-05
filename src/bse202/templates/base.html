@@ -18,11 +18,10 @@
 		Code: {{error.code}}
 		Message: {{error.message}}
 		</pre>
+	{% else %}
+		<body>
+			{% block content %}
+		</body>
 	{% endif %}
-
-	<body>
-		{% block content %}
-	</body>
-
 	{% endblock %}
 </html>

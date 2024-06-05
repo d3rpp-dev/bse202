@@ -12,11 +12,24 @@
 		{% endif %}
 
 		<form action="{{ url_for('auth.signup') }}" method="post">
-			<label for="user">Username</label>
-			<input id="user" name="user" type="text">
-			<label for="pass">Password</label>
-			<input id="pass" name="pass" type="password">
-			<input type="submit">
+			{{ signup_form.csrf_token }}
+			{{ signup_form.username.label }} {{ signup_form.username }}
+			{% if signup_form.username.errors %}
+				<ul>
+					{% for error in signup_form.username.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			{{ signup_form.password.label }} {{ signup_form.password }}
+			{% if signup_form.password.errors %}
+				<ul>
+					{% for error in signup_form.password.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			<input type="submit" value="Sign Up">
 		</form>
 	</main>
 {% endblock %}

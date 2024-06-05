@@ -18,3 +18,7 @@ wheels/
 
 # SQLite Database
 database.db
+
+# jetbrains fleet stuff
+# just here because im trying fleet
+.idea

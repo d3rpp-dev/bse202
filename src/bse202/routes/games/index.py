@@ -31,8 +31,6 @@ def games_root():
             description
         FROM
             games
-        LIMIT
-            20
         """
         games_list_result: list[tuple[int, str, str]] = db.execute(query).fetchall()
     except DatabaseError as ex:

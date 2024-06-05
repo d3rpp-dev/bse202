@@ -14,7 +14,7 @@ Prefix: `/games`
 from .blueprint import games_blueprint
 from .index import games_root
 from .storepage import game_store_page
-from .storepage_reviews import game_storepage_reviews
+from .snippets import game_storepage_reviews
 from .library_section import library_section
 
 __all__ = ["games_blueprint"]

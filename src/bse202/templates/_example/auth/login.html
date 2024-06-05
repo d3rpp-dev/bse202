@@ -30,11 +30,25 @@
 		{% endif %}
 
 		<form action="{{ url_for('auth.login') }}" method="post">
-			<label for="user">Username</label>
-			<input id="user" name="user" type="text" />
-			<label for="pass">Password</label>
-			<input id="pass" name="pass" type="password" />
-			<input type="submit" />
+			{{ login_form.csrf_token }}
+			{{ login_form.username.label }} {{ login_form.username }}
+			{% if login_form.username.errors %}
+				<ul>
+					{% for error in login_form.username.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			{{ login_form.password.label }} {{ login_form.password }}
+			{% if login_form.password.errors %}
+				<ul>
+					{% for error in login_form.password.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			<input type="submit" value="Login">
 		</form>
+
 	</main>
 {% endblock %}

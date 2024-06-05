@@ -7,11 +7,17 @@ Redirects to the homepage afterwards with the new token
 """
 
 from flask import redirect, url_for, request, render_template, g
-from werkzeug.datastructures import ImmutableMultiDict
+from flask_wtf import FlaskForm
+
 from sqlite3 import Connection, Cursor, DatabaseError
+
 from ulid import ulid
+
 from time import time
+
 from argon2 import PasswordHasher
+
+from wtforms import StringField, PasswordField
 
 from .blueprint import auth_blueprint
 from ...db import get_db
@@ -19,21 +25,9 @@ from ...db import get_db
 hasher = PasswordHasher()
 
 
-def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] | str:
-    """
-    Returns `str` if there is an error
-
-    Returns `(str, str)` if all is good (username, password)
-    """
-    username = dict.get("user")
-    password = dict.get("pass")
-
-    if username is None:
-        return "Missing Username"
-    elif password is None:
-        return "Missing Password"
-    else:
-        return (username, password)
+class SignUpForm(FlaskForm):
+    username = StringField("username")
+    password = PasswordField("password")
 
 
 def is_username_available(db: Connection, username: str) -> dict | None:
@@ -112,65 +106,59 @@ def save_password(cursor: Cursor, user_id: str, password: str):
             )
     """
 
-    insertion_result_cursor = cursor.execute(
+    cursor.execute(
         query,
         [user_id, hashed_password],
     )
 
-    print(insertion_result_cursor.fetchall())
-
 
 @auth_blueprint.route("/signup", methods=["GET", "POST"])
 def signup():
+    signup_form = SignUpForm()
     if request.method == "POST":
         # Request is a POST request from the form.
-        db = get_db()
+        if signup_form.validate_on_submit():
+            username = signup_form.username.data
+            password = signup_form.password.data
+            db = get_db()
 
-        maybe_valid_data = get_valid_form_data(request.form)
+            maybe_error = is_username_available(db, username)
+            if maybe_error is not None:
+                return render_template(
+                    f"{g.template_prefix}auth/signup.html", error=maybe_error
+                ), 400
 
-        if isinstance(maybe_valid_data, str):
-            return render_template(
-                f"{g.template_prefix}auth/signup.html",
-                error={
-                    "kind": "missing",
-                    "code": "signup_invalid_form_data",
-                    "message": maybe_valid_data,
-                },
-            ), 400
+            user_id = ulid()
 
-        (username, password) = maybe_valid_data
+            # try/catch here incase the DB operation fails,
+            # will cause a database rollback
+            try:
+                db_cursor = db.cursor()
+                save_user(db_cursor, user_id, username)
+                save_password(db_cursor, user_id, password)
+                db.commit()
+            except DatabaseError:
+                db.rollback()
+                db_cursor.close()
+                return "Database Error", 500
 
-        maybe_error = is_username_available(db, username)
-        if maybe_error is not None:
-            return render_template(
-                f"{g.template_prefix}auth/signup.html", error=maybe_error
-            ), 400
-
-        user_id = ulid()
-
-        # try/catch here incase the DB operation fails,
-        # will cause a database rollback
-        try:
-            db_cursor = db.cursor()
-            save_user(db_cursor, user_id, username)
-            save_password(db_cursor, user_id, password)
-            db.commit()
-        except DatabaseError:
-            db.rollback()
             db_cursor.close()
-            return "Database Error", 500
 
-        db_cursor.close()
+            if "token" not in g:
+                g.token = {}
 
-        if "token" not in g:
-            g.token = {}
+            g.token["user_id"] = user_id
+            g.token["username"] = username
+            g.token["account_type"] = "user"
+            g.refresh = True
 
-        g.token["user_id"] = user_id
-        g.token["username"] = username
-        g.token["account_type"] = "user"
-        g.refresh = True
-
-        return redirect(url_for("root.index"))
+            return redirect(url_for("root.index"))
+        else:
+            return render_template(
+                f"{g.template_prefix}auth/signup.html", signup_form=signup_form
+            ), 400
     else:
         # Request is a GET request
-        return render_template(f"{g.template_prefix}auth/signup.html")
+        return render_template(
+            f"{g.template_prefix}auth/signup.html", signup_form=signup_form
+        )

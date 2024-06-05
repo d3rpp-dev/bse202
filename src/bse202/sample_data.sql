@@ -53,3 +53,9 @@ VALUES
 	(2, 1), -- Team Fortress 2 > FPS
 	(2, 2) -- Team Fortress 2 > Online
 ;
+
+INSERT INTO
+	`purchases` (`user_id`, `game_id`, `purchased_at`)
+VALUES
+	('01hxz91jcfwgkeywswrqckmv4g', 1, 1717451758), -- test_user "purchased" Valorant
+	('01hxz91jcfwgkeywswrqckmv4g', 2, 1717451758) --  test_user "purchased" Team Fortress 2

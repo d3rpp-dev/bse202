@@ -5,7 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <main id="user_page" style="{{ user_style_string }}">
-    	<h1>{{ user.username }}</h1>
-    </main>
+    {% if user is defined %}
+        <main id="user_page" style="{{ user_style_string }}">
+            <h1>{{ user.username }}</h1>
+
+
+            <div class="grid">
+                {% for game in library %}
+                    {{ game }}
+                {% endfor %}
+            </div>
+
+        </main>
+    {% endif %}
 {% endblock %}

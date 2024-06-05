@@ -76,8 +76,9 @@ DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE `purchases` (
 	`purchase_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_id` TEXT NOT NULL,
-	`game_id` TEXT NOT NULL,
+	`game_id` INTEGER NOT NULL,
 	`purchased_at` BIGINT NOT NULL,
+
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
