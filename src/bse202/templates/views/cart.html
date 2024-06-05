@@ -14,38 +14,43 @@
     {% include 'elements/header.html' %}
     
     <div class="container">
-        <h1>Your Shopping Cart</h1>
-        <div class="cart-items">
-            {% if cart %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in cart %}
+        <div class="cart-wrapper">
+            <h1>Your Shopping Cart</h1>
+            <div class="cart-items">
+                {% if cart %}
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>${{ item.price }}</td>
-                                <td>${{ item.total }}</td>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p>Your cart is empty.</p>
-            {% endif %}
-        </div>
-        <div class="cart-summary">
-            <h2>Cart Summary</h2>
-            <p>Total items: {{ cart_summary.total_items }}</p>
-            <p>Total price: ${{ cart_summary.total_price }}</p>
-            <button class="btn">Checkout</button>
+                        </thead>
+                        <tbody>
+                            {% for item in cart %}
+                                <tr>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>${{ item.price }}</td>
+                                    <td>${{ item.total }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Your cart is empty.</p>
+                {% endif %}
+            </div>
+            <div class="cart-summary">
+                <h2>Cart Summary</h2>
+                <p>Total items: {{ cart_summary.total_items }}</p>
+                <p>Total price: ${{ cart_summary.total_price }}</p>
+                <div class="button-group">
+                    <a href="{{ url_for('store') }}" class="btn-secondary">Keep Shopping</a>
+                    <button class="btn">Checkout</button>
+                </div>
+            </div>
         </div>
     </div>
 
