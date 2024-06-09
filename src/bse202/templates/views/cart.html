@@ -48,7 +48,7 @@
                 <p>Total price: ${{ cart_summary.total_price }}</p>
                 <div class="button-group">
                     <a href="{{ url_for('store') }}" class="btn-secondary">Keep Shopping</a>
-                    <button class="btn">Checkout</button>
+                    <a href="{{ url_for('checkout') }}" class="btn">Checkout</a>
                 </div>
             </div>
         </div>

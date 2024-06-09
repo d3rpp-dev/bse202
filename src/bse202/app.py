@@ -78,6 +78,14 @@ def store():
 def account():
     return render_template("views/account.html")
 
+@app.route('/checkout')
+def checkout():
+    cart_summary = {
+        "total_items": sum(item["quantity"] for item in cart_items),
+        "total_price": sum(item["total"] for item in cart_items)
+    }
+    return render_template('views/checkout.html', cart_summary=cart_summary)
+
 @app.route("/cart")
 def cart():
     cart_summary = {

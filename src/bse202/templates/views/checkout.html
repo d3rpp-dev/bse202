@@ -1,0 +1,53 @@
+<!-- your_project/templates/views/checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='checkout.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Include header -->
+    {% include 'elements/header.html' %}
+    
+    <div class="container">
+        <div class="checkout-wrapper">
+            <h1>Checkout</h1>
+            <div class="checkout-items">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.price }}</td>
+                                <td>${{ item.total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <p>Total items: {{ cart_summary.total_items }}</p>
+                <p>Total price: ${{ cart_summary.total_price }}</p>
+                <button class="btn">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include footer -->
+    {% include 'elements/footer.html' %}
+</body>
+</html>
