@@ -86,6 +86,18 @@ def checkout():
     }
     return render_template('views/checkout.html', cart_summary=cart_summary)
 
+@app.route('/payment', methods=['GET', 'POST'])
+def payment():
+    if request.method == 'POST':
+        # Handle payment form submission here
+        # This function will be responsible for processing the payment details
+
+        # For now, let's redirect to the payment page
+        return redirect(url_for('payment'))
+
+    # If it's a GET request, just render the payment page
+    return render_template('views/payment.html')
+
 @app.route("/cart")
 def cart():
     cart_summary = {
