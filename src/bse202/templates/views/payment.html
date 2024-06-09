@@ -1,3 +1,4 @@
+<!-- your_project/templates/views/payment.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
 
     <div class="container">
         <h1>Payment Details</h1>
-        <form action="#" method="post">
+        <form action="{{ url_for('payment') }}" method="post">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
                 <input type="text" id="card_number" name="card_number" placeholder="Enter card number">
@@ -27,7 +28,7 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" name="cvv" placeholder="CVV">
             </div>
-            <button type="submit" class="btn">Pay Now</button>
+            <button type="submit" class="btn" name="pay_now">Pay Now</button>
         </form>
     </div>
 

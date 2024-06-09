@@ -19,6 +19,12 @@ cart_items = [
     {"name": "Item 2", "quantity": 1, "price": 15.0, "total": 15.0}
 ]
 
+# Dummy payment details
+payment_details = {
+    "payment_method": "Credit Card",
+    "total_price": sum(item["total"] for item in cart_items)
+}
+
 # Sample data for store inventory
 products = {
     'action_games': [
@@ -88,15 +94,31 @@ def checkout():
 
 @app.route('/payment', methods=['GET', 'POST'])
 def payment():
+    global payment_details
+    
     if request.method == 'POST':
-        # Handle payment form submission here
-        # This function will be responsible for processing the payment details
-
-        # For now, let's redirect to the payment page
+        # Handle form submission and update payment details
+        payment_details['card_number'] = request.form.get('card_number')
+        payment_details['expiry_date'] = request.form.get('expiry_date')
+        payment_details['cvv'] = request.form.get('cvv')
+        
+        # Process payment (dummy logic)
+        # For now, let's just assume payment is successful
+        
+        # Redirect to order summary page
         return redirect(url_for('payment'))
-
+    
     # If it's a GET request, just render the payment page
-    return render_template('views/payment.html')
+    return render_template('views/payment.html', payment_details=payment_details)
+
+
+@app.route("/order_summary")
+def order_summary():
+    cart_summary = {
+        "total_items": sum(item["quantity"] for item in cart_items),
+        "total_price": sum(item["total"] for item in cart_items)
+    }
+    return render_template("views/order_summary.html", cart=cart_items, cart_summary=cart_summary, payment_details=payment_details)
 
 @app.route("/cart")
 def cart():
