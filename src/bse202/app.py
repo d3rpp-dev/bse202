@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+
+import re
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for session management
@@ -19,8 +21,11 @@ cart_items = [
     {"name": "Item 2", "quantity": 1, "price": 15.0, "total": 15.0}
 ]
 
-# Dummy payment details
+# Define global variables
 payment_details = {
+    'card_number': None,
+    'expiry_date': None,
+    'cvv': None,
     "payment_method": "Credit Card",
     "total_price": sum(item["total"] for item in cart_items)
 }
@@ -64,6 +69,11 @@ products = {
     ]
 }
 
+# Define regex patterns
+card_number_regex = re.compile(r'^\d{16}$')
+expiry_date_regex = re.compile(r'^(0[1-9]|1[0-2])\/([0-9]{4})$')
+cvv_regex = re.compile(r'^\d{3,4}$')
+
 @app.route("/")
 def home():
     return render_template("views/home.html")
@@ -95,22 +105,51 @@ def checkout():
 @app.route('/payment', methods=['GET', 'POST'])
 def payment():
     global payment_details
-    
+
     if request.method == 'POST':
-        # Handle form submission and update payment details
-        payment_details['card_number'] = request.form.get('card_number')
-        payment_details['expiry_date'] = request.form.get('expiry_date')
-        payment_details['cvv'] = request.form.get('cvv')
+        # Handle form submission and validate payment details
+        card_number = request.form.get('card_number', '').strip()
+        expiry_date = request.form.get('expiry_date', '').strip()
+        cvv = request.form.get('cvv', '').strip()
+
+        # Ensure the inputs are strings (they should be if coming from form)
+        if not isinstance(card_number, str):
+            flash('Invalid card number format.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
+        if not isinstance(expiry_date, str):
+            flash('Invalid expiry date format.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
+        if not isinstance(cvv, str):
+            flash('Invalid CVV format.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
+
+        # Validate card number
+        if not card_number_regex.match(card_number):
+            flash('Invalid card number. Please enter a valid 16-digit card number.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
+
+        # Validate expiry date
+        if not expiry_date_regex.match(expiry_date):
+            flash('Invalid expiry date. Please enter a valid date in MM/YYYY format.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
+
+        # Validate CVV
+        if not cvv_regex.match(cvv):
+            flash('Invalid CVV. Please enter a valid 3 or 4-digit CVV number.', 'error')
+            return render_template('views/payment.html', payment_details=payment_details)
         
-        # Process payment (dummy logic)
-        # For now, let's just assume payment is successful
+        # If all validations pass, update payment details
+        payment_details['card_number'] = card_number
+        payment_details['expiry_date'] = expiry_date
+        payment_details['cvv'] = cvv
         
-        # Redirect to order summary page
-        return redirect(url_for('payment'))
-    
+        # Dummy payment processing logic
+        # For now, let's assume the payment is successful
+        # Redirect to order summary page after successful payment
+        return redirect(url_for('order_summary'))
+
     # If it's a GET request, just render the payment page
     return render_template('views/payment.html', payment_details=payment_details)
-
 
 @app.route("/order_summary")
 def order_summary():
