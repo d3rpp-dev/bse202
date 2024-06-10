@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"/>
+    <style>
+        .top-up-button-child {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          margin: 0 !important;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          border-radius: 0 0 30px 70px;
+          background-color: #9290c3;
+        }
+        .top-up {
+          position: relative;
+          display: inline-block;
+          min-width: 112px;
+          z-index: 1;
+        }
+        .top-up-button {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding: 26px 69px;
+          position: relative;
+          white-space: nowrap;
+          border-radius: 0 0 30px 70px;
+          background-color: #9290c3;
+        }
+        .home-button-child {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          margin: 0 !important;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          border-radius: 0 0 30px 30px;
+          background-color: #9290c3;
+        }
+        .home {
+          position: relative;
+          display: inline-block;
+          min-width: 96px;
+          z-index: 1;
+        }
+        .home-button {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding: 26px 77px;
+          position: relative;
+          border-radius: 0 0 30px 30px;
+          background-color: #9290c3;
+        }
+        .logout-button-child {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          margin: 0 !important;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          border-radius: 0 0 70px 30px;
+          background-color: #9290c3;
+        }
+        .logout {
+          position: relative;
+          display: inline-block;
+          min-width: 109px;
+          z-index: 1;
+        }
+        .logout-button {
+          justify-content: flex-start;
+          padding: 26px 70px;
+          position: relative;
+          border-radius: 0 0 70px 30px;
+          background-color: #9290c3;
+        }
+        .nav-buttons,
+        .nav-buttons-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          max-width: 100%;
+        }
+        .nav-buttons button{
+          margin: 0;
+          justify-content: flex-start;
+          gap: 5px;
+          text-align: left;
+          font-size: 32px;
+          color:white;
+          font-family: Poppins;
+        }
+        .nav-buttons-wrapper {
+          width: 1100px;
+          justify-content: center;
+          padding: 0 20px;
+          box-sizing: border-box;
+        }
+
+        .profile-page {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start;
+          flex-direction: column;
+          width: 100%;
+          position: relative;
+          background-color: #535c91;
+          overflow: hidden;
+          padding: 0 0 110px 170px;
+          box-sizing: border-box;
+          gap: 97px;
+          line-height: normal;
+          letter-spacing: normal;
+        }
+          .nav-buttons button :hover
+        {
+          background-color: #1B1A55;
+        }
+        .messages
+        {
+          position: fixed;
+          background: rgba(0, 0, 0, 0.5);
+          display: none;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          align-items: center;
+          justify-content: center;
+        }
+        .messages .cancel,
+        .messages .approve,
+        .messages .topup,
+        .messages .detail,
+        .messages .game,
+        .messages .game-detail
+        {
+          display: none;
+          width: 900px;
+          height: 800px;
+          background-color:#1B1A55 ;
+          border-radius: 60px;
+        }
+        .close
+        {
+          display:flex;
+          padding-top: 30px;
+          padding-right: 30px;
+          justify-content: end;
+        }
+        .close svg,
+        .arrow
+        {
+          cursor: pointer;
+        }
+        .closebutton:hover
+        path,
+        .arrow:hover 
+        rect,
+        .topup-purchase-button:hover
+        rect,
+        .arrow:hover
+        path,
+        .game-purchase-button:hover
+        rect
+        {
+          fill: #535C91;
+        }
+        .main
+        {
+          padding: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .sign
+        { 
+          display: contents;
+          align-items: center;
+          justify-content: center;
+        }
+        .done,
+        .continue,
+        .topup-purchase,
+        .pb,
+        .game-purchase
+        {
+          display: flex;
+          justify-content: center;
+        }
+        .done-button
+        {
+          background-color:#9290C3 ;
+          border-radius: 34px;
+          width: 100px;
+          height: 100px;
+          cursor: pointer;
+        }
+        .done-button:hover,
+        .purchase-button:hover
+        {
+          background-color:#535C91 ;
+        }
+        .topup-list
+        {
+          font-size: 24px;
+          color: white;
+          font-family: Poppins;
+          width: 600px;
+          height: 350px;
+          margin-left: 100px;
+          margin-top: 150px;
+        }
+        .topup-detail
+        { 
+          margin-left: 100px;
+          font-size: 24px;
+          color: white;
+          font-family: Poppins;
+          width: 600px;
+          margin-left: 200px;
+          height: 450px;
+          margin-top: 100px;
+        }
+        .topup-detail p
+        {
+          margin: 20px;
+        }
+        .topup-value input[type="radio"]
+        {
+          display: none;
+        }
+        .topup-info
+        {
+          margin-left: 40px;
+        }
+        .topup-info p
+        {
+          margin: 0x;
+        }
+        .radio
+        {
+          display: inline-flex;
+          width: 60px; 
+          height: 60px;
+          border-radius: 100%;
+          background-color: #9290C3;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+          line-height: 40px;
+          cursor: pointer;
+          margin-left: 30px;
+        }
+        .topup-value input[type="radio"]:checked + .radio {
+          background-color: #5F3B51;
+          color: white;
+        }
+        .topup-method
+        {
+          margin-top: 40px;
+        }
+        .topup-method input[type="radio"] {
+          transform: scale(2.5);
+          margin-left: 20px;
+          margin-right: 15px;
+        }
+        .purchase-button
+        {
+          width: 150px;
+          height: 50px;
+          border-radius: 30px;
+          background-color:#9290C3 ;
+          color: white;
+          font-family: Poppins;
+          font-size: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="profile-page">
+      <div class="nav-buttons-wrapper">
+        <nav class="nav-buttons">
+          <button class="top-up-button" onclick="message('topup')">
+            <div class="top-up-button-child"></div>
+            <div class="top-up">Top Up</div>
+          </button>
+          <button class="home-button" onclick="message('game')">
+            <div class="home-button-child"></div>
+            <div class="home">Home</div>
+          </button>
+          <button class="logout-button" onclick="">
+            <div class="logout-button-child"></div>
+            <div class="logout">Logout</div>
+          </button>
+        </nav>
+      </div>
+    </div>
+    <div class="messages"id="message">
+      
+      <div class="topup" id="topup">
+        <div class="close">
+          <svg  class="closebutton"width="43" height="42"  fill="none" xmlns="http://www.w3.org/2000/svg" id="closetopup">
+            <circle cx="22" cy="21" r="15" fill="white"/>
+            <path fill="#9290C3"  d="M21.5 0C9.6535 0 0 9.41387 0 20.9663C0 32.5187 9.6535 41.9326 21.5 41.9326C33.3465 41.9326 43 32.5187 43 20.9663C43 9.41387 33.3465 0 21.5 0ZM28.724 25.7886C29.3475 26.3966 29.3475 27.403 28.724 28.011C28.4015 28.3255 27.993 28.4722 27.5845 28.4722C27.176 28.4722 26.7675 28.3255 26.445 28.011L21.5 23.1887L16.555 28.011C16.2325 28.3255 15.824 28.4722 15.4155 28.4722C15.007 28.4722 14.5985 28.3255 14.276 28.011C13.6525 27.403 13.6525 26.3966 14.276 25.7886L19.221 20.9663L14.276 16.1441C13.6525 15.536 13.6525 14.5297 14.276 13.9216C14.8995 13.3136 15.9315 13.3136 16.555 13.9216L21.5 18.7439L26.445 13.9216C27.0685 13.3136 28.1005 13.3136 28.724 13.9216C29.3475 14.5297 29.3475 15.536 28.724 16.1441L23.779 20.9663L28.724 25.7886Z" />
+          </svg>
+        </div>
+        <div class="topup-list">
+          <div class="topup-value">
+            <p>Top Up Option:</p>
+            <form id="topup-value">
+              <input type="radio" id="5dollar" name="amount" value="5">
+              <label class="radio" for="5dollar">$5</label>
+              <input type="radio" id="10dollar" name="amount" value="10">
+              <label class="radio" for="10dollar">$10</label>
+              <input type="radio" id="25dollar" name="amount" value="25">
+              <label class="radio" for="25dollar">$25</label>
+              <input type="radio" id="50dollar" name="amount" value="50">
+              <label class="radio" for="50dollar">$50</label>
+              <input type="radio" id="100dollar" name="amount" value="100">
+              <label class="radio" for="100dollar">$100</label>
+            </form>
+          </div>
+          <div class="topup-method">
+            <p>Payment Method:</p>
+            <form action="" method="post">
+              <input type="Radio" name="payment">
+              <label>Credit Card</label><br>
+              <br>
+              <input type="Radio" name="payment">
+              <label>Voucher</label><br>
+            </form>
+          </div>
+        </div>
+        <div class="continue">
+          <svg class="arrow" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" id="continuetopup">
+            <rect width="100" height="100" rx="34" fill="#9290C3"/>
+            <path d="M31 49.5178H69.5788M69.5788 49.5178L51.061 31M69.5788 49.5178L51.061 68.0356" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>              
+        </div>
+      </div>
+      
+      <div class="detail" id="detail">
+        <div class="close">
+          <svg  class="closebutton"width="43" height="42"  fill="none" xmlns="http://www.w3.org/2000/svg" id="closedetail">
+            <circle cx="22" cy="21" r="15" fill="white"/>
+            <path fill="#9290C3"  d="M21.5 0C9.6535 0 0 9.41387 0 20.9663C0 32.5187 9.6535 41.9326 21.5 41.9326C33.3465 41.9326 43 32.5187 43 20.9663C43 9.41387 33.3465 0 21.5 0ZM28.724 25.7886C29.3475 26.3966 29.3475 27.403 28.724 28.011C28.4015 28.3255 27.993 28.4722 27.5845 28.4722C27.176 28.4722 26.7675 28.3255 26.445 28.011L21.5 23.1887L16.555 28.011C16.2325 28.3255 15.824 28.4722 15.4155 28.4722C15.007 28.4722 14.5985 28.3255 14.276 28.011C13.6525 27.403 13.6525 26.3966 14.276 25.7886L19.221 20.9663L14.276 16.1441C13.6525 15.536 13.6525 14.5297 14.276 13.9216C14.8995 13.3136 15.9315 13.3136 16.555 13.9216L21.5 18.7439L26.445 13.9216C27.0685 13.3136 28.1005 13.3136 28.724 13.9216C29.3475 14.5297 29.3475 15.536 28.724 16.1441L23.779 20.9663L28.724 25.7886Z" />
+          </svg>
+        </div>
+        <div class="topup-detail">
+          <p>Transaction details:</p>
+          <div class="topup-info">
+            {% if topup_detail %}
+            <p>Name: {{ topup_detail.name }}</p></p>
+            {% endif %}
+            <p id="money"></p>
+            <p id="date"></p>
+          </div>
+          <p>Balance before Transaction : $</p>
+          <p>Balance after Transaction : $</p>
+          <P>Would you like to continue transaction?</P>
+        </div>
+        <div class="topup-purchase">
+          <svg class="topup-purchase-button" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" id="approvetopup">
+            <rect width="100" height="100" rx="34" fill="#9290C3"/>
+            <path d="M71.178 35.2451C70.5337 34.5878 69.4786 34.5772 68.8212 35.2215L42.7991 61.2437L31.178 49.6226C30.53 48.9874 29.4932 48.9874 28.8453 49.6226C28.1879 50.2667 28.1773 51.3218 28.8215 51.9791L41.6209 64.7786C41.933 65.0917 42.3572 65.2675 42.7993 65.2669C43.2414 65.2673 43.6654 65.0915 43.9775 64.7786L71.178 37.5781C71.8132 36.9301 71.8132 35.8931 71.178 35.2451Z" fill="white"/>
+            </svg>              
+        </div>
+      </div>
+
+      <div class="game" id="game">
+        <div class="close">
+          <svg  class="closebutton"width="43" height="42"  fill="none" xmlns="http://www.w3.org/2000/svg" id="closegame">
+            <circle cx="22" cy="21" r="15" fill="white"/>
+            <path fill="#9290C3"  d="M21.5 0C9.6535 0 0 9.41387 0 20.9663C0 32.5187 9.6535 41.9326 21.5 41.9326C33.3465 41.9326 43 32.5187 43 20.9663C43 9.41387 33.3465 0 21.5 0ZM28.724 25.7886C29.3475 26.3966 29.3475 27.403 28.724 28.011C28.4015 28.3255 27.993 28.4722 27.5845 28.4722C27.176 28.4722 26.7675 28.3255 26.445 28.011L21.5 23.1887L16.555 28.011C16.2325 28.3255 15.824 28.4722 15.4155 28.4722C15.007 28.4722 14.5985 28.3255 14.276 28.011C13.6525 27.403 13.6525 26.3966 14.276 25.7886L19.221 20.9663L14.276 16.1441C13.6525 15.536 13.6525 14.5297 14.276 13.9216C14.8995 13.3136 15.9315 13.3136 16.555 13.9216L21.5 18.7439L26.445 13.9216C27.0685 13.3136 28.1005 13.3136 28.724 13.9216C29.3475 14.5297 29.3475 15.536 28.724 16.1441L23.779 20.9663L28.724 25.7886Z" />
+          </svg>
+        </div>
+        <div>
+          <div class="game-image">
+
+          </div>
+          <div class="game-info">
+
+          </div>
+        </div>
+        <div class="pb">
+          <button  class="purchase-button" onclick="change('game','game-detail')">Purchase</button>
+        </div>
+      </div>
+
+      <div class="game-detail" id="game-detail">
+        <div class="close">
+          <svg  class="closebutton"width="43" height="42"  fill="none" xmlns="http://www.w3.org/2000/svg" id="closegame-detail">
+            <circle cx="22" cy="21" r="15" fill="white"/>
+            <path fill="#9290C3"  d="M21.5 0C9.6535 0 0 9.41387 0 20.9663C0 32.5187 9.6535 41.9326 21.5 41.9326C33.3465 41.9326 43 32.5187 43 20.9663C43 9.41387 33.3465 0 21.5 0ZM28.724 25.7886C29.3475 26.3966 29.3475 27.403 28.724 28.011C28.4015 28.3255 27.993 28.4722 27.5845 28.4722C27.176 28.4722 26.7675 28.3255 26.445 28.011L21.5 23.1887L16.555 28.011C16.2325 28.3255 15.824 28.4722 15.4155 28.4722C15.007 28.4722 14.5985 28.3255 14.276 28.011C13.6525 27.403 13.6525 26.3966 14.276 25.7886L19.221 20.9663L14.276 16.1441C13.6525 15.536 13.6525 14.5297 14.276 13.9216C14.8995 13.3136 15.9315 13.3136 16.555 13.9216L21.5 18.7439L26.445 13.9216C27.0685 13.3136 28.1005 13.3136 28.724 13.9216C29.3475 14.5297 29.3475 15.536 28.724 16.1441L23.779 20.9663L28.724 25.7886Z" />
+          </svg>
+        </div>
+        <div>
+          <h1 id="game-info">TEST</h1>
+        </div>
+        <div class="game-purchase">
+          <svg class="game-purchase-button" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" id="approvegame">
+            <rect width="100" height="100" rx="34" fill="#9290C3"/>
+            <path d="M71.178 35.2451C70.5337 34.5878 69.4786 34.5772 68.8212 35.2215L42.7991 61.2437L31.178 49.6226C30.53 48.9874 29.4932 48.9874 28.8453 49.6226C28.1879 50.2667 28.1773 51.3218 28.8215 51.9791L41.6209 64.7786C41.933 65.0917 42.3572 65.2675 42.7993 65.2669C43.2414 65.2673 43.6654 65.0915 43.9775 64.7786L71.178 37.5781C71.8132 36.9301 71.8132 35.8931 71.178 35.2451Z" fill="white"/>
+            </svg>              
+        </div>
+      </div>
+
+      <div class="cancel" id ="cancel">
+        <div class="main">
+          <div class="sign">
+            <svg width="455" height="404" viewBox="0 0 455 404" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M449.879 347.198C464.46 372.443 446.158 404 417.036 404H37.9595C8.78188 404 -9.43549 372.394 5.1166 347.198L194.657 18.9257C209.245 -6.33143 245.781 -6.28567 260.343 18.9257L449.879 347.198ZM227.5 279.328C207.432 279.328 191.163 295.579 191.163 315.625C191.163 335.671 207.432 351.922 227.5 351.922C247.568 351.922 263.837 335.671 263.837 315.625C263.837 295.579 247.568 279.328 227.5 279.328ZM193.002 148.86L198.861 256.172C199.135 261.194 203.292 265.125 208.326 265.125H246.674C251.708 265.125 255.865 261.194 256.139 256.172L261.999 148.86C262.295 143.436 257.972 138.875 252.534 138.875H202.466C197.028 138.875 192.705 143.436 193.002 148.86Z" fill="#9290C3"/>
+            </svg>
+            <h2 style=" color: white;text-align: center;font-size: 40px;font-family: Poppins;">Transaction is terminated!</h2>
+          </div>
+        </div>
+        <div class="done">
+          <button class="done-button" style=" color: white;text-align: center;font-size: 24px;font-family: Poppins;" onclick="done('cancel')">
+            Done
+          </button>
+        </div>
+      </div>
+
+      <div class="approve" id="approve">
+        <div class="main">
+          <div class="sign">
+            <svg width="372" height="363" viewBox="0 0 372 363" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M363.746 158.637L338.448 129.967C333.612 124.523 329.706 114.362 329.706 107.104V76.2563C329.706 57.0221 313.523 41.2355 293.805 41.2355H262.184C254.929 41.2355 244.326 37.425 238.746 32.7072L209.356 8.02936C196.522 -2.67645 175.502 -2.67645 162.482 8.02936L133.277 32.8886C127.697 37.425 117.094 41.2355 109.84 41.2355H77.6597C57.9425 41.2355 41.7595 57.0221 41.7595 76.2563V107.285C41.7595 114.362 37.8533 124.523 33.203 129.967L8.09149 158.818C-2.69716 171.339 -2.69716 191.662 8.09149 204.182L33.203 233.033C37.8533 238.477 41.7595 248.638 41.7595 255.715V286.744C41.7595 305.978 57.9425 321.764 77.6597 321.764H109.84C117.094 321.764 127.697 325.575 133.277 330.293L162.668 354.971C175.502 365.676 196.522 365.676 209.542 354.971L238.932 330.293C244.512 325.575 254.929 321.764 262.37 321.764H293.991C313.709 321.764 329.892 305.978 329.892 286.744V255.896C329.892 248.82 333.798 238.477 338.634 233.033L363.932 204.363C374.72 191.843 374.72 171.157 363.746 158.637ZM263.3 147.205L173.456 234.848C170.852 237.388 167.318 238.84 163.598 238.84C159.877 238.84 156.343 237.388 153.739 234.848L108.724 190.936C103.329 185.674 103.329 176.964 108.724 171.702C114.118 166.439 123.046 166.439 128.441 171.702L163.598 205.996L243.582 127.971C248.977 122.709 257.905 122.709 263.3 127.971C268.694 133.233 268.694 141.943 263.3 147.205Z" fill="#9290C3"/>
+              </svg>              
+            <h2 style=" color: white;text-align: center;font-size: 40px;font-family: Poppins;">Transaction is successfully made!</h2>
+          </div>
+        </div>
+        <div class="done">
+          <form id="approval" action="none" method="post">
+            <input type="hidden" name="money" id="hiddenMoney">
+            <button type="submit" class="done-button" style=" color: white;text-align: center;font-size: 24px;font-family: Poppins;" onclick="done('approve')">
+              Done
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <script>
+        var type='none';
+        function message(id)
+        {
+          var selectedDisplay=document.getElementById(id)
+          var background=document.getElementById('message')
+          if(selectedDisplay.style.display === 'none')
+          {
+            background.style.display ='flex';
+            selectedDisplay.style.display ='block';
+            type=id;
+          }
+          else
+          {
+            background.style.display ='none';
+            selectedDisplay.style.display = 'none';
+          }
+        }
+        function change(current,next)
+        {
+          var currentDisplay=document.getElementById(current)
+          var nextDisplay=document.getElementById(next)
+          if(next=='game-detail')
+          {
+            
+          }
+          currentDisplay.style.display = 'none';
+          nextDisplay.style.display ='block';
+        }
+        function done(id)
+        {
+          var selectedDisplay=document.getElementById(id)
+          var background=document.getElementById('message')
+          if(type=='topup')
+          {
+            document.getElementById('approval').action=type
+            document.getElementById('hiddenMoney').value=document.getElementById('money').innerText
+            type='none'
+          }
+          if (type=='game') 
+          {
+            document.getElementById('approval').action=type
+            document.getElementById('hiddenMoney').value=document.getElementById('money').innerText
+            type='none'
+          }
+          selectedDisplay.style.display = 'none';
+          background.style.display ='none';
+        }
+        document.getElementById('closetopup').addEventListener('click', function() {
+        change('topup','cancel');});
+        document.getElementById('continuetopup').addEventListener('click', function() {
+          var money=document.querySelector('input[name="amount"]:checked');
+          var currentDate=new Date()
+          var date=currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+          document.getElementById('money').innerText = "Amount: $" + money.value
+          document.getElementById('date').innerText = "Date : " + date
+        change('topup','detail');});
+        document.getElementById('closedetail').addEventListener('click', function() {
+        change('detail','cancel');});
+        document.getElementById('approvetopup').addEventListener('click', function() {
+        change('detail','approve');});
+        document.getElementById('closegame').addEventListener('click', function() {
+        change('game','cancel');});
+        document.getElementById('closegame-detail').addEventListener('click', function() {
+        change('game-detail','cancel');});
+        document.getElementById('approvegame').addEventListener('click', function() {
+        change('game-detail','approve');});
+    </script>
+  </body>
+</html>

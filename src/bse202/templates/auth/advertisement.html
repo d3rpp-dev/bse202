@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .Ads{
+            text-align: center;
+        }
+        .buttons{
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> 
+</head>
+<body>
+    <div class="Ads">
+        <img width="700" height="350" id="Ads" alt="Ads" src="{{ url_for('static', filename='ads1.jpg') }}">
+        <div class="buttons">
+            <input type="radio" id="ads1" name="ads" onclick="SwapImage()">
+            <label for="ads1"></label>
+            <input type="radio" id="ads2" name="ads" onclick="SwapImage()">
+            <label for="ads2"></label>
+            <input type="radio" id="ads3" name="ads" onclick="SwapImage()">
+            <label for="ads3" ></label>
+        </div>
+        <script>
+            function SwapImage() {
+                var selectedImageId = document.querySelector('input[name="ads"]:checked').id;
+                var image = document.getElementById('Ads');
+                var imageName = selectedImageId + ".jpg";
+                image.src = "{{ url_for('static', filename='') }}" + imageName;//Change the path for images
+            }
+            function AutoSwap(){
+                var count=1;
+                setInterval(function() {
+                count = (count % 3) + 1;
+                var image = document.getElementById('Ads');
+                image.src = "{{ url_for('static', filename='') }}ads" + count + ".jpg"; //Change the path for images
+                document.getElementById('ads' + count).checked = true;
+            }, 6000); // Changing image every 6 seconds :D 
+            }
+            window.onload=AutoSwap();
+        </script>
+    </div>
+</body>
+</html>
+
