@@ -10,7 +10,7 @@
 </head>
 <body>
     <!-- Include header -->
-    {% include '/elements/header.html' %}
+    {% include 'elements/header.html' %}
 
     <div class="container store-container">
         <!-- Action Games -->
@@ -22,7 +22,10 @@
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <button class="btn">Add to Cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input type="hidden" name="product_name" value="{{ product.name }}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -43,7 +46,10 @@
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <button class="btn">Add to Cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input type="hidden" name="product_name" value="{{ product.name }}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -64,7 +70,10 @@
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <button class="btn">Add to Cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input type="hidden" name="product_name" value="{{ product.name }}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -85,7 +94,10 @@
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <button class="btn">Add to Cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input type="hidden" name="product_name" value="{{ product.name }}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -106,7 +118,10 @@
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <button class="btn">Add to Cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input type="hidden" name="product_name" value="{{ product.name }}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -120,7 +135,7 @@
     </div>
 
     <!-- Include footer -->
-    {% include '/elements/footer.html' %}
+    {% include 'elements/footer.html' %}
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>

@@ -15,11 +15,8 @@ users = {
     "jane": User("jane")
 }
 
-# Dummy cart data
-cart_items = [
-    {"name": "Item 1", "quantity": 2, "price": 10.0, "total": 20.0},
-    {"name": "Item 2", "quantity": 1, "price": 15.0, "total": 15.0}
-]
+# shopping cart
+cart_items = []
 
 # Define global variables
 payment_details = {
@@ -166,6 +163,26 @@ def cart():
         "total_price": sum(item["total"] for item in cart_items)
     }
     return render_template("views/cart.html", cart=cart_items, cart_summary=cart_summary)
+
+@app.route("/add_to_cart", methods=["POST"])
+def add_to_cart():
+    product_name = request.form.get("product_name")
+    # Assume a fixed price for simplicity, can modify to fetch price from the products data
+    price = 10.0
+    item = next((item for item in cart_items if item["name"] == product_name), None)
+    if item:
+        item["quantity"] += 1
+        item["total"] = item["quantity"] * item["price"]
+    else:
+        cart_items.append({"name": product_name, "quantity": 1, "price": price, "total": price})
+    return redirect(url_for("cart"))
+
+@app.route("/remove_from_cart", methods=["POST"])
+def remove_from_cart():
+    product_name = request.form.get("product_name")
+    global cart_items
+    cart_items = [item for item in cart_items if item["name"] != product_name]
+    return redirect(url_for("cart"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
