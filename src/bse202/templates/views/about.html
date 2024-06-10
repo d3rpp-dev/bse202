@@ -1,0 +1,50 @@
+{% include 'elements/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles specific to about page */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333; /* Default text color */
+            background-color: #535c91; /* Default background color */
+        }
+        .content {
+            padding: 40px 20px;
+            text-align: center;
+            color: #fff; /* Set text color to white */
+        }
+        .content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #fff; /* Set paragraph text color to white */
+        }
+    </style>
+</head>
+<body>
+    <div class="content container">
+        <h1>About Us</h1>
+        <p>Welcome to Our E-commerce Store! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat.</p>
+        
+        <h2>Our Story</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat.</p>
+        
+        <h2>Our Mission</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat.</p>
+        
+        <h2>Our Vision</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat.</p>
+    </div>
+    {% include 'elements/footer.html' %}
+</body>
+</html>
