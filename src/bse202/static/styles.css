@@ -1,6 +1,12 @@
 /* Typography */
 body {
     font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #535c91;
+    background-image: url('../static/media/css-pattern-by-magicpattern.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
 }
 
 h1 {
@@ -16,11 +22,6 @@ p {
 }
 
 /* Colors */
-body {
-    color: #333;
-    background-color: #535c91;
-}
-
 .header {
     background-color: #007bff;
     color: #fff;
@@ -124,4 +125,5 @@ a:hover {
 
 .btn:hover {
     background-color: #1B1A55;
+    transform: scale(1.1); /* Scale button to 110% on hover */
 }

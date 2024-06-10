@@ -167,7 +167,7 @@ def cart():
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     product_name = request.form.get("product_name")
-    # Assume a fixed price for simplicity, can modify to fetch price from the products data
+    # Assume a fixed price for simplicity, well modify to fetch price from the products data
     price = 10.0
     item = next((item for item in cart_items if item["name"] == product_name), None)
     if item:
