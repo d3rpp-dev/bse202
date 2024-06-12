@@ -2,10 +2,6 @@ from .db import check_db_exists, get_db
 
 from .hooks import register_hooks
 
-from .routes import root_blueprint
-from .routes.auth import auth_blueprint
-from .routes.games import games_blueprint
-from .routes.user import user_blueprint
 
 from .user_id_matcher import ULIDConverter
 
@@ -55,7 +51,14 @@ if environ.get("INIT_DB") is None and not check_db_exists():
 else:
     register_hooks(app)
 
+    from .routes import root_blueprint
     app.register_blueprint(root_blueprint)
+
+    from .routes.auth import auth_blueprint
     app.register_blueprint(auth_blueprint)
+
+    from .routes.games import games_blueprint
     app.register_blueprint(games_blueprint)
+
+    from .routes.user import user_blueprint
     app.register_blueprint(user_blueprint)

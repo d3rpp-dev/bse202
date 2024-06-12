@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS `password_hashes`;
 CREATE TABLE `password_hashes` (
 	`user_id` TEXT PRIMARY KEY,
 	`password_hash` TEXT NOT NULL,
+
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -28,7 +29,8 @@ DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
 	`game_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL,
-	`description` TEXT NOT NULL
+	`description` TEXT NOT NULL,
+	`price` FLOAT NOT NULL
 );
 
 
@@ -40,6 +42,7 @@ CREATE TABLE `game_assets` (
 	`game_id` INTEGER NOT NULL,
 	`description` TEXT,
 	`asset_type` TEXT NOT NULL,
+
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
 
@@ -51,6 +54,16 @@ CREATE TABLE `categories` (
 	`category_id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`title` TEXT NOT NULL UNIQUE,
 	`description` TEXT NOT NULL
+);
+
+DROP TABLE IF EXISTS `carts`;
+
+CREATE TABLE `carts` (
+	`user_id` TEXT NOT NULL,
+	`game_id` INTEGER NOT NULL,
+
+	FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
 
 -- Reset and Create the `reviews` Table
@@ -65,6 +78,7 @@ CREATE TABLE `reviews` (
 	`body` TEXT NOT NULL,
 	`star_count` SMALLINT NOT NULL,
 	`ts` BIGINT NOT NULL,
+
 	FOREIGN KEY (user_id) REFERENCES users(user_id),
 	FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -90,6 +104,7 @@ DROP TABLE IF EXISTS `game_categories_link`;
 CREATE TABLE `game_categories_link` (
 	`game_id` INTEGER NOT NULL,
 	`category_id` INTEGER NOT NULL,
+
 	FOREIGN KEY (game_id) REFERENCES games(game_id),
 	FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );

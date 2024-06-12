@@ -20,7 +20,7 @@
 		{# Glorious HTMX #}
 		<div 
 			class="reviews" 
-			hx-get="{{ url_for('games.game_storepage_reviews', game_id=game['game_id'] ) }}"
+			hx-get="{{ url_for('games.game_storepage_reviews_snippet', game_id=game['game_id'] ) }}"
 			hx-trigger="load"
 			hx-swap="outerHTML"
 		>
@@ -29,7 +29,13 @@
 
 		<div>
 			{% if user != None %}
-				Purchase
+				<button
+					hx-trigger="click"
+					hx-get="{{ url_for('games.add_item_to_cart', game_id=game['game_id']) }}"
+					hx-swap="innerHtml"
+				>
+					Purchase
+				</button>
 			{% else %}
 				Please <a href="{{ url_for('auth.login') }}">Login</a> to purchase
 			{% endif %}

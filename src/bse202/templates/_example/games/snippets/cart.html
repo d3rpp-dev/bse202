@@ -1,0 +1,21 @@
+<div id="cart_popup">
+	{% if cart is defined %}
+		{% if cart|length > 0 %}
+			<ul>
+				{%for item in cart %}
+					<li>
+						<a>
+							<strong>{{item.title}}</strong> - <em>${{ '%0.2f' % item.price}}</em>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			Empty Cart
+		{% endif %}
+
+		<span>Cart Total: {{ cart_total }}</span>
+	{% else %}
+		<span class="error">{{ error["message"] }}</span>
+	{% endif %}
+</div>

@@ -19,6 +19,21 @@
 		Message: {{error.message}}
 		</pre>
 	{% endif %}
+
+	<header>
+		{% if g.token is defined %}
+			<button
+				hx-trigger="click"
+				hx-get="{{ url_for('games.cart_snippet') }}"
+				hx-target="#cart-container"
+				hx-on:click="document.querySelector('#cart-container').classList.toggle('visible')"
+			>
+				Cart
+			</button>
+
+			<div id="cart-container"></div>
+		{% endif %}
+	</header>
 	
 	<body>
 		{% block content %}

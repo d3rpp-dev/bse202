@@ -25,10 +25,10 @@ VALUES
 --
 
 INSERT INTO 
-	`games` (`game_id`, `title`, `description`)
+	`games` (`game_id`, `title`, `description`, `price`)
 VALUES
-	(1, 'VALORANT', 'A 5v5 character-based tactical shooter'),
-	(2, 'Team Fortress 2', 'One of the most timeless classic shooter games in history.')
+	(1, 'VALORANT', 'A 5v5 character-based tactical shooter', 0.00),
+	(2, 'Team Fortress 2', 'One of the most timeless classic shooter games in history.', 0.00)
 ;
 
 INSERT INTO 
