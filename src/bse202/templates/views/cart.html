@@ -1,4 +1,3 @@
-<!-- /templates/views/cart.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +54,9 @@
                 <p>Total price: ${{ cart_summary.total_price }}</p>
                 <div class="button-group">
                     <a href="{{ url_for('store') }}" class="btn-secondary">Keep Shopping</a>
-                    <a href="{{ url_for('checkout') }}" class="btn">Checkout</a>
+                    {% if cart %}
+                        <a href="{{ url_for('checkout') }}" class="btn">Checkout</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
