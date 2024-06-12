@@ -91,6 +91,14 @@ def store():
 def account():
     return render_template("views/account.html")
 
+@app.route("/top_up_credit")
+def top_up_credit():
+    return render_template("views/top_up_credit.html")
+    
+@app.route("/voucher")
+def voucher():
+    return render_template("views/voucher.html")
+
 @app.route('/checkout')
 def checkout():
     cart_summary = {

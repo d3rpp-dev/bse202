@@ -1,3 +1,5 @@
+/* styles.css */
+
 /* Typography */
 body {
     font-family: 'Poppins', sans-serif;
@@ -127,3 +129,5 @@ a:hover {
     background-color: #1B1A55;
     transform: scale(1.1); /* Scale button to 110% on hover */
 }
+
+

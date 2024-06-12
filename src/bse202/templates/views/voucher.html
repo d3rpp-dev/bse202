@@ -1,0 +1,45 @@
+<!-- Include the header -->
+{% include 'elements/header.html' %}
+<!-- voucher.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher Payment</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles specific to this page if needed */
+        #voucher-input {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #voucher-code {
+            width: 400px;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        #voucher-code:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="voucher-input" class="topup-voucher">
+        <label for="voucher-code">Enter Voucher Code:</label><br>
+        <input type="text" id="voucher-code" name="voucher-code"><br>
+    </div>
+    <!-- Include footer -->
+    {% include 'elements/footer.html' %}
+</body>
+</html>

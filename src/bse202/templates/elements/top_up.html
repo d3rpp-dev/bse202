@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Pop-up styles */
+        .messages {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .messages .topup {
+            display: none;
+            width: 900px;
+            height: 800px;
+            background-color: #1B1A55;
+            border-radius: 60px;
+        }
+
+        .messages .topup .topup-list {
+            font-size: 24px;
+            color: white;
+            font-family: Poppins;
+            width: 600px;
+            height: 350px;
+            margin-left: 100px;
+            margin-top: 150px;
+        }
+
+        .messages .topup .topup-list p {
+            font-weight: 700;
+        }
+
+        .messages .topup .topup-list .radio {
+            margin-left: 20px;
+        }
+
+        .messages .topup .topup-method {
+            font-size: 24px;
+            color: white;
+            font-family: Poppins;
+            width: 600px;
+            height: 350px;
+            margin-left: 100px;
+            margin-top: 50px;
+        }
+
+        .messages .topup .topup-method p {
+            font-weight: 700;
+        }
+
+        .messages .topup .topup-method form {
+            margin-left: 20px;
+        }
+
+        .messages .close {
+            display: flex;
+            padding-top: 30px;
+            padding-right: 30px;
+            justify-content: end;
+        }
+
+        .messages .close svg,
+        .messages .arrow {
+            cursor: pointer;
+        }
+
+        /* Additional styles */
+        #voucher-input {
+            display: none;
+        }
+
+        #voucher-input.show {
+            display: block;
+            margin-top: 20px;
+        }
+
+        #voucher-code {
+            width: 400px;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        #voucher-code:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .arrow-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .arrow-container .arrow {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="messages" id="message">
+    <div class="topup">
+        <div class="close">
+            <svg class="closebutton" width="43" height="42" fill="none" xmlns="http://www.w3.org/2000/svg" id="closetopup">
+                <circle cx="22" cy="21" r="15" fill="white"/>
+                <path fill="#9290C3" d="M21.5 0C9.6535 0 0 9.41387 0 20.9663C0 32.5187 9.6535 41.9326 21.5 41.9326C33.3465 41.9326 43 32.5187 43 20.9663C43 9.41387 33.3465 0 21.5 0ZM28.724 25.7886C29.3475 26.3966 29.3475 27.403 28.724 28.011C28.4015 28.3255 27.993 28.4722 27.5845 28.4722C27.176 28.4722 26.7675 28.3255 26.445 28.011L21.5 23.1887L16.555 28.011C16.2325 28.3255 15.824 28.4722 15.4155 28.4722C15.007 28.4722 14.5985 28.3255 14.276 28.011C13.6525 27.403 13.6525 26.3966 14.276 25.7886L19.221 20.9663L14.276 16.1441C13.6525 15.536 13.6525 14.5297 14.276 13.9216C14.8995 13.3136 15.9315 13.3136 16.555 13.9216L21.5 18.7439L26.445 13.9216C27.0685 13.3136 28.1005 13.3136 28.724 13.9216C29.3475 14.5297 29.3475 15.536 28.724 16.1441L23.779 20.9663L28.724 25.7886Z"/>
+            </svg>
+        </div>
+        <div class="topup-list">
+            <div class="topup-value">
+                <p>Top Up Option:</p>
+                <form id="topup-value" action="{{ url_for('top_up_credit') }}" method="post">
+                    <input type="radio" id="5dollar" name="amount" value="5">
+                    <label class="radio" for="5dollar">$5</label>
+                    <input type="radio" id="10dollar" name="amount" value="10">
+                    <label class="radio" for="10dollar">$10</label>
+                    <input type="radio" id="25dollar" name="amount" value="25">
+                    <label class="radio" for="25dollar">$25</label>
+                    <input type="radio" id="50dollar" name="amount" value="50">
+                    <label class="radio" for="50dollar">$50</label>
+                    <input type="radio" id="100dollar" name="amount" value="100">
+                    <label class="radio" for="100dollar">$100</label>
+                    <div class="arrow-container">
+                        <button type="submit" class="arrow">Continue</button>
+                    </div>
+                </form>
+            </div>
+            <div class="topup-method">
+                <p>Payment Method:</p>
+                <form id="payment-method-form" action="{{ url_for('voucher') }}" method="post">
+                    <input type="radio" id="creditCard" name="payment" value="creditCard">
+                    <label for="creditCard">Credit Card</label><br><br>
+                    <input type="radio" id="voucher" name="payment" value="voucher">
+                    <label for="voucher">Voucher</label><br>
+                    <div class="arrow-container">
+                        <button type="submit" class="arrow">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
