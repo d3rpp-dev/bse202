@@ -1,0 +1,68 @@
+<style>
+    .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    #search-result-container{
+        border: 1px solid #ccc;
+        display: none;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 200px;
+       }
+       #search-result-container ul {
+        padding-top: 20px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: 24px;
+        padding-left: 10px;
+        font-family: 'Courier New', Courier, monospace;
+       }
+       #search-result-container li {
+        padding: 8px;
+        cursor: pointer;
+       }
+       #search-result-container li:hover {
+        background-color: #f0f0f0;
+       }
+</style>
+<div class="search-bar">
+    <input type="text" id="search-bar" placeholder="Search" style=" border-radius: 20px;width: 250px; height: 60px; text-align: center; font-size: 24px;">
+    <div id="search-result-container">
+        <ul id="search-result"></ul>
+    </div>
+</div>
+<p id="Test" style="font-size: xx-large;">test</p>
+<script>
+    document.getElementById('search-bar').addEventListener('input', function() {
+           const query = this.value;
+           const resultsDiv = document.getElementById('search-result-container');
+           const resultsList = document.getElementById('search-result');
+           if (query) {
+               fetch(`/search?query=${query}`)
+                   .then(response => response.json())
+                   .then(gamelist => {
+                       resultsList.innerHTML = '';
+                       gamelist.forEach(game => {
+                           const li = document.createElement('li');
+                           li.textContent = game;
+                           li.addEventListener('click', () => {
+                               GameOpenDetail(game);
+                           }); //Action for each game
+                           resultsList.appendChild(li);
+                       });
+                       resultsDiv.style.display = 'block';
+                   });
+           } else {
+               resultsList.innerHTML = '';
+               resultsDiv.style.display = 'none';
+           }
+       });
+    function GameOpenDetail(game)
+    {
+        //:) for each game action
+    }
+</script>
