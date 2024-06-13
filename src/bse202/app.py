@@ -9,6 +9,7 @@ app.secret_key = 'your_secret_key'  # Set a secret key for session management
 class User:
     def __init__(self, username):
         self.username = username
+        self.vault_coin = 0  # Initialize vault_coin for each user
 
 users = {
     "john": User("john"),
@@ -91,13 +92,54 @@ def store():
 def account():
     return render_template("views/account.html")
 
-@app.route("/top_up_credit")
+@app.route("/top_up_credit", methods=['GET', 'POST'])
 def top_up_credit():
+    if request.method == 'POST':
+        amount_str = request.form.get('amount')
+        if amount_str and amount_str.isdigit():
+            amount = int(amount_str)
+            current_user = users[session['username']]
+            current_user.vault_coin += amount
+            return redirect(url_for('account'))
+        else:
+            flash('Invalid amount. Please enter a valid number.', 'error')
+
     return render_template("views/top_up_credit.html")
-    
-@app.route("/voucher")
+
+@app.route("/voucher", methods=['GET', 'POST'])
 def voucher():
+    if request.method == 'POST':
+        amount_str = request.form.get('amount')
+        if amount_str and amount_str.isdigit():
+            amount = int(amount_str)
+            current_user = users[session['username']]
+            current_user.vault_coin += amount
+            return redirect(url_for('account'))
+        else:
+            flash('Invalid amount. Please enter a valid number.', 'error')
+
     return render_template("views/voucher.html")
+
+@app.route('/top_up', methods=['GET', 'POST'])
+def top_up():
+    if request.method == 'POST':
+        amount_str = request.form.get('amount')
+        if amount_str and amount_str.isdigit():
+            amount = int(amount_str)
+            payment_method = request.form.get('payment')
+
+            current_user = users[session['username']]
+            current_user.vault_coin += amount
+
+            if payment_method == 'creditCard':
+                return redirect(url_for('top_up_credit'))
+            elif payment_method == 'voucher':
+                return redirect(url_for('voucher'))
+        else:
+            flash('Invalid amount. Please enter a valid number.', 'error')
+
+    return render_template('top_up.html')
+
 
 @app.route('/checkout')
 def checkout():
