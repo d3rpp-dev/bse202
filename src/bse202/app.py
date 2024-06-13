@@ -9,7 +9,8 @@ app.secret_key = 'your_secret_key'  # Set a secret key for session management
 class User:
     def __init__(self, username):
         self.username = username
-        self.vault_coin = 0  # Initialize vault_coin for each user
+        self.vault_coin = 0  # Initialize vault_coin for each user, this is the users top up balance called Vault Coin - Virtual Vaults digital currency.
+        self.top_up_option = 0  # Initialize top_up_option for each user, this is used for the system to understand how much currency the user is trying to top up with
 
 users = {
     "john": User("john"),
@@ -102,34 +103,42 @@ def account():
         flash('You are not logged in.', 'error')
         return redirect(url_for('login'))
 
-
 @app.route("/top_up_credit", methods=['GET', 'POST'])
 def top_up_credit():
     if request.method == 'POST':
-        amount_str = request.form.get('amount')
-        if amount_str and amount_str.isdigit():
-            amount = int(amount_str)
-            current_user = users[session['username']]
-            current_user.vault_coin += amount
-            return redirect(url_for('account'))
-        else:
-            flash('Invalid amount. Please enter a valid number.', 'error')
+        current_user = users[session['username']]
+        amount = current_user.top_up_option
 
+        # Handle credit card payment
+        current_user.vault_coin += amount
+        flash(f'Successfully topped up ${amount} via Credit Card.', 'success')
+
+        return redirect(url_for('account'))
+    
     return render_template("views/top_up_credit.html")
+
+
 
 @app.route("/voucher", methods=['GET', 'POST'])
 def voucher():
     if request.method == 'POST':
-        amount_str = request.form.get('amount')
-        if amount_str and amount_str.isdigit():
-            amount = int(amount_str)
+        voucher_code = request.form.get('voucher-code')
+        
+        # Dummy logic for voucher validation
+        if voucher_code == "SAMPLEVOUCHER123":  # Replace with actual voucher validation logic
             current_user = users[session['username']]
+            amount = current_user.top_up_option
+
+            # Add the top-up amount to the user's vault coin
             current_user.vault_coin += amount
-            return redirect(url_for('account'))
+            flash(f'Successfully topped up ${amount} via Voucher.', 'success')
         else:
-            flash('Invalid amount. Please enter a valid number.', 'error')
+            flash('Invalid voucher code. Please try again.', 'error')
+
+        return redirect(url_for('account'))
 
     return render_template("views/voucher.html")
+
 
 @app.route('/top_up', methods=['GET', 'POST'])
 def top_up():
@@ -140,8 +149,11 @@ def top_up():
             payment_method = request.form.get('payment')
 
             current_user = users[session['username']]
-            current_user.vault_coin += amount
+            
+            # Set the top_up_option for the current user
+            current_user.top_up_option = amount
 
+            # Redirect based on the selected payment method
             if payment_method == 'creditCard':
                 return redirect(url_for('top_up_credit'))
             elif payment_method == 'voucher':
@@ -149,7 +161,8 @@ def top_up():
         else:
             flash('Invalid amount. Please enter a valid number.', 'error')
 
-    return render_template('top_up.html')
+    return render_template('views/top_up.html')
+
 
 
 @app.route('/checkout')
