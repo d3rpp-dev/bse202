@@ -14,10 +14,31 @@
 
     <div class="container">
         <h1>Account Page</h1>
-        <p>This is the Account page content.</p>
+
         <div class="button-group">
             <button class="btn top-up-button-child">Top Up</button>
         </div>
+        
+        <!-- Account Information Container -->
+        <div class="account-info">
+            <img src="{{ url_for('static', filename='images/profile-picture.png') }}" alt="Profile Picture" class="profile-picture">
+            <div class="user-details">
+                {% if current_user %}
+                    <h2>Hello, {{ current_user.username }}</h2>
+                    <p>ID: 1234567890</p> <!-- Replace with actual user ID -->
+                    <p>Vault Coin Balance: {{ current_user.vault_coin }}</p>
+                {% else %}
+                    <p>User not found.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- User Bio -->
+        <div class="user-bio">
+            <h3>Bio</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
     </div>
 
     <!-- Include popup messages -->

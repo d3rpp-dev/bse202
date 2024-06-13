@@ -90,7 +90,18 @@ def store():
 
 @app.route("/account")
 def account():
-    return render_template("views/account.html")
+    if 'username' in session:
+        username = session['username']
+        current_user = users.get(username)
+        if current_user:
+            return render_template("views/account.html", current_user=current_user)
+        else:
+            flash('User not found.', 'error')
+            return redirect(url_for('login'))
+    else:
+        flash('You are not logged in.', 'error')
+        return redirect(url_for('login'))
+
 
 @app.route("/top_up_credit", methods=['GET', 'POST'])
 def top_up_credit():
