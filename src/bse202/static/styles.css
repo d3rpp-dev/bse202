@@ -130,4 +130,39 @@ a:hover {
     transform: scale(1.1); /* Scale button to 110% on hover */
 }
 
+/* Update for the "Continue" button in top up*/
+.arrow-container {
+    display: flex;
+    justify-content: flex-start; /* Align button to the left */
+    margin-top: 30px;
+    padding-left: 200px; /* Adjust left padding as needed */
+}
+
+.arrow-container .arrow {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.arrow-container .arrow:last-child {
+    margin-right: 0;
+}
+
+.arrow-container .arrow:hover {
+    background-color: #007bff;
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+.arrow-container .arrow a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 

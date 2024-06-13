@@ -32,13 +32,13 @@
             color: white;
             font-family: Poppins;
             width: 600px;
-            height: 350px;
-            margin-left: 100px;
-            margin-top: 150px;
+            margin: 150px auto 0;
+            padding: 0 50px;
         }
 
         .messages .topup .topup-list p {
             font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .messages .topup .topup-list .radio {
@@ -50,13 +50,13 @@
             color: white;
             font-family: Poppins;
             width: 600px;
-            height: 350px;
-            margin-left: 100px;
-            margin-top: 50px;
+            margin: 50px auto 0;
+            padding: 0 50px;
         }
 
         .messages .topup .topup-method p {
             font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .messages .topup .topup-method form {
@@ -71,36 +71,6 @@
         }
 
         .messages .close svg,
-        .messages .arrow {
-            cursor: pointer;
-        }
-
-        /* Additional styles */
-        #voucher-input {
-            display: none;
-        }
-
-        #voucher-input.show {
-            display: block;
-            margin-top: 20px;
-        }
-
-        #voucher-code {
-            width: 400px;
-            padding: 10px;
-            font-size: 18px;
-            margin-top: 10px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            color: #333;
-        }
-
-        #voucher-code:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-
         .arrow-container {
             display: flex;
             justify-content: center;
@@ -108,7 +78,29 @@
         }
 
         .arrow-container .arrow {
+            margin: 0 10px; /* Add margin to the sides of buttons */
+            padding: 20px 40px; /* Increase padding to make buttons bigger */
+            font-size: 20px; /* Increase font size */
+            background-color: #9290c3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
+        }
+
+        .arrow-container .arrow:last-child {
+            margin-right: 0;
+        }
+
+        .arrow-container .arrow:hover {
+            background-color: #007bff;
+            transform: scale(1.1); /* Scale button to 110% on hover */
+        }
+
+        .arrow-container .arrow a {
+            text-decoration: none;
+            color: inherit;
         }
     </style>
 </head>
@@ -122,9 +114,9 @@
             </svg>
         </div>
         <div class="topup-list">
-            <div class="topup-value">
-                <p>Top Up Option:</p>
-                <form id="topup-value" action="{{ url_for('top_up_credit') }}" method="post">
+            <form id="topup-value" method="post">
+                <div class="topup-value">
+                    <p>Top Up Option:</p>
                     <input type="radio" id="5dollar" name="amount" value="5">
                     <label class="radio" for="5dollar">$5</label>
                     <input type="radio" id="10dollar" name="amount" value="10">
@@ -135,26 +127,42 @@
                     <label class="radio" for="50dollar">$50</label>
                     <input type="radio" id="100dollar" name="amount" value="100">
                     <label class="radio" for="100dollar">$100</label>
-                    <div class="arrow-container">
-                        <button type="submit" class="arrow">Continue</button>
-                    </div>
-                </form>
-            </div>
-            <div class="topup-method">
-                <p>Payment Method:</p>
-                <form id="payment-method-form" action="{{ url_for('voucher') }}" method="post">
+                </div>
+                <div class="topup-method">
+                    <p>Payment Method:</p>
                     <input type="radio" id="creditCard" name="payment" value="creditCard">
                     <label for="creditCard">Credit Card</label><br><br>
                     <input type="radio" id="voucher" name="payment" value="voucher">
                     <label for="voucher">Voucher</label><br>
-                    <div class="arrow-container">
-                        <button type="submit" class="arrow">Continue</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="arrow-container">
+                    <button type="submit" class="arrow">Continue</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+<script>
+    // Optional: You can use JavaScript to dynamically update the form action
+    const form = document.getElementById('topup-value');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const amount = form.elements['amount'].value;
+        const payment = form.elements['payment'].value;
+        
+        // Redirect to the appropriate page based on the payment method
+        if (payment === 'creditCard') {
+            window.location.href = '/top_up_credit';
+        } else if (payment === 'voucher') {
+            window.location.href = '/voucher';
+        } else {
+            // Handle any other cases if necessary
+        }
+    });
+</script>
+
 </body>
 </html>
+
