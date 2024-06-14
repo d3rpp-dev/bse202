@@ -202,13 +202,40 @@ def top_up():
     return render_template('views/top_up.html')
 
 
-@app.route('/checkout')
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
+    if request.method == 'POST':
+        payment_method = request.form.get('payment_method')
+        if payment_method == 'credit_card':
+            return redirect(url_for('payment'))
+        elif payment_method == 'vault_coin':
+            return redirect(url_for('vault_payment'))
+    
     cart_summary = {
         "total_items": sum(item["quantity"] for item in cart_items),
         "total_price": sum(item["total"] for item in cart_items)
     }
-    return render_template('views/checkout.html', cart_summary=cart_summary)
+    return render_template('views/checkout.html', cart_summary=cart_summary, cart=cart_items)
+
+@app.route('/vault_payment', methods=['GET', 'POST'])
+def vault_payment():
+    current_user = users[session['username']]
+    cart_summary = {
+        "total_items": sum(item["quantity"] for item in cart_items),
+        "total_price": sum(item["total"] for item in cart_items)
+    }
+
+    if request.method == 'POST':
+        if current_user.vault_coin >= cart_summary["total_price"]:
+            current_user.vault_coin -= cart_summary["total_price"]
+            flash(f'Payment successful! Remaining Vault Coin balance: {current_user.vault_coin}', 'success')
+            return redirect(url_for('vault_order_summary'))
+        else:
+            flash('Insufficient Vault Coin balance. Please top up your balance.', 'error')
+            return redirect(url_for('account'))
+
+    return render_template('views/vault_payment.html', cart_summary=cart_summary, vault_coin=current_user.vault_coin)
+
 
 @app.route('/payment', methods=['GET', 'POST'])
 def payment():
@@ -258,6 +285,15 @@ def payment():
 
     # If it's a GET request, just render the payment page
     return render_template('views/payment.html', payment_details=payment_details)
+
+@app.route("/vault_order_summary")
+def vault_order_summary():
+    cart_summary = {
+        "total_items": sum(item["quantity"] for item in cart_items),
+        "total_price": sum(item["total"] for item in cart_items)
+    }
+    return render_template("views/vault_order_summary.html", cart=cart_items, cart_summary=cart_summary)
+
 
 @app.route("/order_summary")
 def order_summary():
