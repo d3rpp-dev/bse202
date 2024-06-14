@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import re
 
 app = Flask(__name__)
@@ -103,42 +102,47 @@ def account():
         flash('You are not logged in.', 'error')
         return redirect(url_for('login'))
 
-@app.route("/top_up_credit", methods=['GET', 'POST'])
+@app.route('/top_up_credit', methods=['GET', 'POST'])
 def top_up_credit():
     if request.method == 'POST':
         current_user = users[session['username']]
         amount = current_user.top_up_option
-
-        # Handle credit card payment
         current_user.vault_coin += amount
         flash(f'Successfully topped up ${amount} via Credit Card.', 'success')
-
         return redirect(url_for('account'))
-    
-    return render_template("views/top_up_credit.html")
+    return render_template('views/top_up_credit.html')
 
-
-
-@app.route("/voucher", methods=['GET', 'POST'])
+@app.route('/voucher', methods=['GET', 'POST'])
 def voucher():
     if request.method == 'POST':
         voucher_code = request.form.get('voucher-code')
-        
-        # Dummy logic for voucher validation
         if voucher_code == "SAMPLEVOUCHER123":  # Replace with actual voucher validation logic
             current_user = users[session['username']]
             amount = current_user.top_up_option
-
-            # Add the top-up amount to the user's vault coin
             current_user.vault_coin += amount
-            flash(f'Successfully topped up ${amount} via Voucher.', 'success')
+            flash('Voucher successfully applied!', 'success')
+            return redirect(url_for('account'))
         else:
             flash('Invalid voucher code. Please try again.', 'error')
+            return redirect(url_for('top_up'))  # Corrected redirection
 
-        return redirect(url_for('account'))
+    return render_template('views/voucher.html')
 
-    return render_template("views/voucher.html")
 
+@app.route('/update_top_up_option', methods=['POST'])
+def update_top_up_option():
+    if 'username' in session:
+        username = session['username']
+        current_user = users.get(username)
+        if current_user:
+            data = request.get_json()
+            amount = int(data['amount'])
+            current_user.top_up_option = amount
+            return jsonify({'success': True}), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    else:
+        return jsonify({'error': 'Not logged in'}), 401
 
 @app.route('/top_up', methods=['GET', 'POST'])
 def top_up():
@@ -147,22 +151,20 @@ def top_up():
         if amount_str and amount_str.isdigit():
             amount = int(amount_str)
             payment_method = request.form.get('payment')
-
             current_user = users[session['username']]
             
-            # Set the top_up_option for the current user
             current_user.top_up_option = amount
 
-            # Redirect based on the selected payment method
             if payment_method == 'creditCard':
                 return redirect(url_for('top_up_credit'))
             elif payment_method == 'voucher':
-                return redirect(url_for('voucher'))
+                return redirect(url_for('voucher'))  # Corrected redirection
+
+            flash('Please select a payment method.', 'error')
         else:
             flash('Invalid amount. Please enter a valid number.', 'error')
 
     return render_template('views/top_up.html')
-
 
 
 @app.route('/checkout')
