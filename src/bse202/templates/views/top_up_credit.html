@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Details</title>
+    <title>Top Up Credit</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='payment.css') }}">
     <!-- Include Google Fonts for Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     {% include 'elements/header.html' %}
 
     <div class="container mt-5">
-        <h1 class="mb-4">Payment Details</h1>
+        <h1 class="mb-4">Top Up Credit</h1>
         
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -27,7 +27,7 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('payment') }}" method="post">
+        <form action="{{ url_for('top_up_credit') }}" method="post">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
                 <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Enter card number" required>

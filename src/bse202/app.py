@@ -105,12 +105,47 @@ def account():
 @app.route('/top_up_credit', methods=['GET', 'POST'])
 def top_up_credit():
     if request.method == 'POST':
+        # Handle form submission and validate payment details
+        card_number = request.form.get('card_number', '').strip()
+        expiry_date = request.form.get('expiry_date', '').strip()
+        cvv = request.form.get('cvv', '').strip()
+
+        # Ensure the inputs are strings (they should be if coming from form)
+        if not isinstance(card_number, str):
+            flash('Invalid card number format.', 'error')
+            return render_template('views/top_up_credit.html')
+        if not isinstance(expiry_date, str):
+            flash('Invalid expiry date format.', 'error')
+            return render_template('views/top_up_credit.html')
+        if not isinstance(cvv, str):
+            flash('Invalid CVV format.', 'error')
+            return render_template('views/top_up_credit.html')
+
+        # Validate card number
+        if not card_number_regex.match(card_number):
+            flash('Invalid card number. Please enter a valid 16-digit card number.', 'error')
+            return render_template('views/top_up_credit.html')
+
+        # Validate expiry date
+        if not expiry_date_regex.match(expiry_date):
+            flash('Invalid expiry date. Please enter a valid date in MM/YYYY format.', 'error')
+            return render_template('views/top_up_credit.html')
+
+        # Validate CVV
+        if not cvv_regex.match(cvv):
+            flash('Invalid CVV. Please enter a valid 3 or 4-digit CVV number.', 'error')
+            return render_template('views/top_up_credit.html')
+
+        # If all validations pass, top up the user's account
         current_user = users[session['username']]
         amount = current_user.top_up_option
         current_user.vault_coin += amount
         flash(f'Successfully topped up ${amount} via Credit Card.', 'success')
         return redirect(url_for('account'))
+
+    # If it's a GET request, just render the top up credit page
     return render_template('views/top_up_credit.html')
+
 
 @app.route('/voucher', methods=['GET', 'POST'])
 def voucher():
