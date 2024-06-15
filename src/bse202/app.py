@@ -28,44 +28,45 @@ payment_details = {
     "total_price": sum(item["total"] for item in cart_items)
 }
 
-# Sample data for store inventory
+# Store product dictionary
 products = {
     'action_games': [
-        {'name': 'Action Game 1', 'description': 'Description of Action Game 1.'},
-        {'name': 'Action Game 2', 'description': 'Description of Action Game 2.'},
-        {'name': 'Action Game 3', 'description': 'Description of Action Game 3.'},
-        {'name': 'Action Game 4', 'description': 'Description of Action Game 4.'},
-        {'name': 'Action Game 5', 'description': 'Description of Action Game 5.'},
+        {'name': 'DOOM Eternal', 'description': 'Experience the ultimate combination of speed and power with the next leap in push-forward, first-person combat.', 'image': 'media/game/action1.jfif'},
+        {'name': 'Sekiro: Shadows Die Twice', 'description': 'Carve your own clever path to vengeance in this critically acclaimed adventure from developer FromSoftware.', 'image': 'media/game/action2.jfif'},
+        {'name': 'Monster Hunter: World', 'description': 'Battle gigantic monsters in epic locales. As a hunter, you’ll take on quests to hunt monsters in a variety of habitats.', 'image': 'media/game/action3.jfif'},
+        {'name': 'Devil May Cry 5', 'description': 'The threat of demonic power has returned to menace the world once again in this action-packed game.', 'image': 'media/game/action4.jfif'},
+        {'name': 'Resident Evil Village', 'description': 'Experience survival horror like never before in the 8th major installment in the Resident Evil franchise.', 'image': 'media/game/action5.jfif'}
     ],
     'sports_games': [
-        {'name': 'Sports Game 1', 'description': 'Description of Sports Game 1.'},
-        {'name': 'Sports Game 2', 'description': 'Description of Sports Game 2.'},
-        {'name': 'Sports Game 3', 'description': 'Description of Sports Game 3.'},
-        {'name': 'Sports Game 4', 'description': 'Description of Sports Game 4.'},
-        {'name': 'Sports Game 5', 'description': 'Description of Sports Game 5.'},
+        {'name': 'Football Manager 2022', 'description': 'Football isn’t just about being the best and winning. It’s about overcoming the odds, realizing your dreams, and earning your success.', 'image': 'media/game/sport1.jfif'},
+        {'name': 'NBA 2K22', 'description': 'NBA 2K22 puts the entire basketball universe in your hands. Play now in real NBA and WNBA environments against authentic teams and players.', 'image': 'media/game/sport2.jfif'},
+        {'name': 'EA Sports UFC 4', 'description': 'Shape your legend in the EA SPORTS UFC 4. In EA SPORTS UFC 4 the fighter you become is shaped by your fight style, achievements, and personality.', 'image': 'media/game/sport3.jfif'},
+        {'name': 'Tony Hawk\'s Pro Skater 1 + 2', 'description': 'Drop back in with the most iconic skateboarding games ever made. Play Tony Hawk’s Pro Skater & Tony Hawk’s Pro Skater 2 in one epic collection.', 'image': 'media/game/sport4.jfif'},
+        {'name': 'WWE 2K22', 'description': 'Get ripped out of the stands and hit with complete control of the WWE Universe. Throw down with the biggest and most realistic-looking WWE Superstars and Legends.', 'image': 'media/game/sport5.jfif'}
     ],
     'strategy_games': [
-        {'name': 'Strategy Game 1', 'description': 'Description of Strategy Game 1.'},
-        {'name': 'Strategy Game 2', 'description': 'Description of Strategy Game 2.'},
-        {'name': 'Strategy Game 3', 'description': 'Description of Strategy Game 3.'},
-        {'name': 'Strategy Game 4', 'description': 'Description of Strategy Game 4.'},
-        {'name': 'Strategy Game 5', 'description': 'Description of Strategy Game 5.'},
+        {'name': 'Sid Meier\'s Civilization VI', 'description': 'Civilization VI offers new ways to interact with your world, expand your empire across the map, advance your culture, and compete against history’s greatest leaders.', 'image': 'media/game/strategy1.jfif'},
+        {'name': 'Total War: Three Kingdoms', 'description': 'Three Kingdoms is the first in the award-winning series to recreate epic conflict across ancient China.', 'image': 'media/game/strategy2.jfif'},
+        {'name': 'Age of Empires IV', 'description': 'One of the most beloved real-time strategy games returns to glory with Age of Empires IV, putting you at the center of epic historical battles.', 'image': 'media/game/strategy3.jfif'},
+        {'name': 'Crusader Kings III', 'description': 'Your legacy awaits. Choose your noble house and lead your dynasty to greatness in a Middle Ages epic that will have you plotting, conquering, and sitting on the throne.', 'image': 'media/game/strategy4.jfif'},
+        {'name': 'Stellaris', 'description': 'Explore a vast galaxy full of wonder! Paradox Development Studio brings you the grand strategy game with space exploration at its core.', 'image': 'media/game/strategy5.jfif'}
     ],
     'role_play_games': [
-        {'name': 'Role Play Game 1', 'description': 'Description of Role Play Game 1.'},
-        {'name': 'Role Play Game 2', 'description': 'Description of Role Play Game 2.'},
-        {'name': 'Role Play Game 3', 'description': 'Description of Role Play Game 3.'},
-        {'name': 'Role Play Game 4', 'description': 'Description of Role Play Game 4.'},
-        {'name': 'Role Play Game 5', 'description': 'Description of Role Play Game 5.'},
+        {'name': 'The Witcher 3: Wild Hunt', 'description': 'As war rages on, you must take on the contract of your life and track down the Child of Prophecy, a key to saving or destroying this world.', 'image': 'media/game/roleplay1.jfif'},
+        {'name': 'Divinity: Original Sin 2', 'description': 'The Divine is dead. The Void approaches. And the powers lying dormant within you are soon to awaken. The battle for Divinity has begun.', 'image': 'media/game/roleplay2.jfif'},
+        {'name': 'Disco Elysium', 'description': 'Disco Elysium – The Final Cut is the definitive edition of the groundbreaking role-playing game. You’re a detective with a unique skill system at your disposal.', 'image': 'media/game/roleplay3.jfif'},
+        {'name': 'Pillars of Eternity II: Deadfire', 'description': 'Pursue a rogue god over land and sea in the sequel to the multi-award-winning RPG Pillars of Eternity. Captain your ship on a dangerous voyage of discovery.', 'image': 'media/game/roleplay4.jfif'},
+        {'name': 'GreedFall', 'description': 'Explore uncharted new lands as you set foot on a remote island seeping with magic, and filled with riches, lost secrets, and fantastic creatures.', 'image': 'media/game/roleplay5.jfif'}
     ],
-    'horror_games': [
-        {'name': 'Horror Game 1', 'description': 'Description of Horror Game 1.'},
-        {'name': 'Horror Game 2', 'description': 'Description of Horror Game 2.'},
-        {'name': 'Horror Game 3', 'description': 'Description of Horror Game 3.'},
-        {'name': 'Horror Game 4', 'description': 'Description of Horror Game 4.'},
-        {'name': 'Horror Game 5', 'description': 'Description of Horror Game 5.'},
+    'indie_games': [
+        {'name': 'Hades', 'description': 'Defy the god of the dead as you hack and slash out of the Underworld in this rogue-like dungeon crawler.', 'image': 'media/game/indie1.jfif'},
+        {'name': 'Stardew Valley', 'description': 'You’ve inherited your grandfather’s old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life.', 'image': 'media/game/indie2.jfif'},
+        {'name': 'Celeste', 'description': 'Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight, hand-crafted platformer from the creators of TowerFall.', 'image': 'media/game/indie3.jfif'},
+        {'name': 'Undertale', 'description': 'The RPG game where you don’t have to destroy anyone. Each enemy can be “defeated” nonviolently.', 'image': 'media/game/indie4.jfif'},
+        {'name': 'Dead Cells', 'description': 'Dead Cells is a rogue-lite, metroidvania inspired, action-platformer. You’ll explore a sprawling, ever-changing castle...', 'image': 'media/game/indie5.jfif'}
     ]
 }
+
 
 # Define regex patterns
 card_number_regex = re.compile(r'^\d{16}$')
