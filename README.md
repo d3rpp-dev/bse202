@@ -1,4 +1,4 @@
-<h1>BSE 202 - "Cross Platform Development"</h1>
+# BSE 202 - "Cross Platform Development"
 
 - [Setting Up Rye](#setting-up-rye)
 	- [Note: Windows Installer](#note-windows-installer)
@@ -8,7 +8,7 @@
 - [Development](#development)
 
 This project is primarily managed using [`rye`](https://rye-up.com).
-If you know python virtual envrionments well, use them, I'm using `rye` because python venv's are horrible. 
+If you know python virtual envrionments well, use them, I'm using `rye` because python venv's are horrible.
 
 ## Setting Up Rye
 
@@ -38,7 +38,7 @@ First you'll need to sync the venv with `rye`
 rye sync
 ```
 
-Next we'll need to fill out the environment variables with data, to do this, make a copy of (`./.env.example`)[./.env.example] and rename it to just `.env`, then fill out the values between the quotes, i.e.
+Next we'll need to fill out the environment variables with data, to do this, make a copy of [`./.env.example`](./.env.example) and rename it to just `.env`, then fill out the values between the quotes, i.e.
 
 ```bash
 # .env
@@ -46,6 +46,14 @@ SECRET_KEY="<Secret Key to sign Tokens>"
 ```
 
 This will add the required variables that allow the program to function.
+
+Next we need to initialise the database
+
+```bash
+rye run init_db
+```
+
+This will use the schema from [`schema.sql`](./src/bse202/schema.sql) and [`sample_data.sql`](./src/bse202/sample_data.sql) to create the SQLite Database.
 
 You can then start a dev server with
 
@@ -69,20 +77,29 @@ rye lint
 
 ## Development
 
-This repository uses a standard of 1 endpoint = 1 file, this means that 2 people can work on completely different endpoints and the development will never colide with the file.
+This repository uses a standard of 1 endpoint = 1 file (small utility endpoints are exempt from this rule since they almost never change), this means that 2 people can work on completely different endpoints and the development will never collide with the file.
 
-There are comments found throughout these files that should explain what is going on, for the purposes of making this code readable (or at least, as readable as this language can be), please make sure you common your code well, at the at the module level using multi-line comments, e.g.
+There are comments found throughout these files that should explain what is going on, for the purposes of making this code readable (or at least, as readable as this language can be), please make sure you comment your code well, at the at the module level using multi-line comments, e.g.
 
 > [!NOTE]
 > A module comment should appear before anythign else in the file, including imports.
 
 ```py
 """
-This is a multi line module commend
+This is a multi line module comment
 """
 
 # ... rest of file
 ```
+
+> [!NOTE]
+> For every capital letter I see in:
+>
+> - a file name
+> - a variable name
+> - a folder name
+>
+> I will kill a puppy
 
 ---
 

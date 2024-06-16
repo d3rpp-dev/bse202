@@ -7,16 +7,26 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='checkout.css') }}">
     <!-- Include Google Fonts for Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Include Bootstrap CSS for better styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Include header -->
     {% include 'elements/header.html' %}
     
-    <div class="container">
+    <div class="container mt-5">
         <div class="checkout-wrapper">
             <h1>Checkout</h1>
             <div class="checkout-items">
-                <table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for item in cart %}
                             <tr>
@@ -29,12 +39,19 @@
                     </tbody>
                 </table>
             </div>
-            <div class="order-summary">
+            <div class="order-summary mt-4">
                 <h2>Order Summary</h2>
                 <p>Total items: {{ cart_summary.total_items }}</p>
                 <p>Total price: ${{ cart_summary.total_price }}</p>
-                <form action="{{ url_for('payment') }}" method="post">
-                    <button type="submit" class="btn">Proceed to Payment</button>
+                <form action="{{ url_for('checkout') }}" method="post">
+                    <div class="form-group">
+                        <label for="payment_method">Select Payment Method</label>
+                        <select class="form-control" id="payment_method" name="payment_method" required>
+                            <option value="credit_card">Credit/Debit Card</option>
+                            <option value="vault_coin">Vault Coin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
                 </form>
             </div>
         </div>
@@ -42,5 +59,10 @@
 
     <!-- Include footer -->
     {% include 'elements/footer.html' %}
+    
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

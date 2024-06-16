@@ -1,3 +1,5 @@
+/* styles.css */
+
 /* Typography */
 body {
     font-family: 'Poppins', sans-serif;
@@ -126,4 +128,92 @@ a:hover {
 .btn:hover {
     background-color: #1B1A55;
     transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+/* Update for the "Continue" button in top up*/
+.arrow-container {
+    display: flex;
+    justify-content: flex-start; /* Align button to the left */
+    margin-top: 30px;
+    padding-left: 200px; /* Adjust left padding as needed */
+}
+
+.arrow-container .arrow {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.arrow-container .arrow:last-child {
+    margin-right: 0;
+}
+
+.arrow-container .arrow:hover {
+    background-color: #007bff;
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+.arrow-container .arrow a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Account Information Container */
+.account-info {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-details {
+    color: #333;
+}
+
+.user-details h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* User Bio */
+.user-bio {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-bio h3 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.user-bio p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
 }

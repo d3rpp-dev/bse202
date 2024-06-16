@@ -1,31 +1,30 @@
-{% extends 'base.html' %} 
+{% extends '_example/base.html' %}
 
-{% block head %} 
+{% block head %}
 	<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}" />
 {% endblock %}
 
-{% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %} 
+{% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %}
 
 {% block content %}
+	<main id="landing">
+		{#
+			by checking like this we also manage scenarios where
+			g.token is None, meaning the user is not logged in, or
+			the cookie was invalid.
+		#}
+		{% if g.token is defined and g.token.user_id is defined %}
+			{{ g.token["username"] }} loading from {{ g.ua }}
+			<h1>authenticated as "{{ g.token["username"] }}"</h1>
+			<a href="{{ url_for('auth.logout') }}">Log Out</a>
 
-<body id="landing">
-	{{ name if name is defined and name|length > 3 else "Unknown Name" }} loading from {{ g.ua }}
-
-	{# 
-		by checking like this we also manage scenarios where 
-		g.token is None, meaning the user is not logged in, or 
-		the cookie was invalid.
-	#}
-	{% if g.token is defined and g.token.auth is defined %}
-		<h1>authenticated</h1>
-		<a href="{{ url_for('auth.logout') }}">Log Out</a>
-	{% else %}
-		<h1>unauthenticated</h1>
-		<a href="{{ url_for('auth.login') }}">Login</a>
-	{% endif %}
-
-</body>
-
-
-
+			{% if g.token["account_type"] == "admin" %}
+				<h1>Signed in as Admin User</h1>
+			{% endif %}
+		{% else %}
+			<h1>unauthenticated</h1>
+			<a href="{{ url_for('auth.login') }}">Login</a>
+			<a href="{{ url_for('auth.signup') }}">Sign Up</a>
+		{% endif %}
+	</main>
 {% endblock %}

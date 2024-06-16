@@ -17,15 +17,10 @@
         <div class="product-category">
             <h2>Action Games</h2>
             <div class="product-row" id="action-games">
-                <!-- Products will be populated dynamically -->
                 {% for product in products['action_games'] %}
-                <div class="product">
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <form action="{{ url_for('add_to_cart') }}" method="post">
-                        <input type="hidden" name="product_name" value="{{ product.name }}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -41,15 +36,10 @@
         <div class="product-category">
             <h2>Sports Games</h2>
             <div class="product-row" id="sports-games">
-                <!-- Products will be populated dynamically -->
                 {% for product in products['sports_games'] %}
-                <div class="product">
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <form action="{{ url_for('add_to_cart') }}" method="post">
-                        <input type="hidden" name="product_name" value="{{ product.name }}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -65,15 +55,10 @@
         <div class="product-category">
             <h2>Strategy Games</h2>
             <div class="product-row" id="strategy-games">
-                <!-- Products will be populated dynamically -->
                 {% for product in products['strategy_games'] %}
-                <div class="product">
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <form action="{{ url_for('add_to_cart') }}" method="post">
-                        <input type="hidden" name="product_name" value="{{ product.name }}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -89,15 +74,10 @@
         <div class="product-category">
             <h2>Role Play Games</h2>
             <div class="product-row" id="role-play-games">
-                <!-- Products will be populated dynamically -->
                 {% for product in products['role_play_games'] %}
-                <div class="product">
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <form action="{{ url_for('add_to_cart') }}" method="post">
-                        <input type="hidden" name="product_name" value="{{ product.name }}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -109,28 +89,37 @@
             </button>
         </div>
 
-        <!-- Horror Games -->
+        <!-- Indie Games -->
         <div class="product-category">
-            <h2>Horror Games</h2>
-            <div class="product-row" id="horror-games">
-                <!-- Products will be populated dynamically -->
-                {% for product in products['horror_games'] %}
-                <div class="product">
+            <h2>Indie Games</h2>
+            <div class="product-row" id="indie-games">
+                {% for product in products['indie_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>{{ product.description }}</p>
-                    <form action="{{ url_for('add_to_cart') }}" method="post">
-                        <input type="hidden" name="product_name" value="{{ product.name }}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
-            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'horror-games')">
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'indie-games')">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'horror-games')">
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'indie-games')">
                 <i class="fas fa-chevron-right"></i>
             </button>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-product-image" src="" alt="">
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-description"></p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_name" id="modal-product-name-input">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
         </div>
     </div>
 
@@ -156,6 +145,18 @@
                     behavior: 'smooth'
                 });
             }
+        }
+
+        function showProductDetails(name, image, description) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
+            document.getElementById('modal-product-description').innerText = description;
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
         }
     </script>
 </body>
