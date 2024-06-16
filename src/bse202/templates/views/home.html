@@ -13,9 +13,12 @@
     <div class="container">
         <h1>Welcome to Virtual Vault</h1>
         <p>This is the home page.</p>
-        
+        <div class="search-bar-div">
+            {% include 'elements/searchbar.html'%}
+        </div>
         <!-- Include the addbanner element here -->
         {% include 'elements/addbanner.html' %}
+        {% include 'elements/recommendation.html'%}
         
     </div>
     {% include 'elements/footer.html' %}

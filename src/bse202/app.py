@@ -181,10 +181,36 @@ card_number_regex = re.compile(r"^\d{16}$")
 expiry_date_regex = re.compile(r"^(0[1-9]|1[0-2])\/([0-9]{4})$")
 cvv_regex = re.compile(r"^\d{3,4}$")
 
-
+recommendation_list=[
+        {
+            "name": "Hades",
+            "image": "media/game/indie1.jfif",
+        },
+        {
+            "name": "The Witcher 3: Wild Hunt",
+            "image": "media/game/roleplay1.jfif",
+        },
+        {
+            "name": "Sid Meier's Civilization VI",
+            "image": "media/game/strategy1.jfif",
+        },
+        {
+            "name": "Football Manager 2022","image": "media/game/sport1.jfif",
+        },
+        {
+            "name": "DOOM Eternal","image": "media/game/action1.jfif",
+        },
+    ]
+owned_list=[
+        {
+            "name": "DOOM Eternal",
+            "description": "Experience the ultimate combination of speed and power with the next leap in push-forward, first-person combat.",
+            "image": "media/game/action1.jfif",
+        },
+    ]
 @app.route("/")
 def home():
-    return render_template("views/home.html")
+    return render_template("views/home.html",recommendation_list=recommendation_list)
 
 
 @app.route("/about")
@@ -208,7 +234,7 @@ def account():
         username = session["username"]
         current_user = users.get(username)
         if current_user:
-            return render_template("views/account.html", current_user=current_user)
+            return render_template("views/account.html", current_user=current_user,owned_list=owned_list)
         else:
             flash("User not found.", "error")
             return redirect(url_for("login"))
@@ -525,6 +551,22 @@ def logout():
     # Perform logout actions here
     session.pop("username", None)  # Remove the user from the session
     return redirect(url_for("home"))
+
+#Hendra Code line
+@app.route("/search")
+def search():
+
+    all_names = []
+    for category, games in products.items():
+        for game in games:
+            all_names.append(game['name'])
+    query = request.args.get("query", "")
+    if query:
+        results = [game for game in all_names if query.lower() in game.lower()]
+    else:
+        results = []
+    return jsonify(results)
+
 
 
 if __name__ == "__main__":
