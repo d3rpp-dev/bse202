@@ -27,7 +27,7 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('top_up_credit') }}" method="post">
+        <form action="{{ url_for('store.top_up_credit') }}" method="post">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
                 <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Enter card number" required>

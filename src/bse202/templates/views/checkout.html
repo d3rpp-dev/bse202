@@ -43,7 +43,7 @@
                 <h2>Order Summary</h2>
                 <p>Total items: {{ cart_summary.total_items }}</p>
                 <p>Total price: ${{ cart_summary.total_price }}</p>
-                <form action="{{ url_for('checkout') }}" method="post">
+                <form action="{{ url_for('store.checkout') }}" method="post">
                     <div class="form-group">
                         <label for="payment_method">Select Payment Method</label>
                         <select class="form-control" id="payment_method" name="payment_method" required>
