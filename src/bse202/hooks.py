@@ -1,9 +1,10 @@
 from flask import Flask, Response, g, request
-from itsdangerous import URLSafeSerializer, BadData
+from itsdangerous import URLSafeSerializer, BadSignature
 from os import environ, _exit
 from time import time
 
 secret_key = environ.get("SECRET_KEY")
+template_prefix = environ.get("TEMPLATE_PREFIX")
 
 one_month_in_seconds = 60 * 60 * 24 * 30
 one_year_in_seconds = one_month_in_seconds * 12
@@ -16,7 +17,7 @@ if secret_key is None or secret_key.strip() == "":
     _exit(1)
 
 # We've already checked that SECRET_KEY is set
-auth_serializer = URLSafeSerializer(secret_key)  # type: ignore
+auth_serializer = URLSafeSerializer(secret_key)
 
 
 def register_hooks(app: Flask):
@@ -26,18 +27,27 @@ def register_hooks(app: Flask):
         g.ip = request.remote_addr
         g.ua = request.headers.get("User_Agent")
 
+        # Allows me to use backend pages without affecting the front-end development
+        if template_prefix is not None:
+            g.template_prefix = template_prefix
+        else:
+            g.template_prefix = ""
+
         auth_cookie = request.cookies.get("auth")
         if auth_cookie is not None:
             g.original_token = auth_cookie
             # attempt to parse the token, allow the request to proceed if invalid, but assume not logged in
             try:
-                g.token = auth_serializer.loads(auth_cookie)
+                g.token = auth_serializer.loads(auth_cookie, secret_key)
 
                 # refresh the cookie anyway if about to expire
-                if g.token["exp"] - time() < time():
+                if g.token["exp"] - time() < one_month_in_seconds:
                     g.token["exp"] = int(time() + one_year_in_seconds)
                     g.refresh = True
-            except BadData:
+            except BadSignature:
+                # Signature Verification Failed
+                print("Rejecting Token")
+            except _:
                 pass
 
     # Post-Request Middleware
@@ -54,12 +64,12 @@ def register_hooks(app: Flask):
                 g.token["exp"] = int(time() + one_year_in_seconds)
 
             # Only update cookie if change occured
-            serialised_cookie = auth_serializer.dumps(g.token)
+            serialised_cookie = auth_serializer.dumps(g.token, secret_key)
 
             if (
                 "original_token" not in g
                 or serialised_cookie != g.original_token
-                or g.refresh
+                or ("refresh" in g and g.refresh)
             ):
                 response.set_cookie(
                     key="auth",
@@ -70,7 +80,7 @@ def register_hooks(app: Flask):
         elif "original_token" in g:
             # clear cookie if original token set but token is not
             #
-            # if this pops up it means the cookie is invalid
+            # if this pops up it means the cookie is invalid, or was deleted
             response.set_cookie(key="auth", value="", expires=0)
 
         return response

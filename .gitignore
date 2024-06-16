@@ -12,7 +12,9 @@ wheels/
 # riff
 .ruff_cache
 
-# env file
-
+# env files
 .env*
 !.env.example
+
+# SQLite Database
+database.db

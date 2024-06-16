@@ -1,6 +1,9 @@
 {
 	"recommendations": [
 		"samuelcolvin.jinjahtml",
-		"ms-python.python"
+		"ms-python.python",
+		"cweijan.vscode-database-client2",
+		"charliermarsh.ruff",
+		"qufiwefefwoyn.inline-sql-syntax"
 	]
 }

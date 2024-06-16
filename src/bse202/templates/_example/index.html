@@ -1,16 +1,16 @@
-{% extends '_example/base.html' %}
+{% extends '_example/base.html' %} 
 
-{% block head %}
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}" />
+{% block head %} 
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/_example/landing.css') }}" />
 {% endblock %}
 
-{% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %}
+{% block title %} {{ name if name is defined else "Unknown Name" }} {% endblock %} 
 
 {% block content %}
 	<main id="landing">
-		{#
-			by checking like this we also manage scenarios where
-			g.token is None, meaning the user is not logged in, or
+		{# 
+			by checking like this we also manage scenarios where 
+			g.token is None, meaning the user is not logged in, or 
 			the cookie was invalid.
 		#}
 		{% if g.token is defined and g.token.user_id is defined %}
