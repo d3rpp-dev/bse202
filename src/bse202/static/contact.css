@@ -1,0 +1,70 @@
+/* Contact form styles */
+.contact-form {
+    text-align: center; /* Center-align form elements */
+    max-width: 400px;
+    margin: 0 auto 20px; /* Center the form horizontally and add margin at the bottom */
+}
+
+.contact-form h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.contact-form div {
+    margin-bottom: 15px;
+    text-align: left; /* Left-align labels and inputs */
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow textarea to resize vertically */
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+.contact-info {
+    text-align: left;
+    margin-top: 30px;
+}
+
+.contact-info h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.contact-info p {
+    margin-bottom: 5px;
+    color: #333;
+}

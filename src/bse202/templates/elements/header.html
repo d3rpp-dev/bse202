@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1 class="site-title"><a href="{{ url_for('home') }}">Virtual Vault</a></h1>
+            <div class="button-group">
+                <!-- Home button -->
+                <button class="btn"><a href="{{ url_for('home') }}">Home</a></button>
+                <!-- Store button -->
+                <button class="btn"><a href="{{ url_for('store') }}">Store</a></button>
+                <!-- Cart button -->
+                <button class="btn"><a href="{{ url_for('cart') }}">Cart</a></button>
+                <!-- Account button with conditional logic -->
+                {% if session.get('username') %}
+                    <button class="btn"><a href="{{ url_for('account') }}">Account</a></button>
+                {% else %}
+                    <button class="btn"><a href="{{ url_for('login') }}">Account</a></button>
+                {% endif %}
+                <!-- Login/logout button -->
+                {% if session.get('username') %}
+                    <!-- Logout button -->
+                    <form action="{{ url_for('logout') }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn">Logout</button>
+                    </form>
+                {% else %}
+                    <!-- Login button -->
+                    <a href="{{ url_for('login') }}" class="btn">Login</a>
+                {% endif %}
+            </div>
+            <!-- Info box for current user details -->
+            <div class="current-user-info">
+                {% if session.get('username') %}
+                    <!-- Display username if logged in -->
+                    <span>Welcome, {{ session['username'] }}</span>
+                {% else %}
+                    <!-- Display message if not logged in -->
+                    <span>Not logged in</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

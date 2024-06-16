@@ -1,0 +1,219 @@
+/* styles.css */
+
+/* Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #535c91;
+    background-image: url('../static/media/css-pattern-by-magicpattern.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0; /* Remove default margin */
+    color: #fff; /* Set color to white */
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Colors */
+.header {
+    background-color: #535c91;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Center align content */
+    align-items: center; /* Center align content */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Take up full width */
+}
+
+.site-title {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.site-title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    color: #f0f0f0; /* Change color on hover */
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Layout */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.footer {
+    padding: 20px;
+    background-color: #1B1A55;
+    color: #fff;
+    text-align: center; /* Center text */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+.button-group .btn {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-group .btn:last-child {
+    margin-right: 0;
+}
+
+.button-group .btn a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn:hover {
+    background-color: #1B1A55;
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+/* Update for the "Continue" button in top up*/
+.arrow-container {
+    display: flex;
+    justify-content: flex-start; /* Align button to the left */
+    margin-top: 30px;
+    padding-left: 200px; /* Adjust left padding as needed */
+}
+
+.arrow-container .arrow {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.arrow-container .arrow:last-child {
+    margin-right: 0;
+}
+
+.arrow-container .arrow:hover {
+    background-color: #007bff;
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+.arrow-container .arrow a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Account Information Container */
+.account-info {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-details {
+    color: #333;
+}
+
+.user-details h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* User Bio */
+.user-bio {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-bio h3 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.user-bio p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}

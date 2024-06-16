@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Include the header -->
+    {% include 'elements/header.html' %}
+
+    <div class="container">
+        <h1>Account Page</h1>
+
+        <div class="button-group">
+            <button class="btn top-up-button-child">Top Up</button>
+        </div>
+        
+        <!-- Account Information Container -->
+        <div class="account-info">
+            <img src="{{ url_for('static', filename='images/profile-picture.png') }}" alt="Profile Picture" class="profile-picture">
+            <div class="user-details">
+                {% if current_user %}
+                    <h2>Hello, {{ current_user.username }}</h2>
+                    <p>ID: 1234567890</p> <!-- Replace with actual user ID -->
+                    <p>Vault Coin Balance: {{ current_user.vault_coin }}</p>
+                {% else %}
+                    <p>User not found.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- User Bio -->
+        <div class="user-bio">
+            <h3>Bio</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+    </div>
+
+    <!-- Include popup messages -->
+    {% include 'elements/top_up.html' %}
+
+    <!-- Include the footer -->
+    {% include 'elements/footer.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const message = document.getElementById('message');
+            const topup = document.querySelector('.topup');
+            const closeTopup = document.getElementById('closetopup');
+            const continueTopup = document.getElementById('continuetopup');
+            const paymentMethodForm = document.getElementById('payment-method-form');
+            const voucherInput = document.getElementById('voucher-input');
+            const voucherCodeInput = document.getElementById('voucher-code');
+
+            document.querySelector('.top-up-button-child').addEventListener('click', function () {
+                message.style.display = 'flex';
+                topup.style.display = 'block';
+            });
+
+            closeTopup.addEventListener('click', function () {
+                message.style.display = 'none';
+                topup.style.display = 'none';
+            });
+
+            continueTopup.addEventListener('click', function () {
+                // Check if the voucher payment method is selected
+                const selectedPayment = paymentMethodForm.querySelector('input[name="payment"]:checked');
+                if (selectedPayment && selectedPayment.value === 'voucher') {
+                    // Proceed with voucher code input
+                    const voucherCode = voucherCodeInput.value.trim();
+                    if (voucherCode) {
+                        console.log('Voucher code entered:', voucherCode);
+                        // Here you can proceed with further processing
+                        // For example, call an API or perform a client-side action
+                    } else {
+                        console.log('Please enter a voucher code.');
+                        // Optionally, show an error message or handle the empty input case
+                    }
+                } else {
+                    console.log('Invalid payment method selection.');
+                    // Optionally, show an error message or handle the invalid selection case
+                }
+            });
+
+            // Toggle voucher input field based on payment method selection
+            paymentMethodForm.addEventListener('change', function () {
+                const selectedPayment = paymentMethodForm.querySelector('input[name="payment"]:checked');
+                if (selectedPayment && selectedPayment.value === 'voucher') {
+                    voucherInput.classList.add('show');
+                } else {
+                    voucherInput.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -18,6 +18,8 @@ cffi==1.16.0
     # via argon2-cffi-bindings
 click==8.1.7
     # via flask
+colorama==0.4.6
+    # via click
 flask==3.0.2
     # via bse202
 itsdangerous==2.2.0

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='store.css') }}">
+    <!-- Include Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Include header -->
+    {% include 'elements/header.html' %}
+
+    <div class="container store-container">
+        <!-- Action Games -->
+        <div class="product-category">
+            <h2>Action Games</h2>
+            <div class="product-row" id="action-games">
+                {% for product in products['action_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'action-games')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'action-games')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Sports Games -->
+        <div class="product-category">
+            <h2>Sports Games</h2>
+            <div class="product-row" id="sports-games">
+                {% for product in products['sports_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'sports-games')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'sports-games')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Strategy Games -->
+        <div class="product-category">
+            <h2>Strategy Games</h2>
+            <div class="product-row" id="strategy-games">
+                {% for product in products['strategy_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'strategy-games')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'strategy-games')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Role Play Games -->
+        <div class="product-category">
+            <h2>Role Play Games</h2>
+            <div class="product-row" id="role-play-games">
+                {% for product in products['role_play_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'role-play-games')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'role-play-games')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Indie Games -->
+        <div class="product-category">
+            <h2>Indie Games</h2>
+            <div class="product-row" id="indie-games">
+                {% for product in products['indie_games'] %}
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn left-btn" onclick="scrollProducts('left', 'indie-games')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="scroll-btn right-btn" onclick="scrollProducts('right', 'indie-games')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-product-image" src="" alt="">
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-description"></p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_name" id="modal-product-name-input">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include footer -->
+    {% include 'elements/footer.html' %}
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <!-- JavaScript for scrolling product rows -->
+    <script>
+        function scrollProducts(direction, category) {
+            const scrollDistance = 300; // Adjust as needed
+            const scrollContainer = document.getElementById(category);
+            if (direction === 'left') {
+                scrollContainer.scrollBy({
+                    left: -scrollDistance,
+                    behavior: 'smooth'
+                });
+            } else if (direction === 'right') {
+                scrollContainer.scrollBy({
+                    left: scrollDistance,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function showProductDetails(name, image, description) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
+            document.getElementById('modal-product-description').innerText = description;
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -8,5 +8,5 @@ from .blueprint import root_blueprint
 
 @root_blueprint.get("/")
 def index():
-    template = render_template(f"{g.template_prefix}index.html")
+    template = render_template(f"{g.template_prefix}views/home.html")
     return template
