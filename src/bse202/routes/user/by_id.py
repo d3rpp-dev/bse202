@@ -11,6 +11,8 @@ from ...db import get_db
 
 @user_blueprint.get("/<user_id>")
 def user_home(user_id: str):
+    return render_template("user/user.html")
+
     # If the username is in all caps (like it can be in some cases)
     # redirect the user to this endpoint but lowercase
     if user_id.lower() != user_id:

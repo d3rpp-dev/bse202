@@ -10,10 +10,6 @@ from .blueprint import user_blueprint
 
 
 @user_blueprint.get("/")
-def redirect_home():
-    return redirect(url_for("root.index"))
-
-
 @user_blueprint.get("/self")
 def self():
     if "token" in g:

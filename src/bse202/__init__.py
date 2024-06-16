@@ -4,7 +4,7 @@ from .hooks import register_hooks
 
 from .routes import root_blueprint
 from .routes.auth import auth_blueprint
-from .routes.games import games_blueprint
+from .routes.store import store_blueprint
 from .routes.user import user_blueprint
 
 from flask import Flask, g
@@ -46,5 +46,5 @@ else:
 
     app.register_blueprint(root_blueprint)
     app.register_blueprint(auth_blueprint)
-    app.register_blueprint(games_blueprint)
+    app.register_blueprint(store_blueprint)
     app.register_blueprint(user_blueprint)
