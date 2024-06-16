@@ -33,10 +33,11 @@
 </style>
 <div class="profile-banner">
     <p style=" padding-top: 15px; font-size: 40px;  text-align: center; margin: 0;">Profile</p>
+    {% if current_user %}
     <div class="profile-info">
         <img alt="Profile" style=" width: 150px;height: 150px;background-color: white;border-top-left-radius: 60px;border-top-right-radius: 60px;border-bottom-left-radius: 130px; border-bottom-right-radius: 80px;">
         <div class="profile-info-user">
-            <p>Hello user,</p>
+            <p>Hello, {{ current_user.username }}</p>
             <div class="profile-info-user-bio">
                 Bio,:
                 <br>
@@ -44,9 +45,9 @@
             </div>
         </div>
         <div class="profile-info-balance">
-            <p>Balance</p>
+            <p>Vault Coin Balance:</p>
             <br>
-            <p>$24</p>
+            <p>{{ current_user.vault_coin }}</p>
         </div>
         <div class="profile-info-id">
             <p>ID</p>
@@ -54,4 +55,7 @@
             <p>asdad</p>
         </div>
     </div>
+    {% else %}
+        <p>User not found.</p>
+    {% endif %}
 </div>
