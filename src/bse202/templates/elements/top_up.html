@@ -114,7 +114,7 @@
             </svg>
         </div>
         <div class="topup-list">
-            <form id="topup-form" method="post" action="{{ url_for('top_up') }}">
+            <form id="topup-form" method="post" action="{{ url_for('user.top_up') }}">
                 <div class="topup-value">
                     <p>Top Up Option:</p>
                     <input type="radio" id="5dollar" name="amount" value="5">
@@ -148,7 +148,7 @@
 document.querySelectorAll('input[name="amount"]').forEach((radio) => {
     radio.addEventListener('change', function() {
         const selectedAmount = this.value;
-        fetch('{{ url_for('update_top_up_option') }}', {
+        fetch('{{ url_for('user.update_top_up_option') }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

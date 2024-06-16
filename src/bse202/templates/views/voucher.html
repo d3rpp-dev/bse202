@@ -51,7 +51,7 @@
 </head>
 <body>
     <div id="voucher-input" class="topup-voucher">
-        <form action="{{ url_for('voucher') }}" method="POST">
+        <form action="{{ url_for('store.voucher') }}" method="POST">
             <label for="voucher-code">Enter Voucher Code:</label><br>
             <input type="text" id="voucher-code" name="voucher-code" required><br>
             <button type="submit" id="submit-btn">Submit</button>

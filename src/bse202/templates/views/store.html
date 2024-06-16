@@ -116,7 +116,7 @@
             <img id="modal-product-image" src="" alt="">
             <h3 id="modal-product-name"></h3>
             <p id="modal-product-description"></p>
-            <form action="{{ url_for('add_to_cart') }}" method="post">
+            <form action="{{ url_for('store.add_to_cart') }}" method="post">
                 <input type="hidden" name="product_name" id="modal-product-name-input">
                 <button type="submit" class="btn">Add to Cart</button>
             </form>

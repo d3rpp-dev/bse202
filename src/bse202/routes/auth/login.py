@@ -90,12 +90,15 @@ def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] |
 
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    if g.token is not None:
+        return redirect(url_for("root.index"))
+
     if request.method == "POST":
         maybe_form_data = get_valid_form_data(request.form)
 
         if isinstance(maybe_form_data, str):
             return render_template(
-                f"{g.template_prefix}auth/login.html",
+                f"{g.template_prefix}views/login.html",
                 error={
                     "kind": "user",
                     "code": "login_invalid_form_data",
@@ -110,7 +113,7 @@ def login():
                 loaded_user = get_user_and_validate_hash(db_cursor, username, password)
                 if loaded_user is None:
                     return render_template(
-                        f"{g.template_prefix}auth/login.html",
+                        f"{g.template_prefix}views/login.html",
                         error={
                             "kind": "user",
                             "code": "login_invalid_input",
@@ -135,7 +138,7 @@ def login():
                 # all other cases have been handled
                 db_cursor.close()
                 return render_template(
-                    f"{g.template_prefix}auth/login.html",
+                    f"{g.template_prefix}views/login.html",
                     error={
                         "kind": "server",
                         "code": "login_internal_error",
@@ -143,4 +146,4 @@ def login():
                     },
                 ), 500
 
-    return render_template(f"{g.template_prefix}auth/login.html"), 200
+    return render_template(f"{g.template_prefix}views/login.html"), 200

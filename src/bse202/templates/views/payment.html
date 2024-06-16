@@ -27,7 +27,7 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('payment') }}" method="post">
+        <form action="{{ url_for('store.payment') }}" method="post">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
                 <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Enter card number" required>

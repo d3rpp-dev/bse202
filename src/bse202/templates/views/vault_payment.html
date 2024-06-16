@@ -33,7 +33,7 @@
         </div>
 
         {% if vault_coin >= cart_summary.total_price %}
-            <form action="{{ url_for('vault_payment') }}" method="post">
+            <form action="{{ url_for('store.vault_payment') }}" method="post">
                 <button type="submit" class="btn btn-primary">Pay with Vault Coin</button>
             </form>
         {% else %}

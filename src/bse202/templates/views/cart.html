@@ -35,7 +35,7 @@
                                     <td>${{ item.price }}</td>
                                     <td>${{ item.total }}</td>
                                     <td>
-                                        <form action="{{ url_for('remove_from_cart') }}" method="post">
+                                        <form action="{{ url_for('store.remove_from_cart') }}" method="post">
                                             <input type="hidden" name="product_name" value="{{ item.name }}">
                                             <button type="submit" class="btn-secondary">Remove</button>
                                         </form>
@@ -53,9 +53,9 @@
                 <p>Total items: {{ cart_summary.total_items }}</p>
                 <p>Total price: ${{ cart_summary.total_price }}</p>
                 <div class="button-group">
-                    <a href="{{ url_for('store') }}" class="btn-secondary">Keep Shopping</a>
+                    <a href="{{ url_for('store.store_root') }}" class="btn-secondary">Keep Shopping</a>
                     {% if cart %}
-                        <a href="{{ url_for('checkout') }}" class="btn">Checkout</a>
+                        <a href="{{ url_for('store.checkout') }}" class="btn">Checkout</a>
                     {% endif %}
                 </div>
             </div>

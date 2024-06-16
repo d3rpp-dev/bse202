@@ -10,11 +10,13 @@ from ...db import get_db
 
 
 @user_blueprint.get("/<user_id>")
-def user_home(user_id: str):
+def account(user_id: str):
+    return render_template("views/account.html")
+
     # If the username is in all caps (like it can be in some cases)
     # redirect the user to this endpoint but lowercase
     if user_id.lower() != user_id:
-        return redirect(url_for("user.user_home", user_id=user_id.lower())), 302
+        return redirect(url_for("user.account", user_id=user_id.lower())), 302
 
     db = get_db()
 
