@@ -1,0 +1,38 @@
+{% extends "_example/base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/games.css') }}">
+{% endblock %}
+
+{% block title %} Games {% endblock %}
+
+{% block content %}
+	<main id="storepage">
+		<h1>{{ game.title }}</h1>
+		<p>{{ game.description }}</p>
+
+		{% for asset in game.assets %}
+			{# this string concatenation is somewhat cursed, idk how I feel about it ngl #}
+			<img src="{{ url_for('static', filename='assets/' ~ asset[0] ~ '.jpg') }}" style="width: 18em" />
+		{% endfor %}
+
+		<h2>Reviews</h2>
+		{# Glorious HTMX #}
+		<div
+			class="reviews"
+			hx-get="{{ url_for('games.game_storepage_reviews', game_id=game['game_id'] ) }}"
+			hx-trigger="load"
+			hx-swap="outerHTML"
+		>
+			loading...
+		</div>
+
+		<div>
+			{% if user != None %}
+				Purchase
+			{% else %}
+				Please <a href="{{ url_for('auth.login') }}">Login</a> to purchase
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}
