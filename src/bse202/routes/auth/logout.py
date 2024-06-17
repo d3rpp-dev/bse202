@@ -9,7 +9,7 @@ from flask import g, redirect, url_for
 from .blueprint import auth_blueprint
 
 
-@auth_blueprint.get("/logout")
+@auth_blueprint.route("/logout", methods=["GET", "POST"])
 def logout():
     # the post-request handler will delete the cookie if g.token becomes None
     del g.token

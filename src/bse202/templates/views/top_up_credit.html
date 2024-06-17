@@ -17,6 +17,8 @@
     <div class="container mt-5">
         <h1 class="mb-4">Top Up Credit</h1>
         
+        <span>Top Up Amount: <strong>{{ "$%.2f"|format(amount) }}</strong></span>
+
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="alert alert-danger" role="alert">
@@ -27,7 +29,10 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('store.top_up_credit') }}" method="post">
+        <form action="{{ url_for('user.top_up') }}" method="post">
+            {# so we know how much we're adding #}
+            {# in the real world, this is the worst way to do it, but here we are #}
+            <input type="hidden" name="amount" value="{{ amount }}">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
                 <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Enter card number" required>

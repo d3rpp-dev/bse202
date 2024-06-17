@@ -23,22 +23,24 @@
         <div class="account-info">
             <img src="{{ url_for('static', filename='images/profile-picture.png') }}" alt="Profile Picture" class="profile-picture">
             <div class="user-details">
-                {% if current_user %}
-                    <h2>Hello, {{ current_user.username }}</h2>
-                    <p>ID: 1234567890</p> <!-- Replace with actual user ID -->
-                    <p>Vault Coin Balance: {{ current_user.vault_coin }}</p>
+                {% if current_user is defined %}
+                    <h2>{{ "Hello, " if is_current else "" }}{{ current_user.username }}</h2>
+                    <p>ID: {{ current_user.user_id }}</p>
+                    {% if current_user.account_balance != None %}
+                        <p>Vault Coin Balance: {{ "$%.2f"|format(current_user.account_balance) }}</p>
+                    {% endif %}
                 {% else %}
                     <p>User not found.</p>
                 {% endif %}
             </div>
         </div>
-        
-        <!-- User Bio -->
-        <div class="user-bio">
-            <h3>Bio</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-
+        {% if current_user.description != None %}
+            <!-- User Bio -->
+            <div class="user-bio">
+                <h3>Bio</h3>
+                <p>{{ current_user.description }}</p>
+            </div>
+        {% endif %}
     </div>
 
     <!-- Include popup messages -->
