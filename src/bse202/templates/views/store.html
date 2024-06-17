@@ -117,24 +117,7 @@
     </div>
 
     <!-- Product Details Modal -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modal-product-image" src="" alt="">
-            <h3 id="modal-product-name"></h3>
-            <p id="modal-product-description"></p>
-            <p id="test"></p>
-            <div id="modal-product-cart-button" style="display: none;">
-                <form action="{{ url_for('add_to_cart') }}" method="post">
-                <input type="hidden" name="product_name" id="modal-product-name-input">
-                <button type="submit" class="btn">Add to Cart</button>
-            </form>
-            </div>
-            <div id="modal-product-play-button" style="display: none;">
-                <button id="play-button-display">Play</button>
-            </div>
-        </div>
-    </div>
+    {%include 'elements/product-detail.html'%}
     {%include 'elements/game-launching.html'%}
     <!-- Include footer -->
     {% include 'elements/footer.html' %}

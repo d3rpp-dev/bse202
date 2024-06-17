@@ -78,11 +78,18 @@
                 </div>
             </div>
             <div class="recommendation-invisible" onmouseout="game_hovering_display(this)">
-                <button>Details</button>
+                <button
+                {% if game.id in owned_game %}
+                onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',true)"
+                {%else%}
+                onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',false)"
+                {%endif%}
+                >Details</button>
             </div>
         {% endfor %} 
     </div>
 </div>
+{%include 'elements/product-detail.html'%}
 <script>
     function game_hovering(element)
     {
@@ -96,20 +103,42 @@
         Display.style.display = 'block';
         element.style.display = 'none';
     }
-    function playinggame(name)
-    {
-        document.getElementById('game-on-display').style.display='flex';
-        document.getElementById('game-on-launching').innerText='Launching '+name+' ...';
-        document.getElementById('game-on-launching').style.display='flex';
-        setTimeout(function() {
-        document.getElementById('game-on-launching').style.display = 'none';
-        document.getElementById('game-on-starting').innerText='Starting '+name+'!';
-        document.getElementById('game-on-starting').style.display = 'flex';
-        }, 1500);
-        setTimeout(function() {
-        document.getElementById('game-on-starting').style.display = 'none';
-        document.getElementById('game-on-display').style.display = 'none';
-        }, 2000);
-    }
+    function showProductDetails(name, image, description,id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
+            document.getElementById('modal-product-description').innerText = description;
+            if (id==true)
+            {
+                document.getElementById('modal-product-play-button').style.display='block';
+                document.getElementById('modal-product-cart-button').style.display='none';
+                document.getElementById('play-button-display').onclick = function() {playinggame(name);};
+            }
+            else
+            {
+                document.getElementById('modal-product-cart-button').style.display='block';
+                document.getElementById('modal-product-play-button').style.display='none';
+            }
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+        function playinggame(name)
+        {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display='flex';
+            document.getElementById('game-on-launching').innerText='Launching '+name+' ...';
+            document.getElementById('game-on-launching').style.display='flex';
+            setTimeout(function() {
+            document.getElementById('game-on-launching').style.display = 'none';
+            document.getElementById('game-on-starting').innerText='Starting '+name+'!';
+            document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+            document.getElementById('game-on-starting').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
 </script>
 {% include 'elements/game-launching.html' %}

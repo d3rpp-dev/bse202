@@ -188,6 +188,7 @@ recommendation_list=[
         {
             "name": "Hades",
             "image": "media/game/indie1.jfif",
+            "id":1
         },
         {
             "name": "The Witcher 3: Wild Hunt",
@@ -214,7 +215,7 @@ owned_list=[
 owned_game={1,5}
 @app.route("/")
 def home():
-    return render_template("views/home.html",recommendation_list=recommendation_list)
+    return render_template("views/home.html",recommendation_list=recommendation_list, owned_game=owned_game)
 
 
 @app.route("/about")
