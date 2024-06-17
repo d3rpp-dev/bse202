@@ -61,6 +61,7 @@
         margin: 10px;
         font-size: 20;
         color: white;
+        cursor: pointer;
     }
     
 </style>
@@ -77,7 +78,6 @@
                 </div>
             </div>
             <div class="recommendation-invisible" onmouseout="game_hovering_display(this)">
-                <button onclick="playinggame('{{game.name}}')">Play {{game.name}}</button>
                 <button>Details</button>
             </div>
         {% endfor %} 

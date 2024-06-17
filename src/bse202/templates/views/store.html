@@ -18,7 +18,14 @@
             <h2>Action Games</h2>
             <div class="product-row" id="action-games">
                 {% for product in products['action_games'] %}
-                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                
+                <div class="product" 
+                {% if product.id in owned_game %}
+                onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}',true)"
+                {%else%}
+                onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}',false)"
+                {%endif%}
+                >
                     <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
                 </div>
@@ -94,7 +101,7 @@
             <h2>Indie Games</h2>
             <div class="product-row" id="indie-games">
                 {% for product in products['indie_games'] %}
-                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}')">
+                <div class="product" onclick="showProductDetails('{{ product.name }}', '{{ product.image }}', '{{ product.description }}','{{product.id}}')">
                     <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
                 </div>
@@ -116,13 +123,19 @@
             <img id="modal-product-image" src="" alt="">
             <h3 id="modal-product-name"></h3>
             <p id="modal-product-description"></p>
-            <form action="{{ url_for('add_to_cart') }}" method="post">
+            <p id="test"></p>
+            <div id="modal-product-cart-button" style="display: none;">
+                <form action="{{ url_for('add_to_cart') }}" method="post">
                 <input type="hidden" name="product_name" id="modal-product-name-input">
                 <button type="submit" class="btn">Add to Cart</button>
             </form>
+            </div>
+            <div id="modal-product-play-button" style="display: none;">
+                <button id="play-button-display">Play</button>
+            </div>
         </div>
     </div>
-
+    {%include 'elements/game-launching.html'%}
     <!-- Include footer -->
     {% include 'elements/footer.html' %}
 
@@ -147,14 +160,40 @@
             }
         }
 
-        function showProductDetails(name, image, description) {
+        function showProductDetails(name, image, description,id) {
             document.getElementById('modal-product-name').innerText = name;
             document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
             document.getElementById('modal-product-description').innerText = description;
+            if (id==true)
+            {
+                document.getElementById('modal-product-play-button').style.display='block';
+                document.getElementById('modal-product-cart-button').style.display='none';
+                document.getElementById('play-button-display').onclick = function() {playinggame(name);};
+            }
+            else
+            {
+                document.getElementById('modal-product-cart-button').style.display='block';
+                document.getElementById('modal-product-play-button').style.display='none';
+            }
             document.getElementById('modal-product-name-input').value = name;
             document.getElementById('product-modal').style.display = 'block';
         }
-
+        function playinggame(name)
+        {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display='flex';
+            document.getElementById('game-on-launching').innerText='Launching '+name+' ...';
+            document.getElementById('game-on-launching').style.display='flex';
+            setTimeout(function() {
+            document.getElementById('game-on-launching').style.display = 'none';
+            document.getElementById('game-on-starting').innerText='Starting '+name+'!';
+            document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+            document.getElementById('game-on-starting').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
         function closeModal() {
             document.getElementById('product-modal').style.display = 'none';
         }

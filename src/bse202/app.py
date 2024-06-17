@@ -43,11 +43,13 @@ products = {
             "name": "DOOM Eternal",
             "description": "Experience the ultimate combination of speed and power with the next leap in push-forward, first-person combat.",
             "image": "media/game/action1.jfif",
+            "id":1,
         },
         {
             "name": "Sekiro: Shadows Die Twice",
             "description": "Carve your own clever path to vengeance in this critically acclaimed adventure from developer FromSoftware.",
             "image": "media/game/action2.jfif",
+            "id":2,
         },
         {
             "name": "Monster Hunter: World",
@@ -63,6 +65,7 @@ products = {
             "name": "Resident Evil Village",
             "description": "Experience survival horror like never before in the 8th major installment in the Resident Evil franchise.",
             "image": "media/game/action5.jfif",
+            "id":5,
         },
     ],
     "sports_games": [
@@ -198,7 +201,7 @@ recommendation_list=[
             "name": "Football Manager 2022","image": "media/game/sport1.jfif",
         },
         {
-            "name": "DOOM Eternal","image": "media/game/action1.jfif",
+            "name": "DOOM Eternal","image": "media/game/action1.jfif", 
         },
     ]
 owned_list=[
@@ -208,6 +211,7 @@ owned_list=[
             "image": "media/game/action1.jfif",
         },
     ]
+owned_game={1,5}
 @app.route("/")
 def home():
     return render_template("views/home.html",recommendation_list=recommendation_list)
@@ -225,7 +229,7 @@ def contact():
 
 @app.route("/store")
 def store():
-    return render_template("views/store.html", products=products)
+    return render_template("views/store.html", products=products,owned_game=owned_game)
 
 
 @app.route("/account")
