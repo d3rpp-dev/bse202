@@ -210,6 +210,7 @@ owned_list=[
             "name": "DOOM Eternal",
             "description": "Experience the ultimate combination of speed and power with the next leap in push-forward, first-person combat.",
             "image": "media/game/action1.jfif",
+            "id":1,
         },
     ]
 owned_game={1,5}
@@ -561,15 +562,24 @@ def logout():
 @app.route("/search")
 def search():
 
-    all_names = []
+    all_games = []
     for category, games in products.items():
-        for game in games:
-            all_names.append(game['name'])
+        all_games.extend(games)
+    
     query = request.args.get("query", "")
     if query:
-        results = [game for game in all_names if query.lower() in game.lower()]
+        results = [
+            {
+                "id": game.get("id"),
+                "name": game.get("name"),
+                "description": game.get("description"),
+                "image": game.get("image"),
+            }
+            for game in all_games if query.lower() in game.get("name", "").lower()
+        ]
     else:
         results = []
+    
     return jsonify(results)
 
 
