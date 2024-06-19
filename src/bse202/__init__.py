@@ -1,4 +1,4 @@
-from .db import check_db_exists, get_db
+from .db import check_db_exists, get_db, delete_db
 
 from .hooks import register_hooks
 
@@ -15,6 +15,9 @@ app = Flask(__name__)
 
 def init_db():
     with app.app_context():
+        # start fresh
+        delete_db()
+
         db = get_db()
         with app.open_resource("schema.sql", mode="r") as f:
             db.cursor().executescript(f.read())

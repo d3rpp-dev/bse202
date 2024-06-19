@@ -77,8 +77,8 @@ def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] |
 
     Returns `(str, str)` if all is good (username, password)
     """
-    username = dict.get("user")
-    password = dict.get("pass")
+    username = dict.get("username")
+    password = dict.get("password")
 
     if username is None:
         return "Missing Username"
@@ -90,7 +90,7 @@ def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] |
 
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
-    if g.token is not None:
+    if "token" in g:
         return redirect(url_for("root.index"))
 
     if request.method == "POST":

@@ -10,6 +10,8 @@ from sqlite3 import DatabaseError
 from .blueprint import store_blueprint
 from ...db import get_db
 
+import json
+
 
 @store_blueprint.get("/")
 def store_root():
@@ -22,71 +24,85 @@ def store_root():
     do i care? no
     """
 
-    return render_template("views/store.html")
-
     db = get_db()
+
+    error = None
 
     try:
         query = """--sql
         SELECT
-            game_id,
-            title,
-            description
+            cats.category_id,
+            cats.title,
+            cats.description
         FROM
-            games
-        LIMIT
-            20
+            categories as cats
         """
-        games_list_result: list[tuple[int, str, str]] = db.execute(query).fetchall()
-    except DatabaseError as ex:
-        return render_template(
-            f"{g.template_prefix}games/index.html",
-            error={
-                "kind": "server",
-                "code": "initial_game_query_failed",
-                "message": f"SQL Error - {ex}",
-            },
+
+        cats = list(
+            map(
+                lambda tup: {
+                    "category_id": tup[0],
+                    "title": tup[1],
+                    "description": tup[2],
+                    "slug": "%s-category" % tup[1].lower().replace(" ", "-"),
+                },
+                db.execute(query).fetchall(),
+            )
         )
 
-    # this, ladies and gentleman is why i don't like python
-    game_ids: list[str] = [str(i[0]) for i in games_list_result]
-
-    try:
-        query = f"""--sql
-        SELECT
-            asset_id,
-            game_id
-        FROM
-            game_assets
-        WHERE
-            game_id IN ({', '.join(game_ids)})
-        """
-        asset_list: list[tuple[int, int]] = db.execute(query).fetchall()
     except DatabaseError as ex:
-        return render_template(
-            f"{g.template_prefix}games/index.html",
-            error={
-                "kind": "server",
-                "code": "initial_game_query_failed",
-                "message": f"SQL Error - {ex}",
-            },
-        )
+        error = {
+            "kind": "server",
+            "code": "get_categories",
+            "message": f"Failed to get Game Categories List - {ex}",
+        }
 
-    games_list_with_associated_assets = []
+    for idx, category in enumerate(cats):
+        try:
+            query = """--sql
+            SELECT
+                games.game_id,
+                games.title,
+                games.description,
+                games.price,
 
-    for game in games_list_result:
-        for i in asset_list:
-            if game[0] == i[1]:
-                games_list_with_associated_assets.append(
-                    {
-                        "game_id": game[0],
-                        "title": game[1],
-                        "description": game[2],
-                        "banner": url_for("static", filename=f"assets/{i[1]}.jpg"),
-                        "page": url_for("games.game_store_page", game_id=game[0]),
-                    }
+                assets.asset_id
+            FROM
+                game_categories_link as links
+            RIGHT JOIN
+                games
+            ON
+                games.game_id = links.game_id
+            RIGHT JOIN
+                game_assets as assets
+            ON
+                games.game_id = assets.game_id
+            WHERE
+                links.category_id = ?1
+            """
+
+            category["games"] = list(
+                map(
+                    lambda tup: {
+                        "game_id": tup[0],
+                        "title": tup[1],
+                        "description": tup[2],
+                        "price": tup[3],
+                        "image_id": tup[4],
+                    },
+                    db.execute(query, (category["category_id"],)).fetchall(),
                 )
+            )
 
-    return render_template(
-        f"{g.template_prefix}games/index.html", games=games_list_with_associated_assets
-    )
+            cats[idx] = category
+
+            print(cats[idx])
+        except DatabaseError as ex:
+            error = {
+                "kind": "server",
+                "code": "get_categories",
+                "message": f"Failed to get Games List - {ex}",
+            }
+            break
+
+    return render_template("views/store.html", error=error, product_categories=cats)
