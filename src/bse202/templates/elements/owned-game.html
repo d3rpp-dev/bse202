@@ -1,16 +1,16 @@
 <style>
-    .recommendation{
+    .owned{
         display: block;
         color: white;
         display: block;
     }
-    .recommendation h1{
+    .owned h1{
         font-size: 48px;
     }
-    .recommendation-container{
+    .owned-container{
         display: flex;
     }
-    .recommendation-display{
+    .owned-display{
         width: 200px;
         height: 300px;
         border-radius: 30px;
@@ -20,13 +20,13 @@
         position: relative;
         display: absolute;
     }
-    .recommendation-image
+    .owned-image
     {
         width: 200px;
         height: 240px;
         overflow: hidden;
     }
-    .recommendation-name{
+    .owned-name{
         font-size: 24px; 
         width:200px ;
         height: 60px; 
@@ -38,7 +38,7 @@
         display: flex; 
         justify-content: center;
     }
-    .recommendation-invisible
+    .owned-invisible
     {
         width: 200px;
         height: 300px;
@@ -52,7 +52,7 @@
         align-items: center;
         justify-content: center;
     }
-    .recommendation-invisible button
+    .owned-invisible button
     {
         width: 150px;
         height: 50px;
@@ -63,28 +63,22 @@
         color: white;
         cursor: pointer;
     }
-    
 </style>
-<div class="recommendation">
-    <h1>Recommendation</h1>
-    <div class="recommendation-container"> 
-        {% for game in recommendation_list %}
-            <div class="recommendation-display" onmouseover="game_hovering(this)">
-                <div class="recommendation-image">
+<div class="owned">
+    <h1>Owned</h1>
+    <div class="owned-container"> 
+        {% for game in owned_list %}
+            <div class="owned-display" id="owned-display" onmouseover="game_hovering(this)">
+                <div class="owned-image">
                     <img style="width: 200px;height: 300px; object-fit:cover; border-top-left-radius: 30px; border-top-right-radius: 30px;" src="{{ url_for('static', filename=game.image) }}" alt="game">
                 </div>
-                <div class="recommendation-name">
+                <div class="owned-name">
                     <p>{{game.name}}</p>
                 </div>
             </div>
-            <div class="recommendation-invisible" onmouseout="game_hovering_display(this)">
-                <button
-                {% if game.id in owned_game %}
-                onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',true)"
-                {%else%}
-                onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',false)"
-                {%endif%}
-                >Details</button>
+            <div class="owned-invisible" onmouseout="game_hovering_display(this)">
+                <button onclick="playinggame('{{game.name}}')">Play {{game.name}}</button>
+                <button onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',true)">Details</button>
             </div>
         {% endfor %} 
     </div>
@@ -140,5 +134,6 @@
         function closeModal() {
             document.getElementById('product-modal').style.display = 'none';
         }
+    
 </script>
 {% include 'elements/game-launching.html' %}

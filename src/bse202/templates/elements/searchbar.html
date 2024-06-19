@@ -4,8 +4,12 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        color: white;
+        font-family: Poppins;
     }
     #search-result-container{
+        margin-top: 280px;
+        position: absolute;
         border: 1px solid #ccc;
         display: none;
         max-height: 200px;
@@ -19,14 +23,14 @@
         margin: 0;
         font-size: 24px;
         padding-left: 10px;
-        font-family: 'Courier New', Courier, monospace;
        }
        #search-result-container li {
         padding: 8px;
         cursor: pointer;
+        background-color: #9290C3;
        }
        #search-result-container li:hover {
-        background-color: #f0f0f0;
+        background-color: #5F3B51;
        }
 </style>
 <div class="search-bar">
@@ -35,6 +39,8 @@
         <ul id="search-result"></ul>
     </div>
 </div>
+{%include 'elements/product-detail.html'%}
+{%include 'elements/game-launching.html'%}
 <script>
     document.getElementById('search-bar').addEventListener('input', function() {
            const query = this.value;
@@ -47,9 +53,9 @@
                        resultsList.innerHTML = '';
                        gamelist.forEach(game => {
                            const li = document.createElement('li');
-                           li.textContent = game;
+                           li.textContent = game.name;
                            li.addEventListener('click', () => {
-                               GameOpenDetail(game);
+                               showProductDetails(game.name,game.image,game.description,game.id);
                            }); //Action for each game
                            resultsList.appendChild(li);
                        });
@@ -60,8 +66,41 @@
                resultsDiv.style.display = 'none';
            }
        });
-    function GameOpenDetail(game)
-    {
-        //:) for each game action
-    }
+    function showProductDetails(name, image, description,id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
+            document.getElementById('modal-product-description').innerText = description;
+            if (id==true)
+            {
+                document.getElementById('modal-product-play-button').style.display='block';
+                document.getElementById('modal-product-cart-button').style.display='none';
+                document.getElementById('play-button-display').onclick = function() {playinggame(name);};
+            }
+            else
+            {
+                document.getElementById('modal-product-cart-button').style.display='block';
+                document.getElementById('modal-product-play-button').style.display='none';
+            }
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+        function playinggame(name)
+        {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display='flex';
+            document.getElementById('game-on-launching').innerText='Launching '+name+' ...';
+            document.getElementById('game-on-launching').style.display='flex';
+            setTimeout(function() {
+            document.getElementById('game-on-launching').style.display = 'none';
+            document.getElementById('game-on-starting').innerText='Starting '+name+'!';
+            document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+            document.getElementById('game-on-starting').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
 </script>

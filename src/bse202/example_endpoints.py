@@ -530,3 +530,27 @@ def logout():
     # Perform logout actions here
     session.pop("username", None)  # Remove the user from the session
     return redirect(url_for("home"))
+
+
+@app.route("/search")
+def search():
+
+    all_games = []
+    for category, games in products.items():
+        all_games.extend(games)
+    
+    query = request.args.get("query", "")
+    if query:
+        results = [
+            {
+                "id": game.get("id"),
+                "name": game.get("name"),
+                "description": game.get("description"),
+                "image": game.get("image"),
+            }
+            for game in all_games if query.lower() in game.get("name", "").lower()
+        ]
+    else:
+        results = []
+    
+    return jsonify(results)
