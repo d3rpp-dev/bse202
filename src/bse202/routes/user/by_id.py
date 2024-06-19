@@ -43,7 +43,7 @@ def account(user_id: str):
                         "message": "Unknown User ID",
                     },
                 ), 404
-            
+
             (
                 queried_user_id,
                 created_at,
@@ -52,7 +52,7 @@ def account(user_id: str):
                 account_type,
                 profile_bg,
                 text_colour,
-                description
+                description,
             ) = result
 
             current_user = {
@@ -60,35 +60,29 @@ def account(user_id: str):
                 "created_at": datetime.fromtimestamp(created_at).strftime("%d %b, %Y"),
                 "username": username,
                 "account_balance": account_balance if is_current else None,
-                "description": description
+                "description": description,
             }
 
             return render_template(
-                "views/account.html",
-                is_current = is_current,
-                current_user = current_user
+                "views/account.html", is_current=is_current, current_user=current_user
             )
         except DatabaseError as ex:
             return render_template(
-                "views/account.html", 
+                "views/account.html",
                 error={
                     "kind": "user",
                     "code": "user_get_balance_by_id",
-                    "message": f"Database failed to look up user - {ex}"
-                }
+                    "message": f"Database failed to look up user - {ex}",
+                },
             ), 500
         else:
             pass
 
-        
     else:
         # can only be accessed by logged in users
         return redirect(url_for("auth.login"))
- 
 
-    return render_template(
-        "views/account.html"
-    )
+    return render_template("views/account.html")
 
     # If the username is in all caps (like it can be in some cases)
     # redirect the user to this endpoint but lowercase
