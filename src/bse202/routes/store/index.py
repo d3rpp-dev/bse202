@@ -38,10 +38,17 @@ def store_root():
             categories as cats
         """
 
-        cats = list(map(
-            lambda tup: {"category_id": tup[0], "title": tup[1], "description": tup[2], "slug": "%s-category" % tup[1].lower().replace(" ", "-")},
-            db.execute(query).fetchall(),
-        ))
+        cats = list(
+            map(
+                lambda tup: {
+                    "category_id": tup[0],
+                    "title": tup[1],
+                    "description": tup[2],
+                    "slug": "%s-category" % tup[1].lower().replace(" ", "-"),
+                },
+                db.execute(query).fetchall(),
+            )
+        )
 
     except DatabaseError as ex:
         error = {
@@ -50,7 +57,7 @@ def store_root():
             "message": f"Failed to get Game Categories List - {ex}",
         }
 
-    for (idx, category) in enumerate(cats):
+    for idx, category in enumerate(cats):
         try:
             query = """--sql
             SELECT
@@ -74,10 +81,18 @@ def store_root():
                 links.category_id = ?1
             """
 
-            category["games"] = list(map(
-                lambda tup: {"game_id": tup[0], "title": tup[1], "description": tup[2], "price": tup[3], "image_id": tup[4]},
-                db.execute(query, (category["category_id"],)).fetchall()
-            ))
+            category["games"] = list(
+                map(
+                    lambda tup: {
+                        "game_id": tup[0],
+                        "title": tup[1],
+                        "description": tup[2],
+                        "price": tup[3],
+                        "image_id": tup[4],
+                    },
+                    db.execute(query, (category["category_id"],)).fetchall(),
+                )
+            )
 
             cats[idx] = category
 
@@ -90,6 +105,4 @@ def store_root():
             }
             break
 
-    return render_template(
-        "views/store.html", error=error, product_categories=cats
-    )
+    return render_template("views/store.html", error=error, product_categories=cats)
