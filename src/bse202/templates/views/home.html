@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .search-bar-div{
+        display: flex;
+        justify-content: right;
+        width: 1440px;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +23,6 @@
         <div class="search-bar-div">
             {% include 'elements/searchbar.html'%}
         </div>
-        
         <!-- Include the addbanner element here -->
         {% include 'elements/addbanner.html' %}
         {% include 'elements/recommendation.html'%}
@@ -25,4 +31,5 @@
     {% include 'elements/footer.html' %}
 </body>
 </html>
+
 
