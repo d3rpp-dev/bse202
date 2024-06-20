@@ -10,10 +10,10 @@ def cart():
     # authenticated
     if "token" not in g:
         return redirect(url_for("auth.login"))
-    
+
     error = None
 
-    user_id: str = g.token['user_id']
+    user_id: str = g.token["user_id"]
 
     db = get_db()
 
@@ -48,9 +48,9 @@ def cart():
                     "title": tup[1],
                     "description": tup[2],
                     "price": tup[3],
-                    "image_id": tup[4]
+                    "image_id": tup[4],
                 },
-                db.execute(query, (user_id,)).fetchall()
+                db.execute(query, (user_id,)).fetchall(),
             )
         )
 
@@ -64,15 +64,11 @@ def cart():
         error = {
             "kind": "server",
             "code": "fetch_cart",
-            "message": "Failed to get Cart - {ex}"
+            "message": "Failed to get Cart - {ex}",
         }
 
     return render_template(
-        "views/cart.html", 
-        cart_items = cart,
-        cart_total = cart_total,
-
-        error = error
+        "views/cart.html", cart_items=cart, cart_total=cart_total, error=error
     )
 
 
@@ -98,9 +94,15 @@ def add_to_cart():
             item.user_id = ?1 AND item.game_id = ?2
         """
 
-        if db.execute(
-            query, (g.token["user_id"], int(request.form.get("product_id")))  # type: ignore
-        ).fetchall().__len__() > 0:
+        if (
+            db.execute(
+                query,
+                (g.token["user_id"], int(request.form.get("product_id"))),  # type: ignore
+            )
+            .fetchall()
+            .__len__()
+            > 0
+        ):
             # do not add, already there
             return redirect(url_for("store.store_root"))
 
