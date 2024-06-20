@@ -16,27 +16,23 @@
         <div class="cart-wrapper">
             <h1>Your Shopping Cart</h1>
             <div class="cart-items">
-                {% if cart %}
+                {% if cart_items|length > 0 %}
                     <table>
                         <thead>
                             <tr>
                                 <th>Item</th>
-                                <th>Quantity</th>
                                 <th>Price</th>
-                                <th>Total</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in cart %} 
+                            {% for item in cart_items %} 
                                 <tr>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.title }}</td>
                                     <td>${{ item.price }}</td>
-                                    <td>${{ item.total }}</td>
                                     <td>
                                         <form action="{{ url_for('store.remove_from_cart') }}" method="post">
-                                            <input type="hidden" name="product_name" value="{{ item.name }}">
+                                            <input type="hidden" name="product_id" value="{{ item['game_id'] }}">
                                             <button type="submit" class="btn-secondary">Remove</button>
                                         </form>
                                     </td>
@@ -50,11 +46,11 @@
             </div>
             <div class="cart-summary">
                 <h2>Cart Summary</h2>
-                <p>Total items: {{ cart_summary.total_items }}</p>
-                <p>Total price: ${{ cart_summary.total_price }}</p>
+                <p>Total items: {{ cart_items|length }}</p>
+                <p>Total price: ${{ cart_total }}</p>
                 <div class="button-group">
-                    <a href="{{ url_for('store.store_root') }}" class="btn-secondary">Keep Shopping</a>
-                    {% if cart %}
+                    <a href="{{ url_for('store.store_root') }}" class="btn">Keep Shopping</a>
+                    {% if cart_items|length > 0 %}
                         <a href="{{ url_for('store.checkout') }}" class="btn">Checkout</a>
                     {% endif %}
                 </div>

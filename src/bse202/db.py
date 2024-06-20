@@ -17,7 +17,7 @@ def delete_db():
         remove(DB_LOCATION)
 
 
-def get_db():
+def get_db() -> sqlite3.Connection:
     db = getattr(g, "_db", None)
     if db is None:
         db = g._db = sqlite3.connect(DB_LOCATION)
