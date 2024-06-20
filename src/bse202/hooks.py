@@ -2,6 +2,10 @@ from flask import Flask, Response, g, request
 from itsdangerous import URLSafeSerializer, BadSignature
 from os import environ, _exit
 from time import time
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv('.env')
 
 secret_key = environ.get("SECRET_KEY")
 template_prefix = environ.get("TEMPLATE_PREFIX")
@@ -19,13 +23,12 @@ if secret_key is None or secret_key.strip() == "":
 # We've already checked that SECRET_KEY is set
 auth_serializer = URLSafeSerializer(secret_key)
 
-
 def register_hooks(app: Flask):
-    # Pre-Request Middlware
+    # Pre-Request Middleware
     @app.before_request
     def _():
         g.ip = request.remote_addr
-        g.ua = request.headers.get("User_Agent")
+        g.ua = request.headers.get("User-Agent")
 
         # Allows me to use backend pages without affecting the front-end development
         if template_prefix is not None:
@@ -63,7 +66,7 @@ def register_hooks(app: Flask):
             if "exp" not in g.token:
                 g.token["exp"] = int(time() + one_year_in_seconds)
 
-            # Only update cookie if change occured
+            # Only update cookie if change occurred
             serialised_cookie = auth_serializer.dumps(g.token, secret_key)
 
             if (
