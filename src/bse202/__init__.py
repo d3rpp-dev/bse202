@@ -19,10 +19,10 @@ def init_db():
         delete_db()
 
         db = get_db()
-        with app.open_resource("schema.sql", mode="r") as f:
+        with app.open_resource("schema.sql", mode="rt") as f:
             db.cursor().executescript(f.read())
         db.commit()
-        with app.open_resource("sample_data.sql", mode="r") as f:
+        with app.open_resource("sample_data.sql", mode="rt") as f:
             db.cursor().executescript(f.read())
         db.commit()
 

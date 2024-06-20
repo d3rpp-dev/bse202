@@ -25,17 +25,13 @@
     {% include 'elements/header.html' %}
     <div class="content">
         <div class="login-box">
-            <h1>Login</h1>
-            <form method="POST" action="{{ url_for('auth.login') }}">
+            <h1>Create an Account</h1>
+            <form method="POST" action="{{ url_for('auth.signup') }}">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required><br>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required><br>
                 <button type="submit" class="btn">Submit</button>
-                <div class="secondary-buttons">
-                    <a href="{{url_for('auth.signup')}}" class="btn-secondary">Create Account</a>
-                    <button type="button" class="btn-secondary">Forgot Password</button>
-                </div>
             </form>
             {% if error is defined %}
                 <p>{{ error['message'] }}</p>

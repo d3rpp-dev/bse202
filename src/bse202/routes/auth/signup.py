@@ -25,8 +25,8 @@ def get_valid_form_data(dict: ImmutableMultiDict[str, str]) -> tuple[str, str] |
 
     Returns `(str, str)` if all is good (username, password)
     """
-    username = dict.get("user")
-    password = dict.get("pass")
+    username = dict.get("username")
+    password = dict.get("password")
 
     if username is None:
         return "Missing Username"
@@ -73,13 +73,15 @@ def save_user(cursor: Cursor, user_id: str, username: str):
             `users` (
                 `user_id`, 
                 `created_at`, 
-                `username`
+                `username`,
+                `account_balance`
             ) 
         VALUES 
             (
                 ?1, 
                 ?2, 
-                ?3
+                ?3,
+                0
             )
     """
 
@@ -130,7 +132,7 @@ def signup():
 
         if isinstance(maybe_valid_data, str):
             return render_template(
-                f"{g.template_prefix}auth/signup.html",
+                "views/signup.html",
                 error={
                     "kind": "missing",
                     "code": "signup_invalid_form_data",
@@ -142,9 +144,7 @@ def signup():
 
         maybe_error = is_username_available(db, username)
         if maybe_error is not None:
-            return render_template(
-                f"{g.template_prefix}auth/signup.html", error=maybe_error
-            ), 400
+            return render_template("views/signup.html", error=maybe_error), 400
 
         user_id = ulid()
 
@@ -155,7 +155,8 @@ def signup():
             save_user(db_cursor, user_id, username)
             save_password(db_cursor, user_id, password)
             db.commit()
-        except DatabaseError:
+        except DatabaseError as ex:
+            print(ex)
             db.rollback()
             db_cursor.close()
             return "Database Error", 500
@@ -173,4 +174,4 @@ def signup():
         return redirect(url_for("root.index"))
     else:
         # Request is a GET request
-        return render_template(f"{g.template_prefix}auth/signup.html")
+        return render_template("views/signup.html")

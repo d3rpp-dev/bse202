@@ -17,6 +17,9 @@ def cart():
 
     db = get_db()
 
+    cart = []
+    cart_total = 0
+
     try:
         query = """--sql
         SELECT
@@ -53,8 +56,6 @@ def cart():
                 db.execute(query, (user_id,)).fetchall(),
             )
         )
-
-        cart_total = 0
 
         for item in cart:
             cart_total += item["price"]
@@ -128,4 +129,34 @@ def add_to_cart():
 
 @store_blueprint.post("/remove_from_cart")
 def remove_from_cart():
+    # authenticated
+    if "token" not in g:
+        return redirect(url_for("auth.login"))
+
+    if request.form.get("product_id") is None:
+        return "no product", 400
+
+    user_id = g.token["user_id"]
+    product_id = request.form.get("product_id")
+
+    db = get_db()
+    cur = db.cursor()
+
+    try:
+        query = """--sql
+        DELETE FROM
+            cart_items
+        WHERE
+            user_id = ?1 AND game_id = ?2
+        """
+
+        result = cur.execute(query, (user_id, product_id)).fetchall()
+        print(result)
+
+        db.commit()
+    except DatabaseError as ex:
+        print(ex)
+        db.rollback()
+        return "Failed to remove item from cart- {ex}", 500
+
     return redirect(url_for("store.cart"))
