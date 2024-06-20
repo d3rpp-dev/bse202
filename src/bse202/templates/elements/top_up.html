@@ -199,7 +199,7 @@
                     <label for="voucher">Voucher</label><br>
                 </div>
                 <div class="arrow-container">
-                    <button type="submit" class="arrow">Continue</button>
+                    <button id="topup-continue" type="button" class="arrow" onclick="topupvalidation()">Continue</button>
                 </div>
             </form>
         </div>
@@ -207,6 +207,29 @@
 </div>
 
 <script>
+function topupvalidation()
+{
+    if (
+        (document.getElementById('5dollar').checked||document.getElementById('10dollar').checked||document.getElementById('25dollar').checked||document.getElementById('50dollar').checked||document.getElementById('100dollar').checked)
+        &&
+        (document.getElementById('creditCard').checked||document.getElementById('voucher').checked)
+    )
+    {
+        document.getElementById('topup-continue').type='submit';
+        document.getElementById('topup-continue').click();
+    }
+    else
+    {
+        if(document.getElementById('5dollar').checked||document.getElementById('10dollar').checked||document.getElementById('25dollar').checked||document.getElementById('50dollar').checked||document.getElementById('100dollar').checked)
+        {
+            alert('Please choose the payment method!')
+        }
+        else
+        {
+            alert('Please choose the amount to topup!')
+        }
+    }
+}
 // AJAX request for top_up_option
 document.querySelectorAll('input[name="amount"]').forEach((radio) => {
     radio.addEventListener('change', function() {
