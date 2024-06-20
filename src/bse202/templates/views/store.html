@@ -18,7 +18,7 @@
                 <h2>{{ category["title"] }}</h2>
                 <div class="product-row">
                     {% for game in category['games'] %}
-                        <div class="product" onclick="showProductDetails('{{ game['title'] }}', '{{ game['image_id'] }}', '{{ game['description'] }}')">
+                        <div class="product" onclick="showProductDetails('{{ game['title'] }}', '{{ game['image_id'] }}', '{{ game['description'] }}', {{ game['game_id'] }})">
                             <img src="{{ url_for('static', filename='media/Game/%d.png' % game['image_id']) }}" alt="{{ game['title'] }}">
                             <h3>{{ game['title'] }}</h3>
                         </div>
@@ -42,7 +42,7 @@
             <h3 id="modal-product-name"></h3>
             <p id="modal-product-description"></p>
             <form action="{{ url_for('store.add_to_cart') }}" method="post">
-                <input type="hidden" name="product_name" id="modal-product-name-input">
+                <input type="hidden" name="product_id" id="modal-product-name-input">
                 <button type="submit" class="btn">Add to Cart</button>
             </form>
         </div>
@@ -72,11 +72,11 @@
             }
         }
 
-        function showProductDetails(name, image, description) {
+        function showProductDetails(name, image, description, id) {
             document.getElementById('modal-product-name').innerText = name;
             document.getElementById('modal-product-image').src = `/static/media/Game/${image}.png`;
             document.getElementById('modal-product-description').innerText = description;
-            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('modal-product-name-input').value = id;
             document.getElementById('product-modal').style.display = 'block';
         }
 

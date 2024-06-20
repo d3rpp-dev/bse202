@@ -95,8 +95,6 @@ def store_root():
             )
 
             cats[idx] = category
-
-            print(cats[idx])
         except DatabaseError as ex:
             error = {
                 "kind": "server",
