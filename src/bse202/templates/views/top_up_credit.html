@@ -29,9 +29,7 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('user.top_up') }}" method="post">
-            {# so we know how much we're adding #}
-            {# in the real world, this is the worst way to do it, but here we are #}
+        <form action="{{ url_for('user.top_up_credit') }}" method="post">
             <input type="hidden" name="amount" value="{{ amount }}">
             <div class="form-group">
                 <label for="card_number">Card Number</label>

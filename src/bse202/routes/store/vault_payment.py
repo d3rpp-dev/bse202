@@ -5,4 +5,4 @@ from .blueprint import store_blueprint
 
 @store_blueprint.route("/vault_payment", methods=["GET", "POST"])
 def vault_payment():
-    return render_template("views/payment.html")
+    return render_template("views/vault_payment.html")

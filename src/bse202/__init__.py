@@ -23,11 +23,12 @@ def init_db():
         delete_db()
 
         db = get_db()
-        with app.open_resource("schema.sql", mode="r") as f:
-            db.cursor().executescript(f.read())
+
+        with app.open_resource("schema.sql", mode="rt") as f:
+            db.cursor().executescript(f.read().decode('utf-8'))
         db.commit()
-        with app.open_resource("sample_data.sql", mode="r") as f:
-            db.cursor().executescript(f.read())
+        with app.open_resource("sample_data.sql", mode="rt") as f:
+            db.cursor().executescript(f.read().decode('utf-8'))
         db.commit()
 
 @app.teardown_appcontext
