@@ -69,7 +69,10 @@ def cart():
         }
 
     return render_template(
-        "views/cart.html", cart_items=cart, cart_total=str(round(cart_total, 2)), error=error
+        "views/cart.html",
+        cart_items=cart,
+        cart_total=str(round(cart_total, 2)),
+        error=error,
     )
 
 

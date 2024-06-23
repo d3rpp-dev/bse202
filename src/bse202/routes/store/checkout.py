@@ -74,7 +74,7 @@ def checkout():
         method = request.form.get("payment_method")
         if method is None:
             return "No Payment Method", 400
-        
+
         if method == "credit_card":
             # credit/debit card
             return redirect(url_for("store.payment"))
