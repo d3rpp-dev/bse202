@@ -5,7 +5,7 @@ from time import time
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv('.env')
+load_dotenv(".env")
 
 secret_key = environ.get("SECRET_KEY")
 template_prefix = environ.get("TEMPLATE_PREFIX")
@@ -22,6 +22,7 @@ if secret_key is None or secret_key.strip() == "":
 
 # We've already checked that SECRET_KEY is set
 auth_serializer = URLSafeSerializer(secret_key)
+
 
 def register_hooks(app: Flask):
     # Pre-Request Middleware

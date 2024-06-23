@@ -1,13 +1,23 @@
-from flask import jsonify, request, g, session, render_template, flash, redirect, url_for
+from flask import (
+    jsonify,
+    request,
+    g,
+    session,
+    render_template,
+    flash,
+    redirect,
+    url_for,
+)
 from .blueprint import user_blueprint
 from ...db import get_db
 import re
 import logging
 
 # Regular expressions for card number, expiry date, and CVV
-card_number_regex = re.compile(r'^\d{16}$')
-expiry_date_regex = re.compile(r'^(0[1-9]|1[0-2])\/(20[2-9][0-9])$')
-cvv_regex = re.compile(r'^\d{3,4}$')
+card_number_regex = re.compile(r"^\d{16}$")
+expiry_date_regex = re.compile(r"^(0[1-9]|1[0-2])\/(20[2-9][0-9])$")
+cvv_regex = re.compile(r"^\d{3,4}$")
+
 
 @user_blueprint.route("/top_up_credit", methods=["GET", "POST"])
 def top_up_credit():
@@ -44,7 +54,10 @@ def top_up_credit():
         if not card_number_regex.match(card_number):
             return render_template("views/top_up_credit.html", amount=amount)
         if not expiry_date_regex.match(expiry_date):
-            flash("Invalid expiry date. Please enter a valid date in MM/YYYY format.", "error")
+            flash(
+                "Invalid expiry date. Please enter a valid date in MM/YYYY format.",
+                "error",
+            )
             return render_template("views/top_up_credit.html", amount=amount)
         if not cvv_regex.match(cvv):
             flash("Invalid CVV. Please enter a valid 3 or 4 digit CVV.", "error")
@@ -74,6 +87,5 @@ def top_up_credit():
             return render_template("views/top_up_credit.html", amount=amount)
 
     # If it's a GET request, just render the top up credit page with a default amount
-    amount = session.get('top_up_amount', 0)
+    amount = session.get("top_up_amount", 0)
     return render_template("views/top_up_credit.html", amount=float(amount))
-

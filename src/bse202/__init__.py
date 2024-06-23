@@ -10,12 +10,13 @@ from os import environ
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv('.env')
+load_dotenv(".env")
 
 app = Flask(__name__)
 
 # Set secret key from environment variable
-app.config['SECRET_KEY'] = environ.get('SECRET_KEY', 'default_secret_key')
+app.config["SECRET_KEY"] = environ.get("SECRET_KEY", "default_secret_key")
+
 
 def init_db():
     with app.app_context():
@@ -25,17 +26,19 @@ def init_db():
         db = get_db()
 
         with app.open_resource("schema.sql", mode="rt") as f:
-            db.cursor().executescript(f.read().decode('utf-8'))
+            db.cursor().executescript(f.read().decode("utf-8"))
         db.commit()
         with app.open_resource("sample_data.sql", mode="rt") as f:
-            db.cursor().executescript(f.read().decode('utf-8'))
+            db.cursor().executescript(f.read().decode("utf-8"))
         db.commit()
+
 
 @app.teardown_appcontext
 def close_db(_exception):
     db = getattr(g, "_db", None)
     if db is not None:
         db.close()
+
 
 # we can check ahead of time if the database exists and alert the server admin
 # in the case it does not.
