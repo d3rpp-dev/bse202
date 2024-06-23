@@ -65,11 +65,11 @@ def cart():
         error = {
             "kind": "server",
             "code": "fetch_cart",
-            "message": "Failed to get Cart - {ex}",
+            "message": f"Failed to get Cart - {ex}",
         }
 
     return render_template(
-        "views/cart.html", cart_items=cart, cart_total=cart_total, error=error
+        "views/cart.html", cart_items=cart, cart_total=str(round(cart_total, 2)), error=error
     )
 
 
@@ -101,7 +101,7 @@ def add_to_cart():
                 (g.token["user_id"], int(request.form.get("product_id"))),  # type: ignore
             )
             .fetchall()
-            .__len__()
+            .__len__()  # why use len, when can just, call the method it calls? this language is annoying
             > 0
         ):
             # do not add, already there
@@ -121,6 +121,7 @@ def add_to_cart():
 
         db.commit()
     except DatabaseError as ex:
+        db.rollback()
         print(ex)
         return "Failed to add to cart"
 

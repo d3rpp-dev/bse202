@@ -1,11 +1,23 @@
 # BSE 202 - "Cross Platform Development"
 
-- [Setting Up Rye](#setting-up-rye)
-	- [Note: Windows Installer](#note-windows-installer)
-	- [Uninstalling Rye](#uninstalling-rye)
-- [Running](#running)
-- [Linting and Formatting](#linting-and-formatting)
-- [Development](#development)
+- [BSE 202 - "Cross Platform Development"](#bse-202---cross-platform-development)
+	- [A note before reading](#a-note-before-reading)
+	- [Setting Up Rye](#setting-up-rye)
+		- [Note: Windows Installer](#note-windows-installer)
+		- [Uninstalling Rye](#uninstalling-rye)
+	- [Running](#running)
+	- [Linting and Formatting](#linting-and-formatting)
+	- [Development](#development)
+
+## A note before reading
+
+I am aware that I've used the flask `g` object to store request metadata, I am aware that this is not best practice, I blame the docs for making no sense, but that's just me.
+
+It still works because it's updated every request weirdly enough.
+
+- Hudson
+
+---
 
 This project is primarily managed using [`rye`](https://rye-up.com).
 If you know python virtual envrionments well, use them, I'm using `rye` because python venv's are horrible.

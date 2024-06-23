@@ -24,18 +24,14 @@
                         <thead>
                             <tr>
                                 <th>Item</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in cart %}
+                            {% for item in items %}
                                 <tr>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.title }}</td>
                                     <td>${{ item.price }}</td>
-                                    <td>${{ item.total }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -43,8 +39,8 @@
                 </div>
                 <div class="order-summary">
                     <h3>Order Summary</h3>
-                    <p>Total items: {{ cart_summary.total_items }}</p>
-                    <p>Total price: ${{ cart_summary.total_price }}</p>
+                    <p>Total items: {{ items|length }}</p>
+                    <p>Total price: ${{ total_price }}</p>
                 </div>
                 <div class="order-message">
                     <p>Thanks for shopping with us!</p>

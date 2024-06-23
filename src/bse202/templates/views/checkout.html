@@ -22,18 +22,14 @@
                     <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Quantity</th>
                             <th>Price</th>
-                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in cart %}
+                        {% for item in cart_items %}
                             <tr>
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.title }}</td>
                                 <td>${{ item.price }}</td>
-                                <td>${{ item.total }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -41,8 +37,8 @@
             </div>
             <div class="order-summary mt-4">
                 <h2>Order Summary</h2>
-                <p>Total items: {{ cart_summary.total_items }}</p>
-                <p>Total price: ${{ cart_summary.total_price }}</p>
+                <p>Total items: {{ cart_items|length }}</p>
+                <p>Total price: ${{ cart_total }}</p>
                 <form action="{{ url_for('store.checkout') }}" method="post">
                     <div class="form-group">
                         <label for="payment_method">Select Payment Method</label>
