@@ -1,5 +1,6 @@
 from .db import check_db_exists, get_db, delete_db
 from .hooks import register_hooks
+
 from .routes import root_blueprint
 from .routes.auth import auth_blueprint
 from .routes.store import store_blueprint
