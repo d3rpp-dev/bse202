@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Games</title>
+    <style>
+        .search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            font-family: Poppins;
+        }
+        #search-result-container {
+            margin-top: 50px; /* Adjust this margin as needed */
+            position: absolute;
+            border: 1px solid #ccc;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 250px; /* Adjust width as needed */
+            background-color: white; /* Added for clarity */
+            z-index: 100; /* Ensure results are displayed above other elements */
+        }
+        #search-result-container ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            font-size: 18px; /* Adjust font size as needed */
+            padding-left: 10px;
+        }
+        #search-result-container li {
+            padding: 8px;
+            cursor: pointer;
+            background-color: #f0f0f0; /* Lighter background color */
+        }
+        #search-result-container li:hover {
+            background-color: #ccc; /* Darker background color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="search">
+        <input type="text" id="search" placeholder="Search" style="border-radius: 20px; width: 250px; height: 60px; text-align: center; font-size: 24px;">
+        <div id="search-result-container">
+            <ul id="search-result"></ul>
+        </div>
+    </div>
+
+    <!-- Include your other HTML templates -->
+    {% include 'elements/product-detail.html' %}
+    {% include 'elements/game-launching.html' %}
+
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value.trim(); // Trim whitespace
+            const resultsDiv = document.getElementById('search-result-container');
+            const resultsList = document.getElementById('search-result');
+            if (query.length > 0) { // Ensure query has length before sending request
+                fetch(`/user/search?q=${query}`)
+                    .then(response => response.json())
+                    .then(gamelist => {
+                        resultsList.innerHTML = '';
+                        gamelist.forEach(game => {
+                            const li = document.createElement('li');
+                            li.textContent = game.title;
+                            li.addEventListener('click', () => {
+                                showProductDetails(game.title, game.description, game.game_id);
+                            });
+                            resultsList.appendChild(li);
+                        });
+                        resultsDiv.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                    });
+            } else {
+                resultsList.innerHTML = '';
+                resultsDiv.style.display = 'none';
+            }
+        });
+
+        function showProductDetails(name, description, id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-description').innerText = description;
+            // Replace the next line with the appropriate image URL logic based on your project structure
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='path_to_your_image.jpg') }}";
+            if (id) {
+                document.getElementById('modal-product-play-button').style.display = 'block';
+                document.getElementById('modal-product-cart-button').style.display = 'none';
+                document.getElementById('play-button-display').onclick = function() {
+                    playinggame(name);
+                };
+            } else {
+                document.getElementById('modal-product-cart-button').style.display = 'block';
+                document.getElementById('modal-product-play-button').style.display = 'none';
+            }
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function playinggame(name) {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'flex';
+            document.getElementById('game-on-launching').innerText = 'Launching ' + name + ' ...';
+            document.getElementById('game-on-launching').style.display = 'flex';
+            setTimeout(function() {
+                document.getElementById('game-on-launching').style.display = 'none';
+                document.getElementById('game-on-starting').innerText = 'Starting ' + name + '!';
+                document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+                document.getElementById('game-on-starting').style.display = 'none';
+                document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
