@@ -72,11 +72,12 @@ def top_up_credit():
                 flash("User ID not found in session.", "error")
                 return render_template("views/top_up_credit.html", amount=amount)
 
-            db.execute(
+            cursor = db.cursor()  # Create a cursor object
+            cursor.execute(
                 "UPDATE users SET account_balance = account_balance + ? WHERE user_id = ?",
                 (amount, user_id),
             )
-            db.commit()
+            db.commit()  # Commit the transaction
 
             # Redirect to the account page
             return redirect(url_for("user.account", user_id=user_id))
@@ -84,6 +85,7 @@ def top_up_credit():
         except Exception as ex:
             logging.error(f"Failed to top up credit: {str(ex)}")
             flash(f"Failed to top up credit: {str(ex)}", "error")
+            db.rollback()  # Rollback the transaction in case of error
             return render_template("views/top_up_credit.html", amount=amount)
 
     # If it's a GET request, just render the top up credit page with a default amount
