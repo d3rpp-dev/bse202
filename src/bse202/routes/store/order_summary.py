@@ -5,6 +5,7 @@ from sqlite3 import DatabaseError
 from .blueprint import store_blueprint
 from ...db import get_db
 
+
 @store_blueprint.get("/order_summary/<purchase_id>")
 def order_summary(purchase_id: str):
     # Protected

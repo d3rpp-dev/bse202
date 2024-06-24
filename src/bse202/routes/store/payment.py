@@ -12,9 +12,10 @@ card_number_regex = re.compile(r"^\d{16}$")
 expiry_date_regex = re.compile(r"^(0[1-9]|1[0-2])\/(20[2-9][0-9])$")
 cvv_regex = re.compile(r"^\d{3,4}$")
 
+
 @store_blueprint.route("/payment", methods=["GET", "POST"])
 def payment():
-     # Protected
+    # Protected
     if "token" not in g:
         redirect(url_for("auth.login"))
 
@@ -88,7 +89,7 @@ def payment():
                 error=error,
                 cart_total=cart_total,
             ), status
-        
+
         card_number = request.form.get("card_number", "").strip()
         expiry_date = request.form.get("expiry_date", "").strip()
         cvv = request.form.get("cvv", "").strip()
@@ -145,19 +146,16 @@ def payment():
             cur.execute(query, (user_id,))
             db.commit()
 
-            return redirect(url_for("store.order_summary", purchase_id = purchase_id))
+            return redirect(url_for("store.order_summary", purchase_id=purchase_id))
         except DatabaseError as ex:
             db.rollback()
             print(ex)
-            error={
+            error = {
                 "kind": "server",
                 "code": "card_order_pain",
-                "message": f"Unable to complete purchase, please try again - {ex}"
+                "message": f"Unable to complete purchase, please try again - {ex}",
             }
 
-            return render_template(
-                "views/payment.html",
-                error=error
-            )
+            return render_template("views/payment.html", error=error)
 
     return render_template("views/payment.html")
