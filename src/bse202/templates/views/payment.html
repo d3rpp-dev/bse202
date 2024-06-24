@@ -26,6 +26,18 @@
             </div>
         {% endif %}
         {% endwith %}
+
+        {% if user_message is defined and user_message != None %}
+            <div class="alert alert-danger" role="alert">
+                {{ user_message }}
+            </div>
+        {% endif %}
+
+        {% if error is defined and error != None %}
+            <div class="alert alert-danger" role="alert">
+                {{ error['message'] }}
+            </div>
+        {% endif %}
         
         <form action="{{ url_for('store.payment') }}" method="post">
             <div class="form-group">

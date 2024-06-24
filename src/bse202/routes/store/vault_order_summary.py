@@ -37,7 +37,7 @@ def vault_order_summary(purchase_id: str):
         ON
             games.game_id = game_assets.game_id
         WHERE
-            purchases.user_id = ?1
+            purchases.purchase_id = ?1
         """
 
         items = list(
@@ -51,7 +51,7 @@ def vault_order_summary(purchase_id: str):
                     "price": tup[3],
                     "image_id": tup[4],
                 },
-                db.execute(query, (g.token["user_id"],)).fetchall(),
+                db.execute(query, (purchase_id,)).fetchall(),
             )
         )
 
