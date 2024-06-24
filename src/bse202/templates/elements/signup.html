@@ -1,0 +1,162 @@
+<style>
+/* Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0; /* Remove default margin */
+    color: #fff; /* Set color to white */
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+.button-group .btn {
+    margin: 0 10px; /* Add margin to the sides of buttons */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-group .btn:last-child {
+    margin-right: 0;
+}
+
+.button-group .btn a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn:hover {
+    background-color: #1B1A55;
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+.signup-box {
+    display: none;
+    background-color: #9290C3;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.signup-box h1 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.signup-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-box label {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.signup-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Set font family */
+}
+
+.signup-box button {
+    width: 100%;
+    padding: 14px; /* Increase padding to make button bigger */
+    background-color: #535C91;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px; /* Add margin to separate buttons */
+    font-size: 22px; /* Increase font size */
+}
+
+.login-box button:hover {
+    background-color: #0056b3;
+}
+
+.secondary-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.secondary-buttons .btn-secondary {
+    width: 48%;
+    padding: 8px;
+    background-color: #9290C3; /* Updated background color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px; 
+}
+
+.secondary-buttons .btn-secondary:hover {
+    background-color: #0056b3;
+}
+
+/* Add space between Create Account and Forgot Password */
+.secondary-buttons .btn-secondary:first-child {
+    margin-right: 10px;
+}
+
+</style>
+<div class="signup-box" id="signup-box">
+            <h1>Sign Up</h1>
+            <form method="POST" action="{{ url_for('signup') }}">
+                <label for="username">Username:</label>
+                <input type="text" id="usernames" name="username" required><br>
+                <label for="password" id="'test">Password:</label>
+                <input type="password" id="passwords" name="password" required><br>
+                <button type="button" id="signup-button" class="btn" onclick="signupcreate()">Create</button>
+                <div class="secondary-buttons">
+                    <button type="button" class="btn-secondary" onclick="backtologin()">Back to Login</button>
+                </div>
+            </form>
+</div>
+<script>
+    function signupcreate() {
+        var username = document.getElementById('usernames').value;
+        var password = document.getElementById('passwords').value;
+        var regexuser = /^[a-zA-Z0-9]{5,}$/;
+        var regexpass = /^\S{8,}$/;
+        if (regexuser.test(username)) {
+            if (regexpass.test(password)) {
+                document.querySelector('form').submit();
+            } else {
+                alert('Please create a password with at least 8 characters and no blank spaces!');
+            }
+        } else {
+            alert('Please create a username with at least 5 characters, without special characters or blank spaces!');
+        }
+    }
+</script>
