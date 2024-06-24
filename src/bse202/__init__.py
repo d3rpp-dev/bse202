@@ -7,16 +7,8 @@ from .routes.user import user_blueprint
 
 from flask import Flask, g
 from os import environ
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv(".env")
 
 app = Flask(__name__)
-
-# Set secret key from environment variable
-app.config["SECRET_KEY"] = environ.get("SECRET_KEY", "default_secret_key")
-
 
 def init_db():
     with app.app_context():

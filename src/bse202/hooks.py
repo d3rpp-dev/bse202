@@ -2,10 +2,6 @@ from flask import Flask, Response, g, request
 from itsdangerous import URLSafeSerializer, BadSignature
 from os import environ, _exit
 from time import time
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv(".env")
 
 secret_key = environ.get("SECRET_KEY")
 template_prefix = environ.get("TEMPLATE_PREFIX")
