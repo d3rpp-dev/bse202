@@ -36,14 +36,19 @@ p {
 
 .header-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%; /* Take up full width */
+    position: relative; /* Allow absolute positioning */
+}
+
+.spacer {
+    flex: 1; /* Take up remaining space */
 }
 
 .site-title {
     font-size: 42px;
     font-weight: bold;
+    margin-right: 20px; /* Adjust space between title and buttons */
 }
 
 .site-title a {
@@ -101,12 +106,13 @@ a:hover {
 /* Buttons */
 .button-group {
     display: flex;
+    justify-content: center; /* Center align buttons */
     align-items: center;
 }
 
 .button-group .btn {
     margin: 0 10px; /* Add margin to the sides of buttons */
-    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    padding: 20px 60px; /* Increase padding to make buttons wider */
     font-size: 20px; /* Increase font size */
     background-color: #9290c3;
     color: #fff;
@@ -114,6 +120,10 @@ a:hover {
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
+    flex: 1; /* Make all buttons the same width */
+    text-align: center; /* Center align text */
+    white-space: nowrap; /* Prevent text from wrapping */
+    min-width: 150px; /* Set a minimum width */
 }
 
 .button-group .btn:last-child {
@@ -123,6 +133,7 @@ a:hover {
 .button-group .btn a {
     text-decoration: none;
     color: inherit;
+    display: block; /* Make the anchor fill the button */
 }
 
 .btn:hover {
@@ -130,7 +141,7 @@ a:hover {
     transform: scale(1.1); /* Scale button to 110% on hover */
 }
 
-/* Update for the "Continue" button in top up*/
+/* Update for the "Continue" button in top up */
 .arrow-container {
     display: flex;
     justify-content: flex-start; /* Align button to the left */
