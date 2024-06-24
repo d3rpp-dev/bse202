@@ -1,5 +1,4 @@
 from .db import check_db_exists, get_db, delete_db
-
 from .hooks import register_hooks
 
 from .routes import root_blueprint
@@ -20,10 +19,10 @@ def init_db():
 
         db = get_db()
         with app.open_resource("schema.sql", mode="rt") as f:
-            db.cursor().executescript(f.read())
+            db.cursor().executescript(f.read().decode("utf-8"))
         db.commit()
         with app.open_resource("sample_data.sql", mode="rt") as f:
-            db.cursor().executescript(f.read())
+            db.cursor().executescript(f.read().decode("utf-8"))
         db.commit()
 
 
@@ -38,7 +37,7 @@ def close_db(_exception):
 # in the case it does not.
 #
 # this code also runs when we init the DB so the `init_db` command adds and
-# environment variable so it doesn't trigger is we're trying to initialise
+# environment variable so it doesn't trigger if we're trying to initialise
 # the DB.
 if environ.get("INIT_DB") is None and not check_db_exists():
     # this is essentially making the program more resistant to
