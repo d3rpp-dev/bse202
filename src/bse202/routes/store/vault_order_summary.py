@@ -1,5 +1,4 @@
 from flask import render_template
-
 from .blueprint import store_blueprint
 
 

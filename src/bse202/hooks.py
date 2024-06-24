@@ -21,11 +21,11 @@ auth_serializer = URLSafeSerializer(secret_key)
 
 
 def register_hooks(app: Flask):
-    # Pre-Request Middlware
+    # Pre-Request Middleware
     @app.before_request
     def _():
         g.ip = request.remote_addr
-        g.ua = request.headers.get("User_Agent")
+        g.ua = request.headers.get("User-Agent")
 
         # Allows me to use backend pages without affecting the front-end development
         if template_prefix is not None:
@@ -63,7 +63,7 @@ def register_hooks(app: Flask):
             if "exp" not in g.token:
                 g.token["exp"] = int(time() + one_year_in_seconds)
 
-            # Only update cookie if change occured
+            # Only update cookie if change occurred
             serialised_cookie = auth_serializer.dumps(g.token, secret_key)
 
             if (
