@@ -26,6 +26,7 @@
             border-radius: 60px;
             color: white;
             font-family: 'Poppins', sans-serif;
+            position: relative;
         }
 
         .topup .topup-list {
@@ -88,11 +89,29 @@
             text-decoration: none;
             color: inherit;
         }
+
+        .topup .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 48px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .topup .close-button:hover {
+            color: #ff0000;
+        }
+
     </style>
 </head>
 <body>
 <div class="messages" id="message">
     <div class="topup">
+        <button class="close-button" id="closetopup">&times;</button>
         <div class="topup-list">
             <form id="topup-form" method="post" action="{{ url_for('user.top_up_credit') }}">
                 <div class="topup-value">
@@ -143,7 +162,6 @@ document.querySelectorAll('input[name="amount"]').forEach((radio) => {
         });
     });
 });
-
 
 // Close button functionality
 document.getElementById('closetopup').addEventListener('click', function() {
