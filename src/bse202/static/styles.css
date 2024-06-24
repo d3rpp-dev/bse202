@@ -198,7 +198,8 @@ a:hover {
 }
 
 /* User Bio */
-.user-bio {
+.user-bio,
+.library {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -206,7 +207,8 @@ a:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.user-bio h3 {
+.user-bio h3,
+.library h3 {
     margin-top: 0;
     font-size: 20px;
     font-weight: 500;
@@ -216,4 +218,47 @@ a:hover {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+}
+
+.user-library {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    margin-right: 20px; /* Margin between products */
+    width: calc(25% - 20px); /* 4 items per row */
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 8px
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card p {
+    font-weight: bold;
+}
+
+.spacer {
+    margin-bottom: 20px;
 }
