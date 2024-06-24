@@ -11,6 +11,7 @@ from os import environ
 
 app = Flask(__name__)
 
+
 def init_db():
     with app.app_context():
         # start fresh
