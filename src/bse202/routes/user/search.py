@@ -4,10 +4,10 @@ from flask import Blueprint, request, jsonify
 from ...db import get_db
 import logging
 
-search_bp = Blueprint("search", __name__, url_prefix="/search")
+from .blueprint import user_blueprint
 
 
-@search_bp.route("/", methods=["GET"])
+@user_blueprint.route("/", methods=["GET"])
 def search_games():
     query = request.args.get("q", "")
     if not query:

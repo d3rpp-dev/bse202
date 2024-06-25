@@ -11,9 +11,3 @@ from .search import search_games
 from .recommendation import get_specific_games
 
 __all__ = ["user_blueprint"]
-
-# Register the search route under user_blueprint
-user_blueprint.route("/search", methods=["GET"])(search_games)
-
-# Register the recommendation route under user_blueprint
-user_blueprint.route("/recommendation", methods=["GET"])(get_specific_games)

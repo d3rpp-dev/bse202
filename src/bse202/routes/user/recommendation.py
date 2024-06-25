@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from ...db import get_db
 
-user_blueprint = Blueprint("user", __name__)
+from .blueprint import user_blueprint
 
 
 @user_blueprint.route("/recommendation", methods=["GET"])
