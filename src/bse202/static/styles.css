@@ -116,6 +116,13 @@ a:hover {
     transform: scale(1.1); /* Scale button to 110% on hover */
 }
 
+.site-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-right: 0px; /* Adjust space between title and buttons */
+    margin-top: 0px; /* Adjust top margin */
+}
+
 
 
 /* Layout */
