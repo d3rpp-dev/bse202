@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Games</title>
+    <style>
+        .recommender {
+            margin-top: 20px; /* Adjust margin as needed */
+            padding: 10px;
+            background-color: #f0f0f0; /* Light background */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .game-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+        .game-card {
+            width: calc(25% - 10px); /* Adjust width for responsiveness */
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .game-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .game-card h3 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .game-card:hover {
+            background-color: #e0e0e0; /* Lighter background on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="recommender">
+        <h2>Recommended Games</h2>
+        <div class="game-row" id="recommended-games">
+            <!-- Recommended games will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Include your other HTML templates if needed -->
+    {% include 'elements/product-detail.html' %}
+    {% include 'elements/game-launching.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch(`/user/recommendation`)
+                .then(response => response.json())
+                .then(games => {
+                    const recommendedGamesContainer = document.getElementById('recommended-games');
+                    recommendedGamesContainer.innerHTML = '';
+
+                    games.forEach(game => {
+                        // Create game card container
+                        const gameCard = document.createElement('div');
+                        gameCard.classList.add('game-card');
+                        gameCard.addEventListener('click', () => {
+                            showProductDetails(game.title, game.description, game.game_id);
+                        });
+
+                        // Create image element
+                        const img = document.createElement('img');
+                        img.src = getGameImagePath(game.game_id); // Construct image URL
+                        img.alt = `${game.title} Image`;
+                        gameCard.appendChild(img);
+
+                        // Create title element
+                        const title = document.createElement('h3');
+                        title.textContent = game.title;
+                        gameCard.appendChild(title);
+
+                        // Append game card to the container
+                        recommendedGamesContainer.appendChild(gameCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching recommended games:', error);
+                });
+        });
+
+        function getGameImagePath(gameId) {
+            switch (gameId) {
+                case 1:
+                    return '{{ url_for("static", filename="media/game/1.png") }}';
+                case 14:
+                    return '{{ url_for("static", filename="media/game/14.png") }}';
+                case 12:
+                    return '{{ url_for("static", filename="media/game/12.png") }}';
+                case 16:
+                    return '{{ url_for("static", filename="media/game/16.png") }}';
+                default:
+                    return ''; // Handle other cases if needed
+            }
+        }
+
+        function showProductDetails(name, description, id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-description').innerText = description;
+            // Replace the next line with the appropriate image URL logic based on your project structure
+            document.getElementById('modal-product-image').src = getGameImagePath(id); // Endpoint to fetch game image
+            if (id) {
+                document.getElementById('modal-product-play-button').style.display = 'block';
+                document.getElementById('modal-product-cart-button').style.display = 'none';
+                document.getElementById('play-button-display').onclick = function() {
+                    playinggame(name);
+                };
+            } else {
+                document.getElementById('modal-product-cart-button').style.display = 'block';
+                document.getElementById('modal-product-play-button').style.display = 'none';
+            }
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function playinggame(name) {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'flex';
+            document.getElementById('game-on-launching').innerText = 'Launching ' + name + ' ...';
+            document.getElementById('game-on-launching').style.display = 'flex';
+            setTimeout(function() {
+                document.getElementById('game-on-launching').style.display = 'none';
+                document.getElementById('game-on-starting').innerText = 'Starting ' + name + '!';
+                document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+                document.getElementById('game-on-starting').style.display = 'none';
+                document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

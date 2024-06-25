@@ -1,25 +1,22 @@
-# user/search.py
-
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from ...db import get_db
-import logging
 
-search_bp = Blueprint("search", __name__, url_prefix="/search")
+user_blueprint = Blueprint("user", __name__)
 
 
-@search_bp.route("/", methods=["GET"])
-def search_games():
-    query = request.args.get("q", "")
-    if not query:
-        return jsonify({"error": "No search query provided"}), 400
-
-    search_pattern = f"%{query}%"
+@user_blueprint.route("/recommendation", methods=["GET"])
+def get_specific_games():
     try:
         db = get_db()
         cursor = db.cursor()
+
+        # Specify the game_ids for the 4 fixed games
+        game_ids = (1, 14, 16, 12)
+
+        # Select the specific games based on the provided game_ids
         cursor.execute(
-            "SELECT game_id, title, description, price FROM games WHERE title LIKE ?",
-            (search_pattern,),
+            "SELECT game_id, title, description, price FROM games WHERE game_id IN (?, ?, ?, ?)",
+            game_ids,
         )
         results = cursor.fetchall()
 
@@ -38,5 +35,6 @@ def search_games():
         return jsonify(games)
 
     except Exception as ex:
-        logging.error(f"Error searching games: {str(ex)}")
+        # Handle exceptions appropriately
+        print(f"Error fetching specific games: {str(ex)}")
         return jsonify({"error": "Internal server error"}), 500

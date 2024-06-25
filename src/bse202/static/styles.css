@@ -9,6 +9,11 @@ body {
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
+    margin: 0; /* Reset default margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure body stretches to full viewport height */
 }
 
 h1 {
@@ -16,6 +21,7 @@ h1 {
     font-weight: bold;
     margin: 0; /* Remove default margin */
     color: #fff; /* Set color to white */
+    margin-top: 40px; /* Adjust top margin as needed */
 }
 
 p {
@@ -32,13 +38,14 @@ p {
     justify-content: center; /* Center align content */
     align-items: center; /* Center align content */
     border-radius: 10px; /* Rounded corners */
+    width: 100%;
+    margin-bottom: 20px; /* Add space below header */
 }
 
 .header-content {
     display: flex;
     align-items: center;
     width: 100%; /* Take up full width */
-    position: relative; /* Allow absolute positioning */
 }
 
 .spacer {
@@ -73,6 +80,37 @@ a:hover {
 .container {
     width: 80%;
     margin: 0 auto;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align items to the top */
+    width: 100%; /* Take up full width */
+    margin-left: 300px; /* Adjust to move more to the left */
+}
+
+.add-banner {
+    width: 50%; /* Adjust width as needed */
+    display: flex;
+    justify-content: center; /* Center align content */
+    margin-left: auto; /* Shift banner to the right */
+    margin-bottom: 20px; /* Space below add banner */
+}
+
+.search-form {
+    width: 300px; /* Set a fixed width or adjust as needed */
+    margin-left: auto; /* Move search form to the right */
+}
+
+.recommendation {
+    width: 60%; /* Adjust width as needed */
+    margin-left: 20px; /* Add space to the left of recommendation */
+    margin-bottom: 20px; /* Space below recommendation section */
 }
 
 .footer {
@@ -81,6 +119,8 @@ a:hover {
     color: #fff;
     text-align: center; /* Center text */
     border-radius: 10px; /* Rounded corners */
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%; /* Full width */
 }
 
 .footer-links {
@@ -100,6 +140,14 @@ a:hover {
 @media (max-width: 768px) {
     .container {
         width: 90%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .site-title {
+        font-size: 24px;
     }
 }
 
