@@ -126,7 +126,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: #ccc;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -135,6 +135,23 @@ body {
     position: relative;
     text-align: center;
 }
+
+/* Override text color for modal content */
+.modal-content {
+    color: #333; /* Set text color to black */
+}
+
+#modal-product-name {
+    font-size: 28px; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Optional: Add margin to create space */
+}
+
+
+.modal p {
+    margin-bottom: 20px;
+    font-size: 22px; /* Adjust font size as needed */
+}
+
 
 .close {
     color: #aaa;

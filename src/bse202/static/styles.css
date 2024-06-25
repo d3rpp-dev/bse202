@@ -126,7 +126,7 @@ a:hover {
     flex-direction: column; /* Arrange children vertically */
     justify-content: center; /* Center content vertically */
     align-items: center; /* Center content horizontally */
-    padding-left: 350px; /* Add padding to the right for space */
+    padding-left: 335px; /* Add padding to the right for space */
     max-width: 100vw; /* Prevent overflow */
 }
 
@@ -297,5 +297,45 @@ a:hover {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #ccc;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* */
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
+
+/* Override text color for modal content */
+.modal-content {
+    color: #333; /* Set text color to black */
+}
+
+#modal-product-name {
+    font-size: 28px; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Optional: Add margin to create space */
+}
+
+
+.modal p {
+    margin-bottom: 20px;
+    font-size: 22px; /* Adjust font size as needed */
 }
 
