@@ -1,0 +1,139 @@
+<style>
+    .owned{
+        display: block;
+        color: white;
+        display: block;
+    }
+    .owned h1{
+        font-size: 48px;
+    }
+    .owned-container{
+        display: flex;
+    }
+    .owned-display{
+        width: 200px;
+        height: 300px;
+        border-radius: 30px;
+        margin-top: 10px;
+        margin-left: 50px;
+        background-color: #9290C3;
+        position: relative;
+        display: absolute;
+    }
+    .owned-image
+    {
+        width: 200px;
+        height: 240px;
+        overflow: hidden;
+    }
+    .owned-name{
+        font-size: 24px; 
+        width:200px ;
+        height: 60px; 
+        text-align: center; 
+        position:absolute; 
+        bottom: 1px; 
+        margin: 0; 
+        border-top: 1px solid #5F3B51; 
+        display: flex; 
+        justify-content: center;
+    }
+    .owned-invisible
+    {
+        width: 200px;
+        height: 300px;
+        border-radius: 30px;
+        margin-top: 10px;
+        margin-left: 50px;
+        background-color: #9290C3;
+        position: relative;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .owned-invisible button
+    {
+        width: 150px;
+        height: 50px;
+        border-radius: 30px;
+        background-color: #535C91;
+        margin: 10px;
+        font-size: 20;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+<div class="owned">
+    <h1>Owned</h1>
+    <div class="owned-container"> 
+        {% for game in owned_list %}
+            <div class="owned-display" id="owned-display" onmouseover="game_hovering(this)">
+                <div class="owned-image">
+                    <img style="width: 200px;height: 300px; object-fit:cover; border-top-left-radius: 30px; border-top-right-radius: 30px;" src="{{ url_for('static', filename=game.image) }}" alt="game">
+                </div>
+                <div class="owned-name">
+                    <p>{{game.name}}</p>
+                </div>
+            </div>
+            <div class="owned-invisible" onmouseout="game_hovering_display(this)">
+                <button onclick="playinggame('{{game.name}}')">Play {{game.name}}</button>
+                <button onclick="showProductDetails('{{ game.name }}', '{{ game.image }}', '{{ game.description }}',true)">Details</button>
+            </div>
+        {% endfor %} 
+    </div>
+</div>
+{%include 'elements/product-detail.html'%}
+<script>
+    function game_hovering(element)
+    {
+        var Display = element.nextElementSibling;
+        element.style.display = 'none';
+        Display.style.display = 'flex';
+    }
+    function game_hovering_display(element)
+    {
+        var Display = element.previousElementSibling;
+        Display.style.display = 'block';
+        element.style.display = 'none';
+    }
+    function showProductDetails(name, image, description,id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-image').src = "{{ url_for('static', filename='') }}" + image;
+            document.getElementById('modal-product-description').innerText = description;
+            if (id==true)
+            {
+                document.getElementById('modal-product-play-button').style.display='block';
+                document.getElementById('modal-product-cart-button').style.display='none';
+                document.getElementById('play-button-display').onclick = function() {playinggame(name);};
+            }
+            else
+            {
+                document.getElementById('modal-product-cart-button').style.display='block';
+                document.getElementById('modal-product-play-button').style.display='none';
+            }
+            document.getElementById('modal-product-name-input').value = name;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+        function playinggame(name)
+        {
+            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById('game-on-display').style.display='flex';
+            document.getElementById('game-on-launching').innerText='Launching '+name+' ...';
+            document.getElementById('game-on-launching').style.display='flex';
+            setTimeout(function() {
+            document.getElementById('game-on-launching').style.display = 'none';
+            document.getElementById('game-on-starting').innerText='Starting '+name+'!';
+            document.getElementById('game-on-starting').style.display = 'flex';
+            }, 1500);
+            setTimeout(function() {
+            document.getElementById('game-on-starting').style.display = 'none';
+            document.getElementById('game-on-display').style.display = 'none';
+            }, 2000);
+        }
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+    
+</script>
+{% include 'elements/game-launching.html' %}
