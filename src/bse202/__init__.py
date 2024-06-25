@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 def init_db():
     with app.app_context():
-        # Start fresh by deleting existing data
+        # Start fresh
         delete_db()
 
         db = get_db()
