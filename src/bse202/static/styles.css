@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Typography */
 body {
     font-family: 'Poppins', sans-serif;
@@ -14,6 +12,7 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh; /* Ensure body stretches to full viewport height */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 h1 {
@@ -39,6 +38,7 @@ p {
     align-items: center; /* Center align content */
     border-radius: 10px; /* Rounded corners */
     width: 100%;
+    max-width: 100vw; /* Prevent overflow */
     margin-bottom: 20px; /* Add space below header */
 }
 
@@ -76,6 +76,48 @@ a:hover {
     color: #0056b3;
 }
 
+/* Buttons in the header */
+.header .button-group {
+    display: flex;
+    justify-content: space-around; /* Adjust spacing between buttons */
+}
+
+.header .button-group .btn {
+    flex: 1; /* Ensure all buttons have equal width */
+    margin: 10px; /* Add margin to all sides of buttons */
+    padding: 20px 0; /* Adjust padding for consistent button size */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center align text */
+    align-items: center; /* Center align text */
+    min-width: 180px; /* Set a minimum width */
+}
+
+.header .button-group .btn a {
+    color: inherit; /* Inherit color from button */
+    text-decoration: none; /* Remove underline */
+    width: 100%; /* Take up full width of button */
+    height: 100%; /* Take up full height of button */
+    text-align: center; /* Center align text */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center align text */
+    align-items: center; /* Center align text */
+}
+
+.header .button-group .btn:hover {
+    background-color: #1B1A55;
+    color: #f0f0f0; /* Lighten the text color on hover */
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+
+
 /* Layout */
 .container {
     width: 80%;
@@ -84,6 +126,8 @@ a:hover {
     flex-direction: column; /* Arrange children vertically */
     justify-content: center; /* Center content vertically */
     align-items: center; /* Center content horizontally */
+    padding-left: 350px; /* Add padding to the right for space */
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .flex-container {
@@ -91,7 +135,8 @@ a:hover {
     justify-content: center; /* Center content horizontally */
     align-items: flex-start; /* Align items to the top */
     width: 100%; /* Take up full width */
-    margin-left: 325px; /* Adjust to move more to the left */
+    margin-left: auto; /* Adjust to move more to the left */
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .add-banner {
@@ -156,32 +201,7 @@ a:hover {
     display: flex;
     justify-content: center; /* Center align buttons */
     align-items: center;
-}
-
-.button-group .btn {
-    margin: 0 10px; /* Add margin to the sides of buttons */
-    padding: 20px 60px; /* Increase padding to make buttons wider */
-    font-size: 20px; /* Increase font size */
-    background-color: #9290c3;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    flex: 1; /* Make all buttons the same width */
-    text-align: center; /* Center align text */
-    white-space: nowrap; /* Prevent text from wrapping */
-    min-width: 150px; /* Set a minimum width */
-}
-
-.button-group .btn:last-child {
-    margin-right: 0;
-}
-
-.button-group .btn a {
-    text-decoration: none;
-    color: inherit;
-    display: block; /* Make the anchor fill the button */
+    flex-wrap: wrap; /* Wrap buttons on smaller screens */
 }
 
 .btn:hover {
@@ -232,6 +252,7 @@ a:hover {
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .profile-picture {
@@ -263,6 +284,7 @@ a:hover {
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .user-bio h3 {
@@ -276,3 +298,4 @@ a:hover {
     line-height: 1.5;
     color: #333;
 }
+

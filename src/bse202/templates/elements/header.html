@@ -20,7 +20,7 @@
                 <!-- Store button -->
                 <button class="btn"><a href="{{ url_for('store.store_root') }}">Store</a></button>
                 <!-- Cart button -->
-                <button class="btn"><a href="{{ url_for('store.cart') }}">Cart</a></button> 
+                <button class="btn"><a href="{{ url_for('store.cart') }}">Cart</a></button>
                 <!-- Account button with conditional logic -->
                 {% if g.token is defined %}
                     <button class="btn"><a href="{{ url_for('user.self') }}">Account</a></button>
