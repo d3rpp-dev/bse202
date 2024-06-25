@@ -15,10 +15,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    display: flex;
+    justify-content: center; /* Center contents horizontally */
 }
 
 .store-container {
     padding: 40px 0;
+    margin-left: -300px; /* Adjust as needed */
 }
 
 /* Header and Footer styles */
@@ -47,6 +50,7 @@ body {
 
 .product-row {
     display: flex;
+    justify-content: center; /* Center items horizontally */
     overflow-x: auto; /* Enable horizontal scrolling */
     scroll-behavior: smooth; /* Smooth scrolling behavior */
     padding-bottom: 10px; /* To prevent horizontal scrollbar from covering content */
@@ -146,12 +150,10 @@ body {
     margin-bottom: 10px; /* Optional: Add margin to create space */
 }
 
-
 .modal p {
     margin-bottom: 20px;
     font-size: 22px; /* Adjust font size as needed */
 }
-
 
 .close {
     color: #aaa;
@@ -184,4 +186,3 @@ body {
 .modal p {
     margin-bottom: 20px;
 }
-
