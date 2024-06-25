@@ -91,7 +91,7 @@ a:hover {
     justify-content: center; /* Center content horizontally */
     align-items: flex-start; /* Align items to the top */
     width: 100%; /* Take up full width */
-    margin-left: 300px; /* Adjust to move more to the left */
+    margin-left: 325px; /* Adjust to move more to the left */
 }
 
 .add-banner {

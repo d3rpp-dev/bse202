@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recommended Games</title>
     <style>
         .recommender {
-            margin-top: 20px; /* Adjust margin as needed */
+            margin-top: 0px; /* Adjust margin as needed */
             padding: 10px;
-            background-color: #f0f0f0; /* Light background */
-            border: 1px solid #ccc;
+            background-color: #9290c3;
+            border: 10px solid #535c91;
             border-radius: 5px;
         }
         .game-row {
@@ -36,13 +35,68 @@
         .game-card:hover {
             background-color: #e0e0e0; /* Lighter background on hover */
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #535c91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #9290c3;
+        }
     </style>
 </head>
 <body>
     <div class="recommender">
-        <h2>Recommended Games</h2>
         <div class="game-row" id="recommended-games">
             <!-- Recommended games will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-product-image" src="" alt="">
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-description"></p>
+            <form action="{{ url_for('store.add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" id="modal-product-name-input">
+                <button type="submit" class="btn" id="modal-product-cart-button">Add to Cart</button>
+            </form>
         </div>
     </div>
 
@@ -89,51 +143,28 @@
         function getGameImagePath(gameId) {
             switch (gameId) {
                 case 1:
-                    return '{{ url_for("static", filename="media/game/1.png") }}';
+                    return '{{ url_for("static", filename="media/game/11.png") }}';
                 case 14:
-                    return '{{ url_for("static", filename="media/game/14.png") }}';
-                case 12:
-                    return '{{ url_for("static", filename="media/game/12.png") }}';
-                case 16:
                     return '{{ url_for("static", filename="media/game/16.png") }}';
+                case 12:
+                    return '{{ url_for("static", filename="media/game/14.png") }}';
+                case 16:
+                    return '{{ url_for("static", filename="media/game/2.png") }}';
                 default:
-                    return ''; // Handle other cases if needed
+                    return '';
             }
         }
 
         function showProductDetails(name, description, id) {
             document.getElementById('modal-product-name').innerText = name;
             document.getElementById('modal-product-description').innerText = description;
-            // Replace the next line with the appropriate image URL logic based on your project structure
-            document.getElementById('modal-product-image').src = getGameImagePath(id); // Endpoint to fetch game image
-            if (id) {
-                document.getElementById('modal-product-play-button').style.display = 'block';
-                document.getElementById('modal-product-cart-button').style.display = 'none';
-                document.getElementById('play-button-display').onclick = function() {
-                    playinggame(name);
-                };
-            } else {
-                document.getElementById('modal-product-cart-button').style.display = 'block';
-                document.getElementById('modal-product-play-button').style.display = 'none';
-            }
-            document.getElementById('modal-product-name-input').value = name;
-            document.getElementById('product-modal').style.display = 'block';
-        }
+            document.getElementById('modal-product-image').src = getGameImagePath(id);
+            document.getElementById('modal-product-name-input').value = id;
 
-        function playinggame(name) {
-            document.getElementById('product-modal').style.display = 'none';
-            document.getElementById('game-on-display').style.display = 'flex';
-            document.getElementById('game-on-launching').innerText = 'Launching ' + name + ' ...';
-            document.getElementById('game-on-launching').style.display = 'flex';
-            setTimeout(function() {
-                document.getElementById('game-on-launching').style.display = 'none';
-                document.getElementById('game-on-starting').innerText = 'Starting ' + name + '!';
-                document.getElementById('game-on-starting').style.display = 'flex';
-            }, 1500);
-            setTimeout(function() {
-                document.getElementById('game-on-starting').style.display = 'none';
-                document.getElementById('game-on-display').style.display = 'none';
-            }, 2000);
+            document.getElementById('modal-product-play-button').style.display = 'none';
+            document.getElementById('modal-product-cart-button').style.display = 'block';
+
+            document.getElementById('product-modal').style.display = 'block';
         }
 
         function closeModal() {
