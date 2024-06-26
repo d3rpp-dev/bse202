@@ -1,0 +1,61 @@
+,<style>
+    .profile-banner{
+        width: 1100px;
+        height: 320px;
+        border-radius: 300px;
+        background-color: #1B1A55;
+        color: white;
+        font-family: Poppins;
+    }
+    .profile-info{
+        display: flex;
+    }
+    .profile-info img 
+    {
+        margin-left:70px ;
+    }
+    .profile-info-user,
+    .profile-info-balance,
+    .profile-info-id
+    {
+        flex: 1;
+        padding: 10px;
+    }
+    .profile-info-balance,
+    .profile-info-id
+    {
+        text-align: center;
+    }
+    .profile-info-user-bio{
+        width: 300px;
+        height: 100px;
+    }
+</style>
+<div class="profile-banner">
+    <p style=" padding-top: 15px; font-size: 40px;  text-align: center; margin: 0;">Profile</p>
+    {% if current_user %}
+    <div class="profile-info">
+        <img alt="Profile" style=" width: 150px;height: 150px;background-color: white;border-top-left-radius: 60px;border-top-right-radius: 60px;border-bottom-left-radius: 130px; border-bottom-right-radius: 80px;">
+        <div class="profile-info-user">
+            <p>Hello, {{ current_user.username }}</p>
+            <div class="profile-info-user-bio">
+                Bio,:
+                <br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero, a pharetra augue. Vestibulum id ligula porta felis euismod semper.
+            </div>
+        </div>
+        <div class="profile-info-balance">
+            <p>Vault Coin Balance:</p>
+            <br>
+            <p>{{ current_user.vault_coin }}</p>
+        </div>
+        <div class="profile-info-id">
+            <p>ID</p>
+            <br>
+            <p>asdad</p>
+        </div>
+    </div>
+    {% else %}
+        <p>User not found.</p>
+    {% endif %}
+</div>

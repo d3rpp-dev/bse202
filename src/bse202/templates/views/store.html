@@ -12,26 +12,28 @@
     <!-- Include header -->
     {% include 'elements/header.html' %}
 
-    <div class="container store-container">
-        {% for category in product_categories %}
-            <div class="product-category" id="{{ category['slug'] }}">
-                <h2>{{ category["title"] }}</h2>
-                <div class="product-row">
-                    {% for game in category['games'] %}
-                        <div class="product" onclick="showProductDetails('{{ game['title'] }}', '{{ game['image_id'] }}', '{{ game['description'] }}', {{ game['game_id'] }})">
-                            <img src="{{ url_for('static', filename='media/Game/%d.png' % game['image_id']) }}" alt="{{ game['title'] }}">
-                            <h3>{{ game['title'] }}</h3>
-                        </div>
-                    {% endfor %}
+    <div class="container">
+        <div class="store-container">
+            {% for category in product_categories %}
+                <div class="product-category" id="{{ category['slug'] }}">
+                    <h2>{{ category["title"] }}</h2>
+                    <div class="product-row">
+                        {% for game in category['games'] %}
+                            <div class="product" onclick="showProductDetails('{{ game['title'] }}', '{{ game['image_id'] }}', '{{ game['description'] }}', {{ game['game_id'] }})">
+                                <img src="{{ url_for('static', filename='media/Game/%d.png' % game['image_id']) }}" alt="{{ game['title'] }}">
+                                <h3>{{ game['title'] }}</h3>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="scroll-btn left-btn" onclick="scrollProducts('left', '{{ category['slug'] }}')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="scroll-btn right-btn" onclick="scrollProducts('right', '{{ category['slug'] }}')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <button class="scroll-btn left-btn" onclick="scrollProducts('left', '{{ category['slug'] }}')">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="scroll-btn right-btn" onclick="scrollProducts('right', '{{ category['slug'] }}')">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Product Details Modal -->

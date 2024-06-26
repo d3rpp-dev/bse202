@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .recommender {
+            margin-top: 0px; /* Adjust margin as needed */
+            padding: 10px;
+            background-color: #9290c3;
+            border: 10px solid #535c91;
+            border-radius: 5px;
+        }
+        .game-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+        .game-card {
+            width: calc(25% - 10px); /* Adjust width for responsiveness */
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .game-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .game-card h3 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .game-card:hover {
+            background-color: #e0e0e0; /* Lighter background on hover */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #ccc;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%; /* */
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Override text color for modal content */
+        .modal-content {
+            color: #333; /* Set text color to black */
+        }
+
+        #modal-product-name {
+            font-size: 28px; /* Adjust font size as needed */
+            margin-bottom: 10px; /* Optional: Add margin to create space */
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            font-size: 22px; /* Adjust font size as needed */
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #535c91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #9290c3;
+        }
+    </style>
+</head>
+<body>
+    <div class="recommender">
+        <div class="game-row" id="recommended-games">
+            <!-- Recommended games will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-product-image" src="" alt="">
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-description"></p>
+            <form action="{{ url_for('store.add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" id="modal-product-name-input">
+                <button type="submit" class="btn" id="modal-product-cart-button">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include your other HTML templates if needed -->
+    {% include 'elements/product-detail.html' %}
+    {% include 'elements/game-launching.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch(`/user/recommendation`)
+                .then(response => response.json())
+                .then(games => {
+                    const recommendedGamesContainer = document.getElementById('recommended-games');
+                    recommendedGamesContainer.innerHTML = '';
+
+                    games.forEach(game => {
+                        // Create game card container
+                        const gameCard = document.createElement('div');
+                        gameCard.classList.add('game-card');
+                        gameCard.addEventListener('click', () => {
+                            showProductDetails(game.title, game.description, game.game_id);
+                        });
+
+                        // Create image element
+                        const img = document.createElement('img');
+                        img.src = getGameImagePath(game.game_id); // Construct image URL
+                        img.alt = `${game.title} Image`;
+                        gameCard.appendChild(img);
+
+                        // Create title element
+                        const title = document.createElement('h3');
+                        title.textContent = game.title;
+                        gameCard.appendChild(title);
+
+                        // Append game card to the container
+                        recommendedGamesContainer.appendChild(gameCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching recommended games:', error);
+                });
+        });
+
+        function getGameImagePath(gameId) {
+            switch (gameId) {
+                case 1:
+                    return '{{ url_for("static", filename="media/game/11.png") }}';
+                case 14:
+                    return '{{ url_for("static", filename="media/game/16.png") }}';
+                case 12:
+                    return '{{ url_for("static", filename="media/game/14.png") }}';
+                case 16:
+                    return '{{ url_for("static", filename="media/game/2.png") }}';
+                default:
+                    return '';
+            }
+        }
+
+        function showProductDetails(name, description, id) {
+            document.getElementById('modal-product-name').innerText = name;
+            document.getElementById('modal-product-description').innerText = description;
+            document.getElementById('modal-product-image').src = getGameImagePath(id);
+            document.getElementById('modal-product-name-input').value = id;
+
+            document.getElementById('modal-product-play-button').style.display = 'none';
+            document.getElementById('modal-product-cart-button').style.display = 'block';
+
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

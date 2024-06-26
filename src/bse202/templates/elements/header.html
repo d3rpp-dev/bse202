@@ -11,14 +11,16 @@
 <body>
     <div class="header">
         <div class="header-content">
+            <div class="spacer"></div>
             <h1 class="site-title"><a href="{{ url_for('root.index') }}">Virtual Vault</a></h1>
+            <div class="spacer"></div>
             <div class="button-group">
                 <!-- Home button -->
-                <button class="btn"><a href="{{ url_for('user.self') }}">Home</a></button>
+                <button class="btn"><a href="{{ url_for('root.index') }}">Home</a></button>
                 <!-- Store button -->
                 <button class="btn"><a href="{{ url_for('store.store_root') }}">Store</a></button>
                 <!-- Cart button -->
-                <button class="btn"><a href="{{ url_for('store.cart') }}">Cart</a></button> 
+                <button class="btn"><a href="{{ url_for('store.cart') }}">Cart</a></button>
                 <!-- Account button with conditional logic -->
                 {% if g.token is defined %}
                     <button class="btn"><a href="{{ url_for('user.self') }}">Account</a></button>
@@ -36,6 +38,7 @@
                     <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
                 {% endif %}
             </div>
+            <div class="spacer"></div>
             <!-- Info box for current user details -->
             <div class="current-user-info">
                 {% if g.token is defined %}
@@ -46,6 +49,7 @@
                     <span>Not logged in</span>
                 {% endif %}
             </div>
+            <div class="spacer"></div>
         </div>
     </div>
 </body>

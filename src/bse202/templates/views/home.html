@@ -10,15 +10,25 @@
 </head>
 <body>
     {% include 'elements/header.html' %}
+    
     <div class="container">
-        <h1>Welcome to Virtual Vault</h1>
-        <p>This is the home page.</p>
-        
-        <!-- Include the addbanner element here -->
-        {% include 'elements/addbanner.html' %}
-        
+        <div class="flex-container">
+            <!-- Add Banner -->
+            <div class="add-banner">
+                {% include 'elements/addbanner.html' %}
+            </div>
+            
+            <!-- Search Form -->
+            <div class="search-form">
+                {% include 'elements/search.html' %}
+            </div>
+        </div>
     </div>
+     <!-- Recommendation Section -->
+    <div class="recommendation">
+        {% include 'elements/recommendation.html' %}
+    </div>
+    
     {% include 'elements/footer.html' %}
 </body>
 </html>
-
