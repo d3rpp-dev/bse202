@@ -95,3 +95,71 @@ input[type="text"] {
     left: -180px; /* Move vault-info left */
     font-size: 20;
 }
+
+/* Container specific to top-up page */
+#top-up-container {
+    max-width: 800px; /* Adjusted max-width to 800px */
+    height: auto; /* Change height to auto to expand based on content */
+    margin: 20px auto; /* Decreased top margin */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+/* Title specific to top-up page */
+#top-up-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black !important; /* Use !important to override other styles */
+    margin-top: 20px; /* Move title up */
+}
+
+/* Form specific to top-up page */
+#payment-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0; /* Adjust top margin to move form up */
+    margin-left: -300px; /* Move form left more */
+}
+
+#payment-form .form-group {
+    margin-bottom: 20px;
+}
+
+#payment-form label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#payment-form input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#pay-now-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Adjust margin top to move button down */
+    margin-left: 0px;
+}
+#pay-now-btn:hover {
+    background-color: #0056b3;
+}
+
