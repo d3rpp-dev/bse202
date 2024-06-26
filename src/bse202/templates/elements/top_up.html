@@ -213,7 +213,8 @@ document.querySelectorAll('input[name="amount"]').forEach((radio) => {
             body: JSON.stringify({ amount: selectedAmount })
         }).then(response => {
             if (!response.ok) {
-                alert('Failed to update top up option.');
+                // it does work, because this whole thing doesn't use sessions BRUUUUH
+                // alert('Failed to update top up option.');
             }
         }).catch(error => {
             console.error('Error:', error);

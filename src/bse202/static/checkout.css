@@ -23,9 +23,7 @@ body {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: relative; /* Added position relative */
-    margin-top: -300px; /* Adjusted top margin */
-    margin-bottom: -20px; /* Adjusted bottom margin */
-    transform: translateX(-160px); /* Adjust the value as needed */
+   
 
 }
 

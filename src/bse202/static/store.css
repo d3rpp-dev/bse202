@@ -24,7 +24,6 @@ body {
 
 .store-container {
     padding: 40px 0;
-    margin-left: -300px; /* Adjust as needed */
 }
 
 /* Header and Footer styles */
@@ -130,11 +129,14 @@ body {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+
+
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: #ccc;
-    margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 40%; /* */

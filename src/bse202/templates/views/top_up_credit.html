@@ -14,7 +14,7 @@
     <div class="container mt-5">
         <h1 id="top-up-title" class="mb-4">Top Up Credit</h1>
         
-        <span id="top-up-amount" style="margin-left: -340px;">Top Up Amount: <strong>{{ "$%.2f"|format(amount) }}</strong></span>
+        <span id="top-up-amount">Top Up Amount: <strong>{{ "$%.2f"|format(amount) }}</strong></span>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

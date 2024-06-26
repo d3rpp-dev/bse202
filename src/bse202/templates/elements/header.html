@@ -30,7 +30,7 @@
                 <!-- Login/logout button -->
                 {% if g.token is defined %}
                     <!-- Logout button -->
-                    <form action="{{ url_for('auth.logout') }}" method="post" style="display: inline;">
+                    <form action="{{ url_for('auth.logout') }}" method="post" style="display: inline;" class="logout">
                         <button type="submit" class="btn">Logout</button>
                     </form>
                 {% else %}
