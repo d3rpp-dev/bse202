@@ -17,7 +17,10 @@ body {
     padding: 0 20px;
     display: flex;
     justify-content: center; /* Center contents horizontally */
+    background-color: #9290c3;
+    border: 10px solid #535c91; /* Adding a 10px solid border with the specified color */
 }
+
 
 .store-container {
     padding: 40px 0;
