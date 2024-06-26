@@ -12,9 +12,9 @@
     {% include 'elements/header.html' %}
 
     <div class="container mt-5">
-        <h1 class="mb-4">Top Up Credit</h1>
+        <h1 id="top-up-title" class="mb-4">Top Up Credit</h1>
         
-        <span>Top Up Amount: <strong>{{ "$%.2f"|format(amount) }}</strong></span>
+        <span id="top-up-amount" style="margin-left: -340px;">Top Up Amount: <strong>{{ "$%.2f"|format(amount) }}</strong></span>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -26,7 +26,7 @@
         {% endif %}
         {% endwith %}
         
-        <form action="{{ url_for('user.top_up_credit') }}" method="post">
+        <form id="payment-form" action="{{ url_for('user.top_up_credit') }}" method="post">
             <input type="hidden" name="amount" value="{{ amount }}">
             <div class="form-group">
                 <label for="card_number">Card Number</label>
@@ -40,7 +40,7 @@
                 <label for="cvv">CVV</label>
                 <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required>
             </div>
-            <button type="submit" class="btn btn-primary">Pay Now</button>
+            <button type="submit" id="pay-now-btn" class="btn btn-primary">Pay Now</button>
         </form>
     </div>
 

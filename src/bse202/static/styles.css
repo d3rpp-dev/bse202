@@ -390,3 +390,180 @@ a:hover {
     margin-bottom: 20px;
     font-size: 22px; /* Adjust font size as needed */
 }
+
+/* Styles for the "Top Up" button */
+.top-up-button-child {
+    padding: 20px 80px;
+    font-size: 16px;
+    font-weight: bold; /* Make the font bold */
+    background-color: #0056b3; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Adjust the top margin as needed */
+    margin-bottom: 20px; /* Adjust the bottom margin as needed */
+}
+
+.top-up-button-child:hover {
+    background-color: #007bff; /* Change background color on hover */
+    transform: scale(1.4); /* Slightly scale up the button on hover */
+}
+
+/* Styles specific to the account page */
+.account-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding-left: 335px; /* Add padding to the left for space */
+    max-width: 100vw; /* Prevent overflow */
+    margin-left: -140px;
+    margin-top: -40px;
+}
+
+/* Other styles remain unchanged */
+
+/* Account Information Container */
+.account-info {
+    display: flex;
+    align-items: center;
+    background-color: #1B1A55;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-details {
+    color: #fff;
+}
+
+.user-details h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* User Bio */
+.user-bio,
+.library {
+    background-color: #1B1A55;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
+    color: #fff;
+}
+
+.user-bio h3,
+.library h3 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.user-bio p {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.user-library {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #535c91;
+}
+
+.card {
+    background-color: #9290c3;
+    color: #333;
+    padding: 20px;
+    margin-right: 20px; /* Margin between products */
+    width: calc(25% - 20px); /* 4 items per row */
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 8px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card p {
+    font-weight: bold;
+}
+
+.spacer {
+    margin-bottom: 20px;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #ccc;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
+
+/* Override text color for modal content */
+.modal-content {
+    color: #333; /* Set text color to black */
+}
+
+#modal-product-name {
+    font-size: 28px; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Optional: Add margin to create space */
+}
+
+.modal p {
+    margin-bottom: 20px;
+    font-size: 22px; /* Adjust font size as needed */
+}

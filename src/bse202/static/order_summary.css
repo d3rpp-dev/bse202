@@ -12,6 +12,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-right: -2000px;
+    margin-top: -500px;
 }
 
 .order-summary-wrapper {
