@@ -7,15 +7,36 @@ body {
     color: #333 !important;
     margin: 0;
     padding: 0;
+    margin-left: -320px; /* Adjust left margin to move form left */
+}
+
+/* Specify a more specific selector */
+body .container {
+    max-width: 600px;
+    align-items: center;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 800px; /* Adjusted max-width to 800px */
     margin: 40px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+/* Ensure higher specificity */
+.container h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black !important; /* Use !important to override other styles */
+    margin-left: -320px; /* Adjust left margin to move form left */
 }
 
 h1 {
@@ -23,12 +44,14 @@ h1 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: black;
+    margin-left: -320px; /* Adjust left margin to move form left */
 }
 
 form {
     display: flex;
     flex-direction: column;
-}
+    margin-top: 100px; /* Adjust top margin to move form up */
 
 .form-group {
     margin-bottom: 20px;
@@ -57,8 +80,18 @@ input[type="text"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: -320px; /* Adjust left margin to move form left */
+    margin-top: -100px;
+}
 }
 
 .btn:hover {
     background-color: #0056b3;
+}
+
+.vault-info {
+    position: relative; /* Added position relative to move the vault-info */
+    top: -20px; /* Move vault-info up */
+    left: -180px; /* Move vault-info left */
+    font-size: 20;
 }
