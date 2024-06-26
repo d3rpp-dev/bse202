@@ -14,15 +14,22 @@ app = Flask(__name__)
 
 def init_db():
     with app.app_context():
-        # start fresh
-        delete_db()
-
         db = get_db()
-        with app.open_resource("schema.sql", mode="rt") as f:
-            db.cursor().executescript(f.read().decode("utf-8"))
+
+        # Execute schema.sql
+        with app.open_resource("schema.sql", mode="rb") as f:
+            schema_content = f.read().decode("utf-8")
+            db.cursor().executescript(schema_content)
+
+        # Commit changes after executing schema.sql
         db.commit()
-        with app.open_resource("sample_data.sql", mode="rt") as f:
-            db.cursor().executescript(f.read().decode("utf-8"))
+
+        # Execute sample_data.sql
+        with app.open_resource("sample_data.sql", mode="rb") as f:
+            sample_data_content = f.read().decode("utf-8")
+            db.cursor().executescript(sample_data_content)
+
+        # Commit changes after executing sample_data.sql
         db.commit()
 
 

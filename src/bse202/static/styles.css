@@ -1,14 +1,18 @@
-/* styles.css */
-
 /* Typography */
 body {
     font-family: 'Poppins', sans-serif;
-    color: #333;
+    color: #fff;
     background-color: #535c91;
     background-image: url('../static/media/css-pattern-by-magicpattern.png');
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
+    margin: 0; /* Reset default margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure body stretches to full viewport height */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 h1 {
@@ -16,6 +20,7 @@ h1 {
     font-weight: bold;
     margin: 0; /* Remove default margin */
     color: #fff; /* Set color to white */
+    margin-top: 40px; /* Adjust top margin as needed */
 }
 
 p {
@@ -32,18 +37,25 @@ p {
     justify-content: center; /* Center align content */
     align-items: center; /* Center align content */
     border-radius: 10px; /* Rounded corners */
+    width: 100%;
+    max-width: 100vw; /* Prevent overflow */
+    margin-bottom: 20px; /* Add space below header */
 }
 
 .header-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%; /* Take up full width */
+}
+
+.spacer {
+    flex: 1; /* Take up remaining space */
 }
 
 .site-title {
     font-size: 42px;
     font-weight: bold;
+    margin-right: 20px; /* Adjust space between title and buttons */
 }
 
 .site-title a {
@@ -64,10 +76,93 @@ a:hover {
     color: #0056b3;
 }
 
+/* Buttons in the header */
+.header .button-group {
+    display: flex;
+    justify-content: space-around; /* Adjust spacing between buttons */
+}
+
+.header .button-group .btn {
+    flex: 1; /* Ensure all buttons have equal width */
+    margin: 10px; /* Add margin to all sides of buttons */
+    padding: 20px 0; /* Adjust padding for consistent button size */
+    font-size: 20px; /* Increase font size */
+    background-color: #9290c3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center align text */
+    align-items: center; /* Center align text */
+    min-width: 180px; /* Set a minimum width */
+}
+
+.header .button-group .btn a {
+    color: inherit; /* Inherit color from button */
+    text-decoration: none; /* Remove underline */
+    width: 100%; /* Take up full width of button */
+    height: 100%; /* Take up full height of button */
+    text-align: center; /* Center align text */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center align text */
+    align-items: center; /* Center align text */
+}
+
+.header .button-group .btn:hover {
+    background-color: #1B1A55;
+    color: #f0f0f0; /* Lighten the text color on hover */
+    transform: scale(1.1); /* Scale button to 110% on hover */
+}
+
+.site-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-right: 0px; /* Adjust space between title and buttons */
+    margin-top: 0px; /* Adjust top margin */
+}
+
+
+
 /* Layout */
 .container {
     width: 80%;
     margin: 0 auto;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding-left: 335px; /* Add padding to the right for space */
+    max-width: 100vw; /* Prevent overflow */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align items to the top */
+    width: 100%; /* Take up full width */
+    margin-left: auto; /* Adjust to move more to the left */
+    max-width: 100vw; /* Prevent overflow */
+}
+
+.add-banner {
+    width: 50%; /* Adjust width as needed */
+    display: flex;
+    justify-content: center; /* Center align content */
+    margin-left: auto; /* Shift banner to the right */
+    margin-bottom: 20px; /* Space below add banner */
+}
+
+.search-form {
+    width: 300px; /* Set a fixed width or adjust as needed */
+    margin-left: auto; /* Move search form to the right */
+}
+
+.recommendation {
+    width: 60%; /* Adjust width as needed */
+    margin-left: 20px; /* Add space to the left of recommendation */
+    margin-bottom: 20px; /* Space below recommendation section */
 }
 
 .footer {
@@ -76,6 +171,8 @@ a:hover {
     color: #fff;
     text-align: center; /* Center text */
     border-radius: 10px; /* Rounded corners */
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%; /* Full width */
 }
 
 .footer-links {
@@ -96,33 +193,22 @@ a:hover {
     .container {
         width: 90%;
     }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .site-title {
+        font-size: 24px;
+    }
 }
 
 /* Buttons */
 .button-group {
     display: flex;
+    justify-content: center; /* Center align buttons */
     align-items: center;
-}
-
-.button-group .btn {
-    margin: 0 10px; /* Add margin to the sides of buttons */
-    padding: 20px 40px; /* Increase padding to make buttons bigger */
-    font-size: 20px; /* Increase font size */
-    background-color: #9290c3;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.button-group .btn:last-child {
-    margin-right: 0;
-}
-
-.button-group .btn a {
-    text-decoration: none;
-    color: inherit;
+    flex-wrap: wrap; /* Wrap buttons on smaller screens */
 }
 
 .btn:hover {
@@ -130,7 +216,7 @@ a:hover {
     transform: scale(1.1); /* Scale button to 110% on hover */
 }
 
-/* Update for the "Continue" button in top up*/
+/* Update for the "Continue" button in top up */
 .arrow-container {
     display: flex;
     justify-content: flex-start; /* Align button to the left */
@@ -173,6 +259,7 @@ a:hover {
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .profile-picture {
@@ -205,6 +292,7 @@ a:hover {
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100vw; /* Prevent overflow */
 }
 
 .user-bio h3,
@@ -261,4 +349,44 @@ a:hover {
 
 .spacer {
     margin-bottom: 20px;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #ccc;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* */
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
+
+/* Override text color for modal content */
+.modal-content {
+    color: #333; /* Set text color to black */
+}
+
+#modal-product-name {
+    font-size: 28px; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Optional: Add margin to create space */
+}
+
+
+.modal p {
+    margin-bottom: 20px;
+    font-size: 22px; /* Adjust font size as needed */
 }
