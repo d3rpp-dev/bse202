@@ -33,12 +33,15 @@
                 <input type="password" id="password" name="password" required><br>
                 <button type="submit" class="btn">Submit</button>
                 <div class="secondary-buttons">
-                    <button type="button" class="btn-secondary" onclick="gotosignup()">Create Account</button>
+                    <a class="btn-secondary" href="{{ url_for('auth.signup') }}">Create Account</a>
                     <button type="button" class="btn-secondary">Forgot Password</button>
                 </div>
             </form>
             {% if message %}
                 <p>{{ message }}</p>
+            {% endif %}
+            {% if error is defined and error != None %}
+                <p>{{ error['message'] }}</p>
             {% endif %}
         </div>
         {%include 'elements/signup.html'%}

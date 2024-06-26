@@ -79,8 +79,8 @@
             <p id="modal-product-description"></p>
             <p id="test"></p>
             <div id="modal-product-cart-button" style="display: none;">
-                <form method="post">
-                <input type="hidden" name="product_name" id="modal-product-name-input">
+            <form method="post" action="{{ url_for('store.add_to_cart') }}">
+                <input type="hidden" name="product_id" id="modal-product-name-input">
                 <button type="submit" class="btn">Add to Cart</button>
             </form>
             </div>

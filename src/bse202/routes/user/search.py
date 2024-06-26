@@ -1,13 +1,13 @@
 # user/search.py
 
-from flask import Blueprint, request, jsonify
+from flask import request, jsonify
 from ...db import get_db
 import logging
 
 from .blueprint import user_blueprint
 
 
-@user_blueprint.route("/", methods=["GET"])
+@user_blueprint.route("/search", methods=["GET"])
 def search_games():
     query = request.args.get("q", "")
     if not query:

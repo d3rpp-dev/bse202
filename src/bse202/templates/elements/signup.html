@@ -131,17 +131,17 @@ p {
 
 </style>
 <div class="signup-box" id="signup-box">
-            <h1>Sign Up</h1>
-            <form method="POST" >
-                <label for="username">Username:</label>
-                <input type="text" id="usernames" name="username" required><br>
-                <label for="password" id="'test">Password:</label>
-                <input type="password" id="passwords" name="password" required><br>
-                <button type="button" id="signup-button" class="btn" onclick="signupcreate()">Create</button>
-                <div class="secondary-buttons">
-                    <button type="button" class="btn-secondary" onclick="backtologin()">Back to Login</button>
-                </div>
-            </form>
+    <h1>Sign Up</h1>
+    <form method="POST" action="{{ url_for('auth.signup') }}">
+        <label for="username">Username:</label>
+        <input type="text" id="usernames" name="username" required><br>
+        <label for="password" id="'test">Password:</label>
+        <input type="password" id="passwords" name="password" required><br>
+        <button type="button" id="signup-button" class="btn" onclick="signupcreate()">Create</button>
+        <div class="secondary-buttons">
+            <button type="button" class="btn-secondary" onclick="backtologin()">Back to Login</button>
+        </div>
+    </form>
 </div>
 <script>
     function signupcreate() {
