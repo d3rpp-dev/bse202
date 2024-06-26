@@ -17,6 +17,9 @@ def cart():
 
     db = get_db()
 
+    cart = []
+    cart_total = 0
+
     try:
         query = """--sql
         SELECT
@@ -54,8 +57,6 @@ def cart():
             )
         )
 
-        cart_total = 0
-
         for item in cart:
             cart_total += item["price"]
 
@@ -64,11 +65,14 @@ def cart():
         error = {
             "kind": "server",
             "code": "fetch_cart",
-            "message": "Failed to get Cart - {ex}",
+            "message": f"Failed to get Cart - {ex}",
         }
 
     return render_template(
-        "views/cart.html", cart_items=cart, cart_total=cart_total, error=error
+        "views/cart.html",
+        cart_items=cart,
+        cart_total=str(round(cart_total, 2)),
+        error=error,
     )
 
 
@@ -100,7 +104,7 @@ def add_to_cart():
                 (g.token["user_id"], int(request.form.get("product_id"))),  # type: ignore
             )
             .fetchall()
-            .__len__()
+            .__len__()  # why use len, when can just, call the method it calls? this language is annoying
             > 0
         ):
             # do not add, already there
@@ -120,6 +124,7 @@ def add_to_cart():
 
         db.commit()
     except DatabaseError as ex:
+        db.rollback()
         print(ex)
         return "Failed to add to cart"
 
@@ -128,4 +133,34 @@ def add_to_cart():
 
 @store_blueprint.post("/remove_from_cart")
 def remove_from_cart():
+    # authenticated
+    if "token" not in g:
+        return redirect(url_for("auth.login"))
+
+    if request.form.get("product_id") is None:
+        return "no product", 400
+
+    user_id = g.token["user_id"]
+    product_id = request.form.get("product_id")
+
+    db = get_db()
+    cur = db.cursor()
+
+    try:
+        query = """--sql
+        DELETE FROM
+            cart_items
+        WHERE
+            user_id = ?1 AND game_id = ?2
+        """
+
+        result = cur.execute(query, (user_id, product_id)).fetchall()
+        print(result)
+
+        db.commit()
+    except DatabaseError as ex:
+        print(ex)
+        db.rollback()
+        return "Failed to remove item from cart- {ex}", 500
+
     return redirect(url_for("store.cart"))

@@ -21,7 +21,7 @@
         
         <!-- Account Information Container -->
         <div class="account-info">
-            <img src="{{ url_for('static', filename='images/profile-picture.png') }}" alt="Profile Picture" class="profile-picture">
+            <img src="https://via.placeholder.com/100x100/222222/dddddd?text=Profile%20Picture" alt="Profile Picture" class="profile-picture">
             <div class="user-details">
                 {% if current_user is defined %}
                     <h2>{{ "Hello, " if is_current else "" }}{{ current_user.username }}</h2>
@@ -41,6 +41,23 @@
                 <p>{{ current_user.description }}</p>
             </div>
         {% endif %}
+
+        {% if library is defined %}
+            <div class="library">
+                <h3>Games</h3>
+                <div class="user-library">
+                    {% for game in library %}
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='media/Game/%d.png' % game['image_id']) }}">
+                            <p>{{ game["title"] }}</p>
+                            <span>Purchased: <i>{{ game["timestamp"] }}</i></span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="spacer"></div>
     </div>
 
     <!-- Include popup messages -->

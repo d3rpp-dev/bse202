@@ -44,6 +44,40 @@ def account(user_id: str):
                     },
                 ), 404
 
+            sql = """--sql
+            SELECT
+                purchases.purchased_at,
+                games.game_id,
+                games.title,
+                game_assets.asset_id
+            FROM
+                purchases
+            RIGHT JOIN
+                games
+            ON
+                games.game_id = purchases.game_id
+            RIGHT JOIN
+                game_assets
+            ON
+                game_assets.game_id = games.game_id
+            WHERE
+                purchases.user_id = ?1
+            """
+
+            user_library_query = list(
+                map(
+                    lambda tup: {
+                        "timestamp": datetime.fromtimestamp(tup[0]).strftime(
+                            "%d %b, %Y"
+                        ),
+                        "game_id": tup[1],
+                        "title": tup[2],
+                        "image_id": tup[3],
+                    },
+                    db.execute(sql, (user_id,)).fetchall(),
+                )
+            )
+
             (
                 queried_user_id,
                 created_at,
@@ -64,7 +98,10 @@ def account(user_id: str):
             }
 
             return render_template(
-                "views/account.html", is_current=is_current, current_user=current_user
+                "views/account.html",
+                is_current=is_current,
+                current_user=current_user,
+                library=user_library_query,
             )
         except DatabaseError as ex:
             return render_template(

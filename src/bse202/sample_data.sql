@@ -7,7 +7,7 @@ INSERT INTO
 VALUES 
 	--- this is the only account with admin privileges
 	('01hxz1g3cwzadwkvwewz0taymt', 1715807518, 'admin', 100.0, 'admin', NULL, NULL, 'Admin Account Test User - boo i can delete you account haha'),
-	('01hxz91jcfwgkeywswrqckmv4g', 1715807518, 'test_user', 20.0, NULL, '#02060e', '#eeeeee', 'Test User Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vehicula ipsum enim, et pellentesque elit egestas quis.')
+	('01hxz91jcfwgkeywswrqckmv4g', 1715807518, 'test_user', 2000.0, NULL, '#02060e', '#eeeeee', 'Test User Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vehicula ipsum enim, et pellentesque elit egestas quis.')
 ;
 
 

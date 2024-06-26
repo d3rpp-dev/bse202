@@ -27,6 +27,7 @@ def store_root():
     db = get_db()
 
     error = None
+    cats = []
 
     try:
         query = """--sql

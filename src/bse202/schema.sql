@@ -76,7 +76,7 @@ CREATE TABLE `reviews` (
 DROP TABLE IF EXISTS `purchases`;
 
 CREATE TABLE `purchases` (
-	`purchase_id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`purchase_id` TEXT NOT NULL,
 	`user_id` TEXT NOT NULL,
 	`game_id` TEXT NOT NULL,
 	`purchased_at` BIGINT NOT NULL,

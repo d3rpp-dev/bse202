@@ -27,12 +27,24 @@
         {% endif %}
         {% endwith %}
 
+        {% if user_message is defined and user_message != None %}
+            <div class="alert alert-danger" role="alert">
+                {{ user_message }}
+            </div>
+        {% endif %}
+
+        {% if error is defined and error != None %}
+            <div class="alert alert-danger" role="alert">
+                {{ error['message'] }}
+            </div>
+        {% endif %}
+        
         <div class="vault-info">
-            <p>Your current Vault Coin balance: {{ vault_coin }}</p>
-            <p>Total price of items in cart: ${{ cart_summary.total_price }}</p>
+            <p>Your current Vault Coin balance: ${{ account_balance }}</p>
+            <p>Total price of items in cart: ${{ cart_total }}</p>
         </div>
 
-        {% if vault_coin >= cart_summary.total_price %}
+        {% if account_balance >= cart_total %}
             <form action="{{ url_for('store.vault_payment') }}" method="post">
                 <button type="submit" class="btn btn-primary">Pay with Vault Coin</button>
             </form>
@@ -40,7 +52,7 @@
             <div class="alert alert-warning" role="alert">
                 Insufficient Vault Coin balance.
             </div>
-            <a href="{{ url_for('account') }}" class="btn btn-secondary">Top Up Vault Coin</a>
+            <a href="{{ url_for('user.self') }}" class="btn btn-secondary">Top Up Vault Coin</a>
         {% endif %}
     </div>
 
